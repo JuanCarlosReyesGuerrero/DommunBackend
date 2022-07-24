@@ -10,6 +10,9 @@ namespace DomainLayer.EntityMapper
         {
             CreateMap<Departamento, DepartamentoDTO>().ReverseMap();
             CreateMap<DepartamentoDTO, Departamento>();
+
+            CreateMap<Municipio, MunicipioDTO>().ReverseMap();
+            CreateMap<MunicipioDTO, Municipio>();
         }
     }
 }
