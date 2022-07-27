@@ -38,5 +38,6 @@
         public virtual ICollection<ZonaDommun>? ZonaDommuns { get; set; }
         public virtual ICollection<Cliente>? Clientes { get; set; }
         public virtual ICollection<Propiedad>? Propiedades { get; set; }
+        public virtual ICollection<Publicacion>? Publicaciones { get; set; }
     }
 }

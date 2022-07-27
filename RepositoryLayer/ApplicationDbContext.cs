@@ -30,6 +30,11 @@ namespace RepositoryLayer
         public DbSet<Comercial> Comerciales { get; set; }
         public DbSet<Industrial> Industriales { get; set; }
         public DbSet<Lote> Lotes { get; set; }
+        public DbSet<Publicacion> Publicaciones { get; set; }
+        public DbSet<PublicacionComercial> PublicacionComerciales { get; set; }
+        public DbSet<PublicacionIndustrial> PublicacionIndustriales { get; set; }
+        public DbSet<PublicacionLote> PublicacionLotes { get; set; }
+        public DbSet<PublicacionVivienda> PublicacionViviendas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

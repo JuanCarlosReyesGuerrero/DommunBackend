@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer;
 
@@ -11,9 +12,10 @@ using RepositoryLayer;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220727172320_tipo publicaciones")]
+    partial class tipopublicaciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -733,7 +735,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("PublicacionViviendaId");
 
-                    b.ToTable("Publicaciones");
+                    b.ToTable("Publicacion");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.PublicacionComercial", b =>
@@ -763,7 +765,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("PropiedadId");
 
-                    b.ToTable("PublicacionComerciales");
+                    b.ToTable("PublicacionComercial");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.PublicacionIndustrial", b =>
@@ -793,7 +795,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("PropiedadId");
 
-                    b.ToTable("PublicacionIndustriales");
+                    b.ToTable("PublicacionIndustrial");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.PublicacionLote", b =>
@@ -823,7 +825,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("PropiedadId");
 
-                    b.ToTable("PublicacionLotes");
+                    b.ToTable("PublicacionLote");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.PublicacionVivienda", b =>
@@ -853,7 +855,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("PropiedadId");
 
-                    b.ToTable("PublicacionViviendas");
+                    b.ToTable("PublicacionVivienda");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.TipoCaracteristica", b =>
