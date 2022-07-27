@@ -16,6 +16,7 @@ namespace DomainLayer.Models
     {
         public decimal AreaLote { get; set; }
 
+
         [EnumDataType(typeof(TiposLote)), Display(Name = "Tipo Lote")]
         public TiposLote TipoLote { get; set; }
 
