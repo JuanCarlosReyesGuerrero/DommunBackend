@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer;
 
@@ -11,9 +12,10 @@ using RepositoryLayer;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220726010648_GestionDocumental")]
+    partial class GestionDocumental
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,51 +135,6 @@ namespace RepositoryLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CatGestionDocumentales");
-                });
-
-            modelBuilder.Entity("DomainLayer.Models.Cliente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AgenteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Apellido")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nacionalidad")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TelefonoPrincipal")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TelefonoSecundario")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AgenteId");
-
-                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Departamento", b =>
@@ -448,17 +405,6 @@ namespace RepositoryLayer.Migrations
                     b.Navigation("Zonificacion");
                 });
 
-            modelBuilder.Entity("DomainLayer.Models.Cliente", b =>
-                {
-                    b.HasOne("DomainLayer.Models.Agente", "Agente")
-                        .WithMany("Clientes")
-                        .HasForeignKey("AgenteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Agente");
-                });
-
             modelBuilder.Entity("DomainLayer.Models.GestionDocumental", b =>
                 {
                     b.HasOne("DomainLayer.Models.CatGestionDocumental", "CatGestionDocumental")
@@ -513,8 +459,6 @@ namespace RepositoryLayer.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.Agente", b =>
                 {
-                    b.Navigation("Clientes");
-
                     b.Navigation("ZonaDommuns");
                 });
 
