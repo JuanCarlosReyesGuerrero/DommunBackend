@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DomainLayer.DTOs;
+using DomainLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 
@@ -35,21 +36,47 @@ namespace DommunBackend.Api.Controllers
         //}
 
         [HttpGet(nameof(GetAllDepartamento))]
-        public IActionResult GetAllDepartamento()
+        public Result GetAllDepartamento()
         {
-            var queryTable = departamentoService.GetAllDepartamentos();
-            var departamentos = queryTable.OrderBy(x => x.Nombre).ToList();
+            Result oRespuesta = new Result();
 
-            var result = mapper.Map<List<DepartamentoDTO>>(departamentos);
-
-
-            //var result1 = _departamentoService.GetAllDepartamentos();
-            if (result.Count > 0)
+            try
             {
-                return Ok(result);
+                var queryTable = departamentoService.GetAllDepartamentos();
+                var departamentos = queryTable.OrderBy(x => x.Nombre).ToList();
+
+                var lstTemp = mapper.Map<List<DepartamentoDTO>>(departamentos);
+
+                if (lstTemp.Count >= 0)
+                {
+                    oRespuesta.Success = true;
+                    oRespuesta.Data = lstTemp;
+                }               
+            }
+            catch (Exception ex)
+            {
+                oRespuesta.Message = ex.Message;
             }
 
-            return BadRequest("No records found");
+            return oRespuesta;
+
+
+
+
+
+
+
+            //var queryTable = departamentoService.GetAllDepartamentos();
+            //var departamentos = queryTable.OrderBy(x => x.Nombre).ToList();
+
+            //var result = mapper.Map<List<DepartamentoDTO>>(departamentos);
+
+            //if (result.Count > 0)
+            //{
+            //    return Ok(result);
+            //}
+
+            //return BadRequest("No records found");
 
         }
 

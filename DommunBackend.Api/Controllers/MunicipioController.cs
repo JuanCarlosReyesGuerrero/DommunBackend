@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DomainLayer.DTOs;
+using DomainLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 
@@ -35,21 +36,41 @@ namespace DommunBackend.Api.Controllers
         //}
 
         [HttpGet(nameof(GetAllMunicipio))]
-        public IActionResult GetAllMunicipio()
+        public Result GetAllMunicipio()
         {
-            var queryTable = municipioService.GetAllMunicipios();
-            var municipios = queryTable.OrderBy(x => x.Nombre).ToList();
+            Result oRespuesta = new Result();
 
-            var result = mapper.Map<List<MunicipioDTO>>(municipios);
-
-
-            //var result1 = _municipioService.GetAllMunicipios();
-            if (result.Count > 0)
+            try
             {
-                return Ok(result);
+                var queryTable = municipioService.GetAllMunicipios();
+                var municipios = queryTable.OrderBy(x => x.Nombre).ToList();
+
+                var lstTemp = mapper.Map<List<MunicipioDTO>>(municipios);
+
+                if (lstTemp.Count >= 0)
+                {
+                    oRespuesta.Success = true;
+                    oRespuesta.Data = lstTemp;
+                }
+            }
+            catch (Exception ex)
+            {
+                oRespuesta.Message = ex.Message;
             }
 
-            return BadRequest("No records found");
+            return oRespuesta;
+
+            //var queryTable = municipioService.GetAllMunicipios();
+            //var municipios = queryTable.OrderBy(x => x.Nombre).ToList();
+
+            //var result = mapper.Map<List<MunicipioDTO>>(municipios);
+
+            //if (result.Count > 0)
+            //{
+            //    return Ok(result);
+            //}
+
+            //return BadRequest("No records found");
 
         }
 

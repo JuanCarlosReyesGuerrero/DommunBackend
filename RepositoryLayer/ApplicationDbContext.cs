@@ -9,6 +9,18 @@ namespace RepositoryLayer
         {
         }
 
+        public DbSet<TipoZona> TipoZonas { get; set; }
+        public DbSet<Zona> Zonas { get; set; }
+        public DbSet<Departamento> Departamentos { get; set; }
+        public DbSet<Municipio> Municipios { get; set; }
+        public DbSet<PlanMembresia> PlanMembresias { get; set; }
+        public DbSet<Zonificacion> Zonificaciones { get; set; }
+        public DbSet<ZonaDommun> ZonaDommuns { get; set; }
+        public DbSet<Agente> Agentes { get; set; }
+        public DbSet<GestionDocumental> GestionDocumentales { get; set; }
+        public DbSet<CatGestionDocumental> CatGestionDocumentales { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<TipoZona>()
@@ -44,6 +56,15 @@ namespace RepositoryLayer
                 .HasOne(p => p.TipoDocumentoPropiedad)
                 .WithMany(b => b.DocumentoPropiedades)
                 .HasForeignKey(p => p.TipoDocumentoPropiedadId);
+            modelBuilder.Entity<GestionDocumental>()
+               .HasOne(p => p.CatGestionDocumental)
+               .WithMany(b => b.GestionDocumentales)
+               .HasForeignKey(p => p.CategoriaId);
+
+            modelBuilder.Entity<Cliente>()
+               .HasOne(p => p.Agente)
+               .WithMany(b => b.Clientes)
+               .HasForeignKey(p => p.AgenteId);
 
             modelBuilder.Entity<ZonaDommun>()
                 .HasKey(bc => new { bc.AgenteId, bc.TipoZonaId });
@@ -71,5 +92,6 @@ namespace RepositoryLayer
         public DbSet<FotografiaPropiedad> FotografiaPropiedades { get; set; }
         public DbSet<TipoDocumentoPropiedad> TipoDocumentoPropiedades { get; set; }
         public DbSet<DocumentoPropiedad> DocumentoPropiedades { get; set; }
+        }       
     }
 }
