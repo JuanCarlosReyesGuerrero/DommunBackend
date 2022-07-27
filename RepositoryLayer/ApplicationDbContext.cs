@@ -26,6 +26,10 @@ namespace RepositoryLayer
         public DbSet<Caracteristica> Caracteristicas { get; set; }
         public DbSet<TipoCaracteristica> TipoCaracteristicas { get; set; }
         public DbSet<Propiedad> Propiedades { get; set; }
+        public DbSet<Vivienda> Viviendas { get; set; }
+        public DbSet<Comercial> Comerciales { get; set; }
+        public DbSet<Industrial> Industriales { get; set; }
+        public DbSet<Lote> Lotes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -93,16 +97,10 @@ namespace RepositoryLayer
                .WithMany(b => b.Propiedades)
                .HasForeignKey(p => p.CaracteristicaId);
 
-
-
             modelBuilder.Entity<Propiedad>()
                .HasOne(p => p.Municipio)
                .WithMany(b => b.Propiedades)
                .HasForeignKey(p => p.MunicipioId);
-               
-
-
-
 
             modelBuilder.Entity<Propiedad>()
                .HasOne(p => p.Agente)
@@ -124,6 +122,16 @@ namespace RepositoryLayer
                 .HasOne(bc => bc.TipoZona)
                 .WithMany(c => c.ZonaDommuns)
                 .HasForeignKey(bc => bc.TipoZonaId);
+
+            //modelBuilder.Entity<Propiedad>()
+            //    .HasOne(b => b.Vivienda)
+            //    .WithOne(i => i.Propiedad)
+            //    .HasForeignKey<Vivienda>(b => b.PropiedadId);
+
+            //modelBuilder.Entity<Propiedad>()
+            //   .HasOne(b => b.Comercial)
+            //   .WithOne(i => i.Propiedad)
+            //   .HasForeignKey<Comercial>(b => b.PropiedadId);
 
 
             base.OnModelCreating(modelBuilder);

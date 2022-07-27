@@ -15,11 +15,16 @@ namespace DomainLayer.Models
         public int MunicipioId { get; set; }
         public int AgenteId { get; set; }
 
-        public virtual Caracteristica? Caracteristica { get; set; }                
+        public virtual Caracteristica? Caracteristica { get; set; }
         public virtual Cliente? Cliente { get; set; }
         public virtual Municipio? Municipio { get; set; }
         public virtual Agente? Agente { get; set; }
 
         public virtual ICollection<FotografiaPropiedad>? FotografiaPropiedades { get; set; }
+
+        public Vivienda? Vivienda { get; set; }
+        public Comercial? Comercial { get; set; }
+        public Industrial? Industrial { get; set; }
+        public Lote? Lote { get; set; }
     }
 }
