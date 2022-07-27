@@ -20,6 +20,11 @@ namespace RepositoryLayer
         public DbSet<GestionDocumental> GestionDocumentales { get; set; }
         public DbSet<CatGestionDocumental> CatGestionDocumentales { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<FotografiaPropiedad> FotografiaPropiedades { get; set; }
+        public DbSet<TipoDocumentoPropiedad> TipoDocumentoPropiedades { get; set; }
+        public DbSet<DocumentoPropiedad> DocumentoPropiedades { get; set; }
+        public DbSet<Caracteristica> Caracteristicas { get; set; }
+        public DbSet<TipoCaracteristica> TipoCaracteristicas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,7 +45,7 @@ namespace RepositoryLayer
             modelBuilder.Entity<Agente>()
                 .HasOne(p => p.Zonificacion)
                 .WithMany(b => b.Agentes)
-             .  HasForeignKey(p => p.ZonificacionId);
+             .HasForeignKey(p => p.ZonificacionId);
 
             modelBuilder.Entity<Agente>()
                 .HasOne(p => p.PlanMembresia)
@@ -56,6 +61,7 @@ namespace RepositoryLayer
                 .HasOne(p => p.TipoDocumentoPropiedad)
                 .WithMany(b => b.DocumentoPropiedades)
                 .HasForeignKey(p => p.TipoDocumentoPropiedadId);
+
             modelBuilder.Entity<GestionDocumental>()
                .HasOne(p => p.CatGestionDocumental)
                .WithMany(b => b.GestionDocumentales)
@@ -65,6 +71,11 @@ namespace RepositoryLayer
                .HasOne(p => p.Agente)
                .WithMany(b => b.Clientes)
                .HasForeignKey(p => p.AgenteId);
+
+            modelBuilder.Entity<Caracteristica>()
+               .HasOne(p => p.TipoCaracteristica)
+               .WithMany(b => b.Caracteristicas)
+               .HasForeignKey(p => p.TipoCaracteristicaId);
 
             modelBuilder.Entity<ZonaDommun>()
                 .HasKey(bc => new { bc.AgenteId, bc.TipoZonaId });
@@ -80,18 +91,5 @@ namespace RepositoryLayer
 
             base.OnModelCreating(modelBuilder);
         }
-
-        public DbSet<TipoZona> TipoZonas { get; set; }
-        public DbSet<Zona> Zonas { get; set; }
-        public DbSet<Departamento> Departamentos { get; set; }
-        public DbSet<Municipio> Municipios { get; set; }
-        public DbSet<PlanMembresia> PlanMembresias { get; set; }
-        public DbSet<Zonificacion> Zonificaciones { get; set; }
-        public DbSet<ZonaDommun> ZonaDommuns { get; set; }
-        public DbSet<Agente> Agentes { get; set; }
-        public DbSet<FotografiaPropiedad> FotografiaPropiedades { get; set; }
-        public DbSet<TipoDocumentoPropiedad> TipoDocumentoPropiedades { get; set; }
-        public DbSet<DocumentoPropiedad> DocumentoPropiedades { get; set; }
-        }       
     }
 }
