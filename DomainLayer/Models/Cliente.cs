@@ -20,6 +20,6 @@
                 
         public virtual Agente? Agente { get; set; }
 
-        //public virtual ICollection<Propiedad>? Propiedades { get; set; }
+        public virtual ICollection<Propiedad>? Propiedades { get; set; }
     }
 }

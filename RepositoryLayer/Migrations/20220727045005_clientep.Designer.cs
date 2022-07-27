@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer;
 
@@ -11,9 +12,10 @@ using RepositoryLayer;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220727045005_clientep")]
+    partial class clientep
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,7 +106,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("ZonificacionId");
 
-                    b.ToTable("Agentes", (string)null);
+                    b.ToTable("Agentes");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Caracteristica", b =>
@@ -152,7 +154,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("TipoCaracteristicaId");
 
-                    b.ToTable("Caracteristicas", (string)null);
+                    b.ToTable("Caracteristicas");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.CatGestionDocumental", b =>
@@ -180,7 +182,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CatGestionDocumentales", (string)null);
+                    b.ToTable("CatGestionDocumentales");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Cliente", b =>
@@ -225,7 +227,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("AgenteId");
 
-                    b.ToTable("Clientes", (string)null);
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Departamento", b =>
@@ -253,7 +255,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departamentos", (string)null);
+                    b.ToTable("Departamentos");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.DocumentoPropiedad", b =>
@@ -286,7 +288,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("TipoDocumentoPropiedadId");
 
-                    b.ToTable("DocumentoPropiedades", (string)null);
+                    b.ToTable("DocumentoPropiedades");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.FotografiaPropiedad", b =>
@@ -325,7 +327,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("PropiedadId");
 
-                    b.ToTable("FotografiaPropiedades", (string)null);
+                    b.ToTable("FotografiaPropiedades");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.GestionDocumental", b =>
@@ -358,7 +360,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("CategoriaId");
 
-                    b.ToTable("GestionDocumentales", (string)null);
+                    b.ToTable("GestionDocumentales");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Municipio", b =>
@@ -391,7 +393,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("DepartamentoId");
 
-                    b.ToTable("Municipios", (string)null);
+                    b.ToTable("Municipios");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.PlanMembresia", b =>
@@ -422,7 +424,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PlanMembresias", (string)null);
+                    b.ToTable("PlanMembresias");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Propiedad", b =>
@@ -480,7 +482,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("ClienteId");
 
-                    b.ToTable("Propiedades", (string)null);
+                    b.ToTable("Propiedades");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.TipoCaracteristica", b =>
@@ -508,7 +510,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TipoCaracteristicas", (string)null);
+                    b.ToTable("TipoCaracteristicas");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.TipoDocumentoPropiedad", b =>
@@ -539,7 +541,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TipoDocumentoPropiedades", (string)null);
+                    b.ToTable("TipoDocumentoPropiedades");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.TipoZona", b =>
@@ -567,7 +569,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TipoZonas", (string)null);
+                    b.ToTable("TipoZonas");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Zona", b =>
@@ -600,7 +602,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("TipoZonaId");
 
-                    b.ToTable("Zonas", (string)null);
+                    b.ToTable("Zonas");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.ZonaDommun", b =>
@@ -627,7 +629,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("TipoZonaId");
 
-                    b.ToTable("ZonaDommuns", (string)null);
+                    b.ToTable("ZonaDommuns");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Zonificacion", b =>
@@ -655,7 +657,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Zonificaciones", (string)null);
+                    b.ToTable("Zonificaciones");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Agente", b =>

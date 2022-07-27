@@ -16,7 +16,7 @@ namespace DomainLayer.Models
         public int AgenteId { get; set; }
 
         public virtual Caracteristica? Caracteristica { get; set; }                
-        //public virtual Cliente? Cliente { get; set; }
+        public virtual Cliente? Cliente { get; set; }
         //public virtual Municipio? Municipio { get; set; }
         public virtual Agente? Agente { get; set; }
 

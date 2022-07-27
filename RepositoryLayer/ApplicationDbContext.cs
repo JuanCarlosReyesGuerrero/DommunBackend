@@ -98,10 +98,10 @@ namespace RepositoryLayer
                .WithMany(b => b.Propiedades)
                .HasForeignKey(p => p.AgenteId);
 
-            //modelBuilder.Entity<Propiedad>()
-            //   .HasOne(p => p.Cliente)
-            //   .WithMany(b => b.Propiedades)
-            //   .HasForeignKey(p => p.ClienteId);
+            modelBuilder.Entity<Propiedad>()
+               .HasOne(p => p.Cliente)
+               .WithMany(b => b.Propiedades)
+               .HasForeignKey(p => p.ClienteId);
 
             modelBuilder.Entity<ZonaDommun>()
                 .HasKey(bc => new { bc.AgenteId, bc.TipoZonaId });
