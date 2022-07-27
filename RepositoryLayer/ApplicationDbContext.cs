@@ -40,6 +40,11 @@ namespace RepositoryLayer
                 .WithMany(b => b.Agentes)
                 .HasForeignKey(p => p.MunicipioId);
 
+            modelBuilder.Entity<DocumentoPropiedad>()
+                .HasOne(p => p.TipoDocumentoPropiedad)
+                .WithMany(b => b.DocumentoPropiedades)
+                .HasForeignKey(p => p.TipoDocumentoPropiedadId);
+
             modelBuilder.Entity<ZonaDommun>()
                 .HasKey(bc => new { bc.AgenteId, bc.TipoZonaId });
             modelBuilder.Entity<ZonaDommun>()
@@ -63,5 +68,8 @@ namespace RepositoryLayer
         public DbSet<Zonificacion> Zonificaciones { get; set; }
         public DbSet<ZonaDommun> ZonaDommuns { get; set; }
         public DbSet<Agente> Agentes { get; set; }
+        public DbSet<FotografiaPropiedad> FotografiaPropiedades { get; set; }
+        public DbSet<TipoDocumentoPropiedad> TipoDocumentoPropiedades { get; set; }
+        public DbSet<DocumentoPropiedad> DocumentoPropiedades { get; set; }
     }
 }
