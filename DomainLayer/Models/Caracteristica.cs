@@ -12,5 +12,7 @@
         public int TipoCaracteristicaId { get; set; }
 
         public virtual TipoCaracteristica? TipoCaracteristica { get; set; }
+        
+        public virtual ICollection<Propiedad>? Propiedades { get; set; }
     }
 }

@@ -25,6 +25,7 @@ namespace RepositoryLayer
         public DbSet<DocumentoPropiedad> DocumentoPropiedades { get; set; }
         public DbSet<Caracteristica> Caracteristicas { get; set; }
         public DbSet<TipoCaracteristica> TipoCaracteristicas { get; set; }
+        public DbSet<Propiedad> Propiedades { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -76,6 +77,31 @@ namespace RepositoryLayer
                .HasOne(p => p.TipoCaracteristica)
                .WithMany(b => b.Caracteristicas)
                .HasForeignKey(p => p.TipoCaracteristicaId);
+
+            modelBuilder.Entity<FotografiaPropiedad>()
+               .HasOne(p => p.Propiedad)
+               .WithMany(b => b.FotografiaPropiedades)
+               .HasForeignKey(p => p.PropiedadId);
+
+            modelBuilder.Entity<Propiedad>()
+               .HasOne(p => p.Caracteristica)
+               .WithMany(b => b.Propiedades)
+               .HasForeignKey(p => p.CaracteristicaId);
+
+            //modelBuilder.Entity<Propiedad>()
+            //   .HasOne(p => p.Municipio)
+            //   .WithMany(b => b.Propiedades)
+            //   .HasForeignKey(p => p.MunicipioId);
+
+            modelBuilder.Entity<Propiedad>()
+               .HasOne(p => p.Agente)
+               .WithMany(b => b.Propiedades)
+               .HasForeignKey(p => p.AgenteId);
+
+            //modelBuilder.Entity<Propiedad>()
+            //   .HasOne(p => p.Cliente)
+            //   .WithMany(b => b.Propiedades)
+            //   .HasForeignKey(p => p.ClienteId);
 
             modelBuilder.Entity<ZonaDommun>()
                 .HasKey(bc => new { bc.AgenteId, bc.TipoZonaId });

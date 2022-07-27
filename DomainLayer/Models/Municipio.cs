@@ -9,5 +9,6 @@
         public virtual Departamento? Departamento { get; set; }
 
         public ICollection<Agente>? Agentes { get; set; }
+        //public virtual ICollection<Propiedad>? Propiedades { get; set; }
     }
 }

@@ -16,8 +16,10 @@
         public string? Email { get; set; }
         public string? TelefonoPrincipal { get; set; }
         public string? TelefonoSecundario { get; set; }
-        public int AgenteId { get; set; }
-
+        public int? AgenteId { get; set; }
+                
         public virtual Agente? Agente { get; set; }
+
+        //public virtual ICollection<Propiedad>? Propiedades { get; set; }
     }
 }
