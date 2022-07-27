@@ -17,7 +17,7 @@ namespace DomainLayer.Models
 
         public virtual Caracteristica? Caracteristica { get; set; }                
         public virtual Cliente? Cliente { get; set; }
-        //public virtual Municipio? Municipio { get; set; }
+        public virtual Municipio? Municipio { get; set; }
         public virtual Agente? Agente { get; set; }
 
         public virtual ICollection<FotografiaPropiedad>? FotografiaPropiedades { get; set; }

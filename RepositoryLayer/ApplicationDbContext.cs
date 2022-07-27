@@ -29,6 +29,11 @@ namespace RepositoryLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
             //modelBuilder.Entity<TipoZona>()
             //            .HasMany(c => c.Zonas)
             //            .WithOne(e => e.TipoZona);
@@ -88,10 +93,16 @@ namespace RepositoryLayer
                .WithMany(b => b.Propiedades)
                .HasForeignKey(p => p.CaracteristicaId);
 
-            //modelBuilder.Entity<Propiedad>()
-            //   .HasOne(p => p.Municipio)
-            //   .WithMany(b => b.Propiedades)
-            //   .HasForeignKey(p => p.MunicipioId);
+
+
+            modelBuilder.Entity<Propiedad>()
+               .HasOne(p => p.Municipio)
+               .WithMany(b => b.Propiedades)
+               .HasForeignKey(p => p.MunicipioId);
+               
+
+
+
 
             modelBuilder.Entity<Propiedad>()
                .HasOne(p => p.Agente)
