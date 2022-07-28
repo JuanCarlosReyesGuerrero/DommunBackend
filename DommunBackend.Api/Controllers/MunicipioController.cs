@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using DomainLayer.DTOs;
 using DomainLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 
 namespace DommunBackend.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MunicipioController : ControllerBase
@@ -36,13 +38,13 @@ namespace DommunBackend.Api.Controllers
         //}
 
         [HttpGet(nameof(GetAllMunicipio))]
-        public Result GetAllMunicipio()
+        public async Task<Result> GetAllMunicipio()
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var queryTable = municipioService.GetAllMunicipios();
+                var queryTable = await Task.FromResult(municipioService.GetAllMunicipios());
                 var municipios = queryTable.OrderBy(x => x.Nombre).ToList();
 
                 var lstTemp = mapper.Map<List<MunicipioDTO>>(municipios);

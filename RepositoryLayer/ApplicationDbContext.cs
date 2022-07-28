@@ -35,6 +35,8 @@ namespace RepositoryLayer
         public DbSet<PublicacionIndustrial> PublicacionIndustriales { get; set; }
         public DbSet<PublicacionLote> PublicacionLotes { get; set; }
         public DbSet<PublicacionVivienda> PublicacionViviendas { get; set; }
+        public DbSet<UserInfo> UserInfos { get; set; }
+      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,9 +45,15 @@ namespace RepositoryLayer
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            //modelBuilder.Entity<TipoZona>()
-            //            .HasMany(c => c.Zonas)
-            //            .WithOne(e => e.TipoZona);
+            modelBuilder.Entity<UserInfo>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToTable("UserInfo");                
+                entity.Property(e => e.DisplayName).HasMaxLength(60).IsUnicode(false);
+                entity.Property(e => e.UserName).HasMaxLength(30).IsUnicode(false);
+                entity.Property(e => e.Email).HasMaxLength(50).IsUnicode(false);
+                entity.Property(e => e.Password).HasMaxLength(20).IsUnicode(false);                
+            });
 
             modelBuilder.Entity<Zona>()
                 .HasOne(p => p.TipoZona)
