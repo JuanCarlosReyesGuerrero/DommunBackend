@@ -1,8 +1,8 @@
 ﻿using DomainLayer.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
+using ServiceLayer.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -14,12 +14,15 @@ namespace DommunBackend.Api.Controllers
     public class TokenController : ControllerBase
     {
         public IConfiguration _configuration;
+        private readonly IUsuarioService usuarioService;
+
         private readonly ApplicationDbContext _context;
 
-        public TokenController(IConfiguration config, ApplicationDbContext context)
+        public TokenController(IConfiguration config, ApplicationDbContext context, IUsuarioService _usuarioService)
         {
             _configuration = config;
             _context = context;
+            this.usuarioService = _usuarioService;
         }
 
         [HttpPost]
@@ -29,7 +32,8 @@ namespace DommunBackend.Api.Controllers
             {
                 var user = await GetUser(_userData.Email, _userData.Password);
 
-                if (user != null)
+                //if (user != null)
+                if (user.Id > 0)
                 {
                     //create claims details based on the user information
                     var claims = new[] {
@@ -66,7 +70,16 @@ namespace DommunBackend.Api.Controllers
 
         private async Task<UserInfo> GetUser(string email, string password)
         {
-            return await _context.UserInfos.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            var vIdTemp = usuarioService.ValidarHashUsuario(email, password);
+
+            UserInfo objTemp = new UserInfo();
+
+            //objTemp = await _context.UserInfos.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+
+            if (vIdTemp > 0)
+                objTemp = usuarioService.GetUsuarioById(vIdTemp);
+
+            return objTemp;
         }
     }
 }

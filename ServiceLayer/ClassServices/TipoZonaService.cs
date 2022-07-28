@@ -15,7 +15,7 @@ namespace ServiceLayer.ClassServices
 
         public void DeleteTipoZona(int id)
         {
-            TipoZona tipoZona = GetTipoZona(id);
+            TipoZona tipoZona = GetTipoZonaById(id);
             tipoZonaRepository.Remove(tipoZona);
             tipoZonaRepository.SaveChanges();
         }
@@ -25,9 +25,9 @@ namespace ServiceLayer.ClassServices
             return tipoZonaRepository.GetAll();
         }
 
-        public TipoZona GetTipoZona(int id)
+        public TipoZona GetTipoZonaById(int id)
         {
-            return tipoZonaRepository.Get(id);
+            return tipoZonaRepository.GetById(id);
         }
 
         public void InsertTipoZona(TipoZona tipoZona)

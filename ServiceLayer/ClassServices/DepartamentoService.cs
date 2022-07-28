@@ -15,7 +15,7 @@ namespace ServiceLayer.ClassServices
 
         public void DeleteDepartamento(int id)
         {
-            Departamento departamento = GetDepartamento(id);
+            Departamento departamento = GetDepartamentoById(id);
             departamentoRepository.Remove(departamento);
             departamentoRepository.SaveChanges();
         }
@@ -25,9 +25,9 @@ namespace ServiceLayer.ClassServices
             return departamentoRepository.GetAll();
         }
 
-        public Departamento GetDepartamento(int id)
+        public Departamento GetDepartamentoById(int id)
         {
-            return departamentoRepository.Get(id);
+            return departamentoRepository.GetById(id);
         }
 
         public void InsertDepartamento(Departamento departamento)

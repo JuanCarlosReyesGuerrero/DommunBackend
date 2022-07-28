@@ -52,7 +52,7 @@ namespace RepositoryLayer
                 entity.Property(e => e.DisplayName).HasMaxLength(60).IsUnicode(false);
                 entity.Property(e => e.UserName).HasMaxLength(30).IsUnicode(false);
                 entity.Property(e => e.Email).HasMaxLength(50).IsUnicode(false);
-                entity.Property(e => e.Password).HasMaxLength(20).IsUnicode(false);                
+                entity.Property(e => e.Password).HasMaxLength(30).IsUnicode(false);                
             });
 
             modelBuilder.Entity<Zona>()

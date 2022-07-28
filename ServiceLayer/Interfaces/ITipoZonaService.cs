@@ -5,7 +5,7 @@ namespace ServiceLayer.Interfaces
     public interface ITipoZonaService
     {
         IEnumerable<TipoZona> GetAllTipoZonas();
-        TipoZona GetTipoZona(int id);
+        TipoZona GetTipoZonaById(int id);
         void InsertTipoZona(TipoZona tipoZona);
         void UpdateTipoZona(TipoZona tipoZona);
         void DeleteTipoZona(int id);

@@ -15,7 +15,7 @@ namespace ServiceLayer.ClassServices
 
         public void DeleteMunicipio(int id)
         {
-            Municipio municipio = GetMunicipio(id);
+            Municipio municipio = GetMunicipioById(id);
             municipioRepository.Remove(municipio);
             municipioRepository.SaveChanges();
         }
@@ -25,9 +25,9 @@ namespace ServiceLayer.ClassServices
             return municipioRepository.GetAll();
         }
 
-        public Municipio GetMunicipio(int id)
+        public Municipio GetMunicipioById(int id)
         {
-            return municipioRepository.Get(id);
+            return municipioRepository.GetById(id);
         }
 
         public void InsertMunicipio(Municipio municipio)

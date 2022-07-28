@@ -15,7 +15,7 @@ namespace ServiceLayer.ClassServices
 
         public void DeleteZona(int id)
         {
-            Zona zona = GetZona(id);
+            Zona zona = GetZonaById(id);
             zonaRepository.Remove(zona);
             zonaRepository.SaveChanges();
         }
@@ -25,9 +25,9 @@ namespace ServiceLayer.ClassServices
             return zonaRepository.GetAll();
         }
 
-        public Zona GetZona(int id)
+        public Zona GetZonaById(int id)
         {
-            return zonaRepository.Get(id);
+            return zonaRepository.GetById(id);
         }
 
         public void InsertZona(Zona zona)

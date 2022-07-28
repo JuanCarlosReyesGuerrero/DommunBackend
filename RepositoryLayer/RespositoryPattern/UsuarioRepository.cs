@@ -3,20 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RepositoryLayer.RespositoryPattern
 {
-    public class Repository<T> : IRepository<T> where T : BaseEntity
+    public class UsuarioRepository<T> : IUsuarioRepository<T> where T : UserInfo
     {
-        #region property  
         private readonly ApplicationDbContext _applicationDbContext;
         private DbSet<T> entities;
-        #endregion
 
-        #region Constructor  
-        public Repository(ApplicationDbContext applicationDbContext)
+        public UsuarioRepository(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
             entities = _applicationDbContext.Set<T>();
         }
-        #endregion
 
         public void Delete(T entity)
         {
@@ -36,6 +32,11 @@ namespace RepositoryLayer.RespositoryPattern
         public IEnumerable<T> GetAll()
         {
             return entities.AsEnumerable();
+        }
+
+        public T GetByEmail(string vEmail)
+        {
+            return entities.SingleOrDefault(c => c.Email == vEmail);
         }
 
         public void Insert(T entity)
@@ -71,6 +72,5 @@ namespace RepositoryLayer.RespositoryPattern
             entities.Update(entity);
             _applicationDbContext.SaveChanges();
         }
-
     }
 }

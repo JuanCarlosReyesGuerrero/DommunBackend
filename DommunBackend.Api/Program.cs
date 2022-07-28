@@ -46,11 +46,13 @@ builder.Services.AddSwaggerGen();
 #region Services Injected  
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IUsuarioRepository<>), typeof(UsuarioRepository<>));
 
 builder.Services.AddTransient<IZonaService, ZonaService>();
 builder.Services.AddTransient<ITipoZonaService, TipoZonaService>();
 builder.Services.AddTransient<IDepartamentoService, DepartamentoService>();
 builder.Services.AddTransient<IMunicipioService, MunicipioService>();
+builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 
 #endregion
 
