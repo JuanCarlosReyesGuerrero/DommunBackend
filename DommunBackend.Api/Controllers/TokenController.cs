@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models;
+﻿using DomainLayer.DTOs;
+using DomainLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
@@ -28,6 +29,8 @@ namespace DommunBackend.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(UserInfo _userData)
         {
+            Result oRespuesta = new Result();
+
             if (_userData != null && _userData.Email != null && _userData.Password != null)
             {
                 var user = await GetUser(_userData.Email, _userData.Password);
@@ -55,11 +58,16 @@ namespace DommunBackend.Api.Controllers
                         expires: DateTime.UtcNow.AddMinutes(10),
                         signingCredentials: signIn);
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    var vToken = new JwtSecurityTokenHandler().WriteToken(token);
+
+                    //return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+
+                    return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = vToken });
                 }
                 else
                 {
-                    return BadRequest("Invalid credentials");
+                    //return BadRequest("Invalid credentials");
+                    return BadRequest(new AuthResponseDto { ErrorMessage = "Invalid Authentication" });
                 }
             }
             else
@@ -73,8 +81,6 @@ namespace DommunBackend.Api.Controllers
             var vIdTemp = usuarioService.ValidarHashUsuario(email, password);
 
             UserInfo objTemp = new UserInfo();
-
-            //objTemp = await _context.UserInfos.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
 
             if (vIdTemp > 0)
                 objTemp = usuarioService.GetUsuarioById(vIdTemp);
