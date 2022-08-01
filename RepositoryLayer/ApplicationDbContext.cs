@@ -1,4 +1,5 @@
 ﻿using DomainLayer.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,7 +40,7 @@ namespace RepositoryLayer
         public DbSet<PublicacionLote> PublicacionLotes { get; set; }
         public DbSet<PublicacionVivienda> PublicacionViviendas { get; set; }
         public DbSet<UserInfo> UserInfos { get; set; }
-      
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -51,11 +52,11 @@ namespace RepositoryLayer
             modelBuilder.Entity<UserInfo>(entity =>
             {
                 entity.HasNoKey();
-                entity.ToTable("UserInfo");                
+                entity.ToTable("UserInfo");
                 entity.Property(e => e.DisplayName).HasMaxLength(60).IsUnicode(false);
                 entity.Property(e => e.UserName).HasMaxLength(30).IsUnicode(false);
                 entity.Property(e => e.Email).HasMaxLength(50).IsUnicode(false);
-                entity.Property(e => e.Password).HasMaxLength(30).IsUnicode(false);                
+                entity.Property(e => e.Password).HasMaxLength(30).IsUnicode(false);
             });
 
             modelBuilder.Entity<Zona>()
@@ -151,6 +152,49 @@ namespace RepositoryLayer
 
 
             base.OnModelCreating(modelBuilder);
+
+            this.SeedUsers(modelBuilder);
+            this.SeedRoles(modelBuilder);
+            this.SeedUserRoles(modelBuilder);
+        }
+
+        private void SeedUsers(ModelBuilder builder)
+        {
+            ApplicationUser user = new ApplicationUser()
+            {
+                Id = "b74ddd14-6340-4840-95c2-db12554843e5",
+                UserName = "Admin",
+                Email = "reygue28@gmail.com",
+                LockoutEnabled = false,
+                PhoneNumber = "3015267740",
+                EmailConfirmed = true,
+            };
+
+            PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
+            user.PasswordHash = passwordHasher.HashPassword(user, "Admin*123");
+
+            builder.Entity<ApplicationUser>().HasData(user);            
+        }
+
+        private void SeedRoles(ModelBuilder builder)
+        {
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895711", Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "Admin" },
+                new IdentityRole() { Id = "c7b013f0-5201-4317-abd8-c211f91b7330", Name = "HR", ConcurrencyStamp = "2", NormalizedName = "Human Resource" }
+                );
+        }
+
+        private void SeedUserRoles(ModelBuilder builder)
+        {
+            builder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" }
+                );
         }
     }
 }
+
+
+//https://www.c-sharpcorner.com/article/seed-data-in-net-core-identity/
+//https://frankofoedu.medium.com/how-to-seed-identity-role-with-associated-user-in-asp-net-core-ef-core-e40ecd643d0f
+
+//https://stackoverflow.com/questions/34343599/how-to-seed-users-and-roles-with-code-first-migration-using-identity-asp-net-cor

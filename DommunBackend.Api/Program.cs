@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
@@ -53,6 +54,9 @@ builder.Services.AddTransient<ITipoZonaService, TipoZonaService>();
 builder.Services.AddTransient<IDepartamentoService, DepartamentoService>();
 builder.Services.AddTransient<IMunicipioService, MunicipioService>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+              .AddEntityFrameworkStores<ApplicationDbContext>();
 
 #endregion
 

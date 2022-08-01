@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer;
 
@@ -11,9 +12,10 @@ using RepositoryLayer;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220801155916_reoles")]
+    partial class reoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1287,13 +1289,6 @@ namespace RepositoryLayer.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
-                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895711"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -1384,14 +1379,14 @@ namespace RepositoryLayer.Migrations
                         {
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "39b114fa-cd35-41f3-aad8-aeb3b89fb18a",
+                            ConcurrencyStamp = "e7eda087-becd-4510-b573-515279dddc7b",
                             Email = "reygue28@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEO965CZ8QZc2h4k9Kt76L3g6X2CLJiHZdGCmLibAonMbX13NQDsvUYVNeI/tFFmTqg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDD65lLoe3RE/W0OulkohnhT/fsS+1dX3YTobOSV2dTiLFR03cJ8XxumoiD/Z62Q6A==",
                             PhoneNumber = "3015267740",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "441b0b47-aac1-4e29-a8ab-3aba561a5e07",
+                            SecurityStamp = "0038520a-8b28-4e09-bcf4-9d6ca80fc8d2",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
