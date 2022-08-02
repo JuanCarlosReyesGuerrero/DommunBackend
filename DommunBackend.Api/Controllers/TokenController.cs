@@ -1,7 +1,6 @@
 ﻿using Common;
 using DomainLayer.DTOs;
 using DomainLayer.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -20,7 +19,7 @@ namespace DommunBackend.Api.Controllers
         public IConfiguration _configuration;
         private readonly IUsuarioService usuarioService;
         private readonly IUserService userService;
-
+    
         private readonly ApplicationDbContext _context;
 
         public TokenController(IConfiguration config, ApplicationDbContext context, IUsuarioService _usuarioService, IUserService userService)
@@ -142,17 +141,20 @@ namespace DommunBackend.Api.Controllers
 
         private async Task<ApplicationUser> GetUserIdentity(string email, string password)
         {
-            string vPass = password + email + Consts.pivotePass;
+             string vPass = password + email + Consts.pivotePass;
+            //string vPass = password ;
 
             ApplicationUser objTemp = new ApplicationUser();
             List<ApplicationUser> objList = new List<ApplicationUser>();
 
             try
             {
-                bool vTemp = false;
+                ApplicationUser authUser = new ApplicationUser();
 
-                var ph = new PasswordHasher();
-                var hash = ph.HashPassword(vPass);
+                bool vTemp = false;
+                              
+                var hasher = new PasswordHasher<ApplicationUser>();
+                var hash = hasher.HashPassword(authUser, vPass);
 
                 objList = userService.FindByEmail(email).ToList();
 
@@ -162,10 +164,9 @@ namespace DommunBackend.Api.Controllers
                 {
                     if (objTemp.Email != null && objTemp.PasswordHash != null)
                     {
-                        //var isCurrentHashValid = ph.VerifyHashedPassword(hash, vPass);
-                        var isOlderHashValid = ph.VerifyHashedPassword(objTemp.PasswordHash, vPass);
+                        var verified = hasher.VerifyHashedPassword(authUser, objTemp.PasswordHash, vPass);
 
-                        if (isOlderHashValid.ToString() == "Success")
+                        if (verified.ToString() == "Success")
                             vTemp = true;
                         else
                             objTemp = null;
