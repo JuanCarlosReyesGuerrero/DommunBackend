@@ -48,12 +48,14 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IUsuarioRepository<>), typeof(UsuarioRepository<>));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 builder.Services.AddTransient<IZonaService, ZonaService>();
 builder.Services.AddTransient<ITipoZonaService, TipoZonaService>();
 builder.Services.AddTransient<IDepartamentoService, DepartamentoService>();
 builder.Services.AddTransient<IMunicipioService, MunicipioService>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
               .AddEntityFrameworkStores<ApplicationDbContext>();

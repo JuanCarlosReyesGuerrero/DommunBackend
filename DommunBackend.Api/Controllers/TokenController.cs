@@ -1,5 +1,8 @@
-﻿using DomainLayer.DTOs;
+﻿using Common;
+using DomainLayer.DTOs;
 using DomainLayer.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
@@ -16,27 +19,77 @@ namespace DommunBackend.Api.Controllers
     {
         public IConfiguration _configuration;
         private readonly IUsuarioService usuarioService;
+        private readonly IUserService userService;
 
         private readonly ApplicationDbContext _context;
 
-        public TokenController(IConfiguration config, ApplicationDbContext context, IUsuarioService _usuarioService)
+        public TokenController(IConfiguration config, ApplicationDbContext context, IUsuarioService _usuarioService, IUserService userService)
         {
             _configuration = config;
             _context = context;
             this.usuarioService = _usuarioService;
+            this.userService = userService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(UserInfo _userData)
+        //public async Task<IActionResult> Post(UserInfo _userData)
+        //{
+        //    Result oRespuesta = new Result();
+
+        //    if (_userData != null && _userData.Email != null && _userData.Password != null)
+        //    {
+        //        var user = await GetUser(_userData.Email, _userData.Password);
+
+        //        //if (user != null)
+        //        if (user.Id > 0)
+        //        {
+        //            //create claims details based on the user information
+        //            var claims = new[] {
+        //                new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+        //                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        //                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+        //                new Claim("Id", user.Id.ToString()),
+        //                new Claim("DisplayName", user.DisplayName),
+        //                new Claim("UserName", user.UserName),
+        //                new Claim("Email", user.Email)
+        //            };
+
+        //            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        //            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        //            var token = new JwtSecurityToken(
+        //                _configuration["Jwt:Issuer"],
+        //                _configuration["Jwt:Audience"],
+        //                claims,
+        //                expires: DateTime.UtcNow.AddMinutes(10),
+        //                signingCredentials: signIn);
+
+        //            var vToken = new JwtSecurityTokenHandler().WriteToken(token);
+
+        //            //return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+
+        //            return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = vToken });
+        //        }
+        //        else
+        //        {
+        //            //return BadRequest("Invalid credentials");
+        //            return BadRequest(new AuthResponseDto { ErrorMessage = "Invalid Authentication" });
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return BadRequest();
+        //    }
+        //}
+
+        public async Task<IActionResult> PostIdentity(ApplicationUser _userData)
         {
             Result oRespuesta = new Result();
 
-            if (_userData != null && _userData.Email != null && _userData.Password != null)
+            if (_userData != null && _userData.Email != null && _userData.PasswordHash != null)
             {
-                var user = await GetUser(_userData.Email, _userData.Password);
+                var user = await GetUserIdentity(_userData.Email, _userData.PasswordHash);
 
-                //if (user != null)
-                if (user.Id > 0)
+                if (user != null)
                 {
                     //create claims details based on the user information
                     var claims = new[] {
@@ -44,7 +97,6 @@ namespace DommunBackend.Api.Controllers
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim("Id", user.Id.ToString()),
-                        new Claim("DisplayName", user.DisplayName),
                         new Claim("UserName", user.UserName),
                         new Claim("Email", user.Email)
                     };
@@ -76,14 +128,54 @@ namespace DommunBackend.Api.Controllers
             }
         }
 
-        private async Task<UserInfo> GetUser(string email, string password)
+        //private async Task<UserInfo> GetUser(string email, string password)
+        //{
+        //    var vIdTemp = usuarioService.ValidarHashUsuario(email, password);
+
+        //    UserInfo objTemp = new UserInfo();
+
+        //    if (vIdTemp > 0)
+        //        objTemp = usuarioService.GetUsuarioById(vIdTemp);
+
+        //    return objTemp;
+        //}
+
+        private async Task<ApplicationUser> GetUserIdentity(string email, string password)
         {
-            var vIdTemp = usuarioService.ValidarHashUsuario(email, password);
+            string vPass = password + email + Consts.pivotePass;
 
-            UserInfo objTemp = new UserInfo();
+            ApplicationUser objTemp = new ApplicationUser();
+            List<ApplicationUser> objList = new List<ApplicationUser>();
 
-            if (vIdTemp > 0)
-                objTemp = usuarioService.GetUsuarioById(vIdTemp);
+            try
+            {
+                bool vTemp = false;
+
+                var ph = new PasswordHasher();
+                var hash = ph.HashPassword(vPass);
+
+                objList = userService.FindByEmail(email).ToList();
+
+                objTemp = objList.SingleOrDefault(s => s.Email == email);
+
+                if (objTemp != null)
+                {
+                    if (objTemp.Email != null && objTemp.PasswordHash != null)
+                    {
+                        //var isCurrentHashValid = ph.VerifyHashedPassword(hash, vPass);
+                        var isOlderHashValid = ph.VerifyHashedPassword(objTemp.PasswordHash, vPass);
+
+                        if (isOlderHashValid.ToString() == "Success")
+                            vTemp = true;
+                        else
+                            objTemp = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             return objTemp;
         }
