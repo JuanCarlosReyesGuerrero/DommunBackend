@@ -8,6 +8,11 @@ namespace RepositoryLayer
     //public partial class ApplicationDbContext : DbContext
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public ApplicationDbContext()
+        {
+
+        }
+
         //public ApplicationDbContext(DbContextOptions options) : base(options)
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

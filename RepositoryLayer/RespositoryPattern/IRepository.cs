@@ -6,7 +6,7 @@ namespace RepositoryLayer.RespositoryPattern
     {
         IEnumerable<T> GetAll();
 
-        T GetById(int Id);
+        T GetById(int? Id);
         
         void Insert(T entity);
         

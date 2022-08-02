@@ -13,7 +13,7 @@ namespace ServiceLayer.ClassServices
             this.departamentoRepository = _departamentoRepository;
         }
 
-        public void DeleteDepartamento(int id)
+        public void DeleteDepartamento(int? id)
         {
             Departamento departamento = GetDepartamentoById(id);
             departamentoRepository.Remove(departamento);
@@ -25,7 +25,7 @@ namespace ServiceLayer.ClassServices
             return departamentoRepository.GetAll();
         }
 
-        public Departamento GetDepartamentoById(int id)
+        public Departamento GetDepartamentoById(int? id)
         {
             return departamentoRepository.GetById(id);
         }

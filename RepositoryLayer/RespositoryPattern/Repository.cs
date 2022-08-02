@@ -28,7 +28,7 @@ namespace RepositoryLayer.RespositoryPattern
             _applicationDbContext.SaveChanges();
         }
 
-        public T GetById(int Id)
+        public T GetById(int? Id)
         {
             return entities.SingleOrDefault(c => c.Id == Id);
         }

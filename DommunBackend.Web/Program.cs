@@ -16,6 +16,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+//                   .AddEntityFrameworkStores<ApplicationDbContext>()
+//                   .AddDefaultUI()
+//           .AddDefaultTokenProviders();
+
 #region Services Injected  
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -30,7 +35,10 @@ builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-              .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddDefaultTokenProviders()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddScoped<UserManager<ApplicationUser>>();
 
 #endregion
 
@@ -49,6 +57,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

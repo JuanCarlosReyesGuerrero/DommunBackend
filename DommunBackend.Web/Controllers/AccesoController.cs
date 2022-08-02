@@ -40,7 +40,7 @@ namespace DommunBackend.Web.Controllers
 
         private async Task<ApplicationUser> GetUserIdentity(string email, string password)
         {
-            string vPass = password + email + Consts.pivotePass;
+            string vPass = password + email + Constants.pivotePass;
             //string vPass = password ;
 
             ApplicationUser objTemp = new ApplicationUser();
