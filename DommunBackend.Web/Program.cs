@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer;
@@ -16,10 +17,6 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-//builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-//                   .AddEntityFrameworkStores<ApplicationDbContext>()
-//                   .AddDefaultUI()
-//           .AddDefaultTokenProviders();
 
 #region Services Injected  
 
@@ -41,6 +38,26 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 builder.Services.AddScoped<UserManager<ApplicationUser>>();
 
 #endregion
+
+#region Services Cookies
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(option =>
+    {
+        option.LoginPath = "/Acceso/Index";
+        option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        option.AccessDeniedPath = "/";        
+    });
+
+#endregion
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.ConsentCookie.IsEssential = true;
+    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+    options.CheckConsentNeeded = context => false;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
 
 var app = builder.Build();
 

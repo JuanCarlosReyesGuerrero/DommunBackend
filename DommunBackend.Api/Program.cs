@@ -44,6 +44,7 @@ builder.Services.AddSwaggerGen();
 
 #endregion
 
+
 #region Services Injected  
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -57,12 +58,14 @@ builder.Services.AddTransient<IMunicipioService, MunicipioService>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-              .AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+//              .AddEntityFrameworkStores<ApplicationDbContext>();
 
 #endregion
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 
 var app = builder.Build();
 

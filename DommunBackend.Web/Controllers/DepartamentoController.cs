@@ -1,6 +1,7 @@
 ﻿using Common;
 using DomainLayer.DTOs;
 using DomainLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer;
@@ -10,6 +11,7 @@ using static Common.Enums;
 
 namespace DommunBackend.Web.Controllers
 {
+    [Authorize]
     public class DepartamentoController : Controller
     {
         private readonly IDepartamentoService objService;
@@ -26,8 +28,8 @@ namespace DommunBackend.Web.Controllers
 
         public async Task<ActionResult> IndexAsync()
         {
-            if (User.Identity.IsAuthenticated)
-            {
+            //if (User.Identity.IsAuthenticated)
+            //{
                 userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                 permisoUsuario = objAutenticacion.ListPermissions(userId, Convert.ToString(MenuOptions.Departamento), Convert.ToString(MenuPermiso.View));
@@ -52,11 +54,11 @@ namespace DommunBackend.Web.Controllers
                     return View(model);
                 }
                 return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return Redirect(Constants.routeLogin);
-            }
+            //}
+            //else
+            //{
+            //    return Redirect(Constants.routeLogin);
+            //}
         }
 
         public ActionResult Details(int? id)

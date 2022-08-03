@@ -1,8 +1,11 @@
 ﻿using Common;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer;
 using ServiceLayer.Interfaces;
+using System.Security.Claims;
 
 namespace DommunBackend.Web.Controllers
 {
@@ -10,14 +13,12 @@ namespace DommunBackend.Web.Controllers
     {
         private readonly IUserService userService;
 
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
         public AccesoController(IUserService userService)
         {
-
             this.userService = userService;
         }
-
-        //https://www.youtube.com/watch?v=IvoDzgrjMOY
-
 
         public async Task<IActionResult> Index(ApplicationUser _usuario)
         {
@@ -25,6 +26,22 @@ namespace DommunBackend.Web.Controllers
 
             if (usuario != null)
             {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, usuario.UserName),
+                    new Claim(ClaimTypes.Email, usuario.Email),
+                };
+
+                //foreach(string rol in usuario.Roles)
+                //{
+                //    claims.Add(new Claim(ClaimTypes.Role, rol));
+                //}
+
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
                 if (usuario.Email != null && usuario.PasswordHash != null)
                     return RedirectToAction("Index", "Home");
             }
@@ -81,7 +98,12 @@ namespace DommunBackend.Web.Controllers
 
 
 
+        public async Task<IActionResult> Salir()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
+            return RedirectToAction("Index", "Acceso");
+        }
 
 
 
