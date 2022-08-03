@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Logs;
 using DomainLayer.DTOs;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,8 @@ namespace DommunBackend.Api.Controllers
     [ApiController]
     public class DepartamentoController : ControllerBase
     {
+        EnviarLog enviarLog = new EnviarLog();
+
         #region Property  
         private readonly IDepartamentoService departamentoService;
         private readonly IMapper mapper;
@@ -51,10 +54,12 @@ namespace DommunBackend.Api.Controllers
                 {
                     oRespuesta.Success = true;
                     oRespuesta.Data = lstTemp;
-                }               
+                }
             }
             catch (Exception ex)
             {
+                enviarLog.EnviarExcepcion(ex.Message, ex);
+
                 oRespuesta.Message = ex.Message;
             }
 
