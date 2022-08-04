@@ -57,6 +57,8 @@ builder.Services.AddTransient<IDepartamentoService, DepartamentoService>();
 builder.Services.AddTransient<IMunicipioService, MunicipioService>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IAuthToken, AuthToken>();
+
 
 //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 //              .AddEntityFrameworkStores<ApplicationDbContext>();
