@@ -19,7 +19,7 @@ namespace DommunBackend.Api.Controllers
         public IConfiguration _configuration;
         private readonly IUsuarioService usuarioService;
         private readonly IUserService userService;
-    
+
         private readonly ApplicationDbContext _context;
 
         public TokenController(IConfiguration config, ApplicationDbContext context, IUsuarioService _usuarioService, IUserService userService)
@@ -113,7 +113,13 @@ namespace DommunBackend.Api.Controllers
 
                     //return Ok(new JwtSecurityTokenHandler().WriteToken(token));
 
-                    return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = vToken });
+                    return Ok(new AuthResponseDto
+                    {
+                        IsAuthSuccessful = true,
+                        Token = vToken,
+                        ExpiresIn = DateTime.UtcNow.AddMinutes(10).ToString(),
+                        TokenType = "bearer"
+                    });
                 }
                 else
                 {
@@ -141,7 +147,7 @@ namespace DommunBackend.Api.Controllers
 
         private async Task<ApplicationUser> GetUserIdentity(string email, string password)
         {
-             string vPass = password + email + Constants.pivotePass;
+            string vPass = password + email + Constants.pivotePass;
             //string vPass = password ;
 
             ApplicationUser objTemp = new ApplicationUser();
@@ -152,7 +158,7 @@ namespace DommunBackend.Api.Controllers
                 ApplicationUser authUser = new ApplicationUser();
 
                 bool vTemp = false;
-                              
+
                 var hasher = new PasswordHasher<ApplicationUser>();
                 var hash = hasher.HashPassword(authUser, vPass);
 
