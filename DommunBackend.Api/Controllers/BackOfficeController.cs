@@ -20,8 +20,8 @@ namespace DommunBackend.Api.Controllers
         }
 
         [HttpPost]
-        [Route("validaLogin")]
-        public async Task<IActionResult> ValidaLoginAsync([FromBody] LoginModel loginModel)
+        [Route("inicioSesion")]
+        public async Task<IActionResult> InicioSesionAsync([FromBody] LoginModel loginModel)
         {
             Result oRespuesta = new Result();
 
@@ -38,7 +38,10 @@ namespace DommunBackend.Api.Controllers
                 }
                 else
                 {
-                    return Unauthorized(ResourceMessageHelper.GetMessage("EXCEP006"));                   
+                    oRespuesta.Success = false;
+                    oRespuesta.Message = Constants.msjNoAutorizado;                  
+
+                    return Ok(oRespuesta);
                 }
             }
             catch (Exception ex)
@@ -49,5 +52,7 @@ namespace DommunBackend.Api.Controllers
                 return BadRequest();
             }
         }
+
+        //RegistroAsync
     }
 }
