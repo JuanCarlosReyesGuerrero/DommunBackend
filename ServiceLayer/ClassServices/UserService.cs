@@ -1,4 +1,6 @@
-﻿using RepositoryLayer;
+﻿using Common;
+using Microsoft.AspNetCore.Identity;
+using RepositoryLayer;
 using RepositoryLayer.RespositoryPattern;
 using ServiceLayer.Interfaces;
 using System.Linq.Expressions;
@@ -45,6 +47,47 @@ namespace ServiceLayer.ClassServices
         public ApplicationUser GetById(string id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ApplicationUser> GetUserIdentity(string email, string password)
+        {
+            string vPass = password + email + Constants.pivotePass;            
+
+            ApplicationUser objTemp = new ApplicationUser();
+            List<ApplicationUser> objList = new List<ApplicationUser>();
+
+            try
+            {
+                ApplicationUser authUser = new ApplicationUser();
+
+                bool vTemp = false;
+
+                var hasher = new PasswordHasher<ApplicationUser>();
+                var hash = hasher.HashPassword(authUser, vPass);
+
+                objList = FindByEmail(email).ToList();
+
+                objTemp = objList.SingleOrDefault(s => s.Email == email);
+
+                if (objTemp != null)
+                {
+                    if (objTemp.Email != null && objTemp.PasswordHash != null)
+                    {
+                        var verified = hasher.VerifyHashedPassword(authUser, objTemp.PasswordHash, vPass);
+
+                        if (verified.ToString() == "Success")
+                            vTemp = true;
+                        else
+                            objTemp = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return objTemp;
         }
 
         public void Remove(ApplicationUser entity)

@@ -14,5 +14,7 @@ namespace ServiceLayer.Interfaces
         void RemoveRange(IEnumerable<ApplicationUser> entities);
 
         IEnumerable<ApplicationUser> FindByEmail(string email);
+
+        Task<ApplicationUser> GetUserIdentity(string email, string password);
     }
 }

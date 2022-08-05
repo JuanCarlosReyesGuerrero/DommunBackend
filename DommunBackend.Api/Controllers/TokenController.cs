@@ -1,7 +1,5 @@
-﻿using Common;
-using DomainLayer.DTOs;
+﻿using DomainLayer.DTOs;
 using DomainLayer.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
@@ -86,7 +84,7 @@ namespace DommunBackend.Api.Controllers
 
             if (_userData != null && _userData.Email != null && _userData.PasswordHash != null)
             {
-                var user = await GetUserIdentity(_userData.Email, _userData.PasswordHash);
+                var user = await userService.GetUserIdentity(_userData.Email, _userData.PasswordHash);
 
                 if (user != null)
                 {
@@ -145,46 +143,46 @@ namespace DommunBackend.Api.Controllers
         //    return objTemp;
         //}
 
-        private async Task<ApplicationUser> GetUserIdentity(string email, string password)
-        {
-            string vPass = password + email + Constants.pivotePass;
-            //string vPass = password ;
+        //private async Task<ApplicationUser> GetUserIdentity(string email, string password)
+        //{
+        //    string vPass = password + email + Constants.pivotePass;
+        //    //string vPass = password ;
 
-            ApplicationUser objTemp = new ApplicationUser();
-            List<ApplicationUser> objList = new List<ApplicationUser>();
+        //    ApplicationUser objTemp = new ApplicationUser();
+        //    List<ApplicationUser> objList = new List<ApplicationUser>();
 
-            try
-            {
-                ApplicationUser authUser = new ApplicationUser();
+        //    try
+        //    {
+        //        ApplicationUser authUser = new ApplicationUser();
 
-                bool vTemp = false;
+        //        bool vTemp = false;
 
-                var hasher = new PasswordHasher<ApplicationUser>();
-                var hash = hasher.HashPassword(authUser, vPass);
+        //        var hasher = new PasswordHasher<ApplicationUser>();
+        //        var hash = hasher.HashPassword(authUser, vPass);
 
-                objList = userService.FindByEmail(email).ToList();
+        //        objList = userService.FindByEmail(email).ToList();
 
-                objTemp = objList.SingleOrDefault(s => s.Email == email);
+        //        objTemp = objList.SingleOrDefault(s => s.Email == email);
 
-                if (objTemp != null)
-                {
-                    if (objTemp.Email != null && objTemp.PasswordHash != null)
-                    {
-                        var verified = hasher.VerifyHashedPassword(authUser, objTemp.PasswordHash, vPass);
+        //        if (objTemp != null)
+        //        {
+        //            if (objTemp.Email != null && objTemp.PasswordHash != null)
+        //            {
+        //                var verified = hasher.VerifyHashedPassword(authUser, objTemp.PasswordHash, vPass);
 
-                        if (verified.ToString() == "Success")
-                            vTemp = true;
-                        else
-                            objTemp = null;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //                if (verified.ToString() == "Success")
+        //                    vTemp = true;
+        //                else
+        //                    objTemp = null;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-            return objTemp;
-        }
+        //    return objTemp;
+        //}
     }
 }
