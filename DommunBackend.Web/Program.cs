@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer;
 using RepositoryLayer.RespositoryPattern;
+using RepositoryLayer.RespositoryPattern.ClassRepository;
+using RepositoryLayer.RespositoryPattern.Interface;
 using ServiceLayer.ClassServices;
 using ServiceLayer.Interfaces;
 
@@ -23,6 +25,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IUsuarioRepository<>), typeof(UsuarioRepository<>));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped(typeof(IMunicipioRepository), typeof(MunicipioRepository));
 
 builder.Services.AddTransient<IZonaService, ZonaService>();
 builder.Services.AddTransient<ITipoZonaService, TipoZonaService>();
@@ -49,6 +52,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         option.AccessDeniedPath = "/";        
     });
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(20); // Tiempo de expiración   
+});
+
 #endregion
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
@@ -68,6 +76,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

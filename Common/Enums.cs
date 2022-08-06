@@ -25,6 +25,6 @@
             Create,
             Edit,
             Delete
-        }
+        }        
     }
 }

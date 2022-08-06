@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models;
+﻿using DomainLayer.DTOs;
+using DomainLayer.Models;
 
 namespace ServiceLayer.Interfaces
 {
@@ -9,5 +10,7 @@ namespace ServiceLayer.Interfaces
         void InsertMunicipio(Municipio municipio);
         void UpdateMunicipio(Municipio municipio);
         void DeleteMunicipio(int id);
+
+        List<MunicipioDto> ObtenerMunicipioByDepartamento();
     }
 }

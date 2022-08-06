@@ -7,6 +7,10 @@
         public const string routeLogin = "/";
 
 
+        public const string Autorizado = "Autorizado";
+        public const string NoAutorizado = "NoAutorizado";
+
+
 
 
 

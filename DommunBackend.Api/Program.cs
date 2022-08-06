@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
 using RepositoryLayer.RespositoryPattern;
+using RepositoryLayer.RespositoryPattern.ClassRepository;
+using RepositoryLayer.RespositoryPattern.Interface;
 using ServiceLayer.ClassServices;
 using ServiceLayer.Interfaces;
 using System.Text;
@@ -50,6 +51,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IUsuarioRepository<>), typeof(UsuarioRepository<>));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped(typeof(IMunicipioRepository), typeof(MunicipioRepository));
 
 builder.Services.AddTransient<IZonaService, ZonaService>();
 builder.Services.AddTransient<ITipoZonaService, TipoZonaService>();

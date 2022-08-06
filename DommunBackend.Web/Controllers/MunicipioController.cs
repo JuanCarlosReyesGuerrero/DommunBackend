@@ -1,5 +1,4 @@
 ﻿using DomainLayer.DTOs;
-using DomainLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 
@@ -8,43 +7,34 @@ namespace DommunBackend.Web.Controllers
     public class MunicipioController : Controller
     {
         private readonly IMunicipioService objService;
-        private readonly IDepartamentoService objDepartamentoService;
 
-        public MunicipioController(IMunicipioService _objService, IDepartamentoService _objDepartamentoService)
+        public MunicipioController(IMunicipioService _objService)
         {
             this.objService = _objService;
-            this.objDepartamentoService = _objDepartamentoService;
         }
 
         public async Task<ActionResult> IndexAsync()
         {
+            List<MunicipioDto> listMunicipios = new List<MunicipioDto>();
 
-            //userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var listTemp = objService.ObtenerMunicipioByDepartamento();
 
-            //permisoUsuario = objAutenticacion.ListPermissions(userId, Convert.ToString(MenuOptions.Departamento), Convert.ToString(MenuPermiso.View));
-
-            //if (permisoUsuario)
-            //{
-            List<MunicipioDto> model = new List<MunicipioDto>();
-
-            objService.GetAllMunicipios().ToList().ForEach(u =>
+            foreach (var u in listTemp)
             {
-                Departamento departamento = objDepartamentoService.GetDepartamentoById((int)u.DepartamentoId);
-
                 MunicipioDto objModel = new MunicipioDto
                 {
                     Id = u.Id,
                     Codigo = u.Codigo,
                     Nombre = u.Nombre,
                     IsActive = u.IsActive,
-                    DepartamentoNombre = departamento.Nombre
+                    DepartamentoNombre = u.DepartamentoNombre,
                 };
 
-                model.Add(objModel);
-            });
+                listMunicipios.Add(objModel);
+            }
 
-            return View(model);
-            
+            return View(listMunicipios);
+
             return RedirectToAction("Index", "Home");
         }
     }

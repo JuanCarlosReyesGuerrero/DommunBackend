@@ -15,7 +15,7 @@ namespace DomainLayer.DTOs
         public string? Nombre { get; set; }
 
         [Display(Name = "Departamento")]
-        public string DepartamentoNombre { get; set; }
+        public string? DepartamentoNombre { get; set; }
 
         public int DepartamentoId { get; set; }
         public DateTime CreatedDate { get; set; }

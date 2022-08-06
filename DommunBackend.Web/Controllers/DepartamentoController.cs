@@ -11,31 +11,36 @@ using static Common.Enums;
 
 namespace DommunBackend.Web.Controllers
 {
-    [Authorize]
+
     public class DepartamentoController : Controller
     {
         private readonly IDepartamentoService objService;
+
+        private readonly IHttpContextAccessor objSession;
 
         readonly AutenticacionApp objAutenticacion = new AutenticacionApp();
 
         private string userId = "";
         private bool permisoUsuario = false;
 
-        public DepartamentoController(IDepartamentoService _objService)
+        public DepartamentoController(IDepartamentoService _objService, IHttpContextAccessor _objSession)
         {
             this.objService = _objService;
+            this.objSession = _objSession;
         }
 
         public async Task<ActionResult> IndexAsync()
         {
-            //if (User.Identity.IsAuthenticated)
-            //{
-                userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var message = objSession.HttpContext.Session.GetString("SessionVar");
 
-                permisoUsuario = objAutenticacion.ListPermissions(userId, Convert.ToString(MenuOptions.Departamento), Convert.ToString(MenuPermiso.View));
+            if (message == Constants.Autorizado)
+            {
+                userId = objSession.HttpContext.Session.GetString("UserId"); ;
 
-                if (permisoUsuario)
-                {
+                //permisoUsuario = objAutenticacion.ListPermissions(userId, Convert.ToString(MenuOptions.Departamento), Convert.ToString(MenuPermiso.View));
+
+                //if (permisoUsuario)
+                //{
                     List<DepartamentoDto> model = new List<DepartamentoDto>();
 
                     objService.GetAllDepartamentos().ToList().ForEach(u =>
@@ -52,13 +57,13 @@ namespace DommunBackend.Web.Controllers
                     });
 
                     return View(model);
-                }
+                //}
                 return RedirectToAction("Index", "Home");
-            //}
-            //else
-            //{
-            //    return Redirect(Constants.routeLogin);
-            //}
+            }
+            else
+            {
+                return Redirect(Constants.routeLogin);
+            }
         }
 
         public ActionResult Details(int? id)

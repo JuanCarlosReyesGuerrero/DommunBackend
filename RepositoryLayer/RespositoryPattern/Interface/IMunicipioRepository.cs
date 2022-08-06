@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models;
+﻿using DomainLayer.DTOs;
+using DomainLayer.Models;
 
 namespace RepositoryLayer.RespositoryPattern.Interface
 {
@@ -9,6 +10,11 @@ namespace RepositoryLayer.RespositoryPattern.Interface
         void Insert(Municipio entity);
         void Delete(int Id);
         void Update(Municipio entity);
+
+
+        List<MunicipioDto> ObtenerMunicipioByDepartamento();
+
+
         void Save();
     }
 }

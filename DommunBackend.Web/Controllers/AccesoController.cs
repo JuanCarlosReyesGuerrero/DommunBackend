@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Common;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer;
@@ -10,17 +11,21 @@ namespace DommunBackend.Web.Controllers
     public class AccesoController : Controller
     {
         private readonly IUserService userService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        public AccesoController(IUserService userService)
+        public AccesoController(IUserService userService, IHttpContextAccessor httpContextAccessor)
         {
             this.userService = userService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index(ApplicationUser _usuario)
         {
             var usuario = await userService.GetUserIdentity(_usuario.Email, _usuario.PasswordHash);
+
+            _httpContextAccessor.HttpContext.Session.SetString("SessionVar", Constants.NoAutorizado);
 
             if (usuario != null)
             {
@@ -28,6 +33,7 @@ namespace DommunBackend.Web.Controllers
                 {
                     new Claim(ClaimTypes.Name, usuario.UserName),
                     new Claim(ClaimTypes.Email, usuario.Email),
+                    new Claim(ClaimTypes.NameIdentifier, usuario.Id),
                 };
 
                 //foreach(string rol in usuario.Roles)
@@ -40,8 +46,15 @@ namespace DommunBackend.Web.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                if (usuario.Email != null && usuario.PasswordHash != null)
-                    return RedirectToAction("Index", "Home");
+
+                if (claimsIdentity.IsAuthenticated == true)
+                {
+                    _httpContextAccessor.HttpContext.Session.SetString("SessionVar", Constants.Autorizado);
+                    _httpContextAccessor.HttpContext.Session.SetString("UserId", usuario.Id);
+                }
+
+                if (usuario.Email != null && usuario.PasswordHash != null) { }
+                return RedirectToAction("Index", "Home");
             }
             else
             {
