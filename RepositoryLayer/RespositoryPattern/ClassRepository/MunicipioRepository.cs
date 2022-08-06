@@ -1,11 +1,9 @@
-﻿using DomainLayer.Models;
-using RepositoryLayer.RespositoryPattern.Interface;
-using Common;
-using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using Common.Logs;
 using DomainLayer.DTOs;
-using Common.Logs;
+using DomainLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using RepositoryLayer.RespositoryPattern.Interface;
 
 namespace RepositoryLayer.RespositoryPattern.ClassRepository
 {
@@ -15,14 +13,11 @@ namespace RepositoryLayer.RespositoryPattern.ClassRepository
 
         EnviarLog enviarLog = new EnviarLog();
 
-        //readonly Parameters objParameters = new Parameters(IConfiguration _configuration);
-
         private ApplicationDbContext context;
 
-        public MunicipioRepository(IConfiguration _configuration, ApplicationDbContext context)
-        {
-            this.configuration = _configuration;
-            this.context = context;
+        public MunicipioRepository(ApplicationDbContext _context)
+        {            
+            this.context = _context;
         }
 
         public void Delete(int Id)
@@ -67,52 +62,41 @@ namespace RepositoryLayer.RespositoryPattern.ClassRepository
 
         public List<MunicipioDto> ObtenerMunicipioByDepartamento()
         {
-            Result oRespuesta = new Result();
+            Result oRespuesta = new Result();            
 
-            //string cadenaconexion = objParameters.cadenaConexion();
-            string cadenaconexion = configuration["ConnectionStrings:DefaultConnection"];
+            List<MunicipioDto> objlista = new List<MunicipioDto>();
 
             try
             {
-                using (SqlConnection con = new SqlConnection(cadenaconexion))
-                {
-                    string sqlQuery = "";
+                var conn = context.Database.GetDbConnection();
 
-                    sqlQuery = "SELECT Municipios.Id, Municipios.Codigo, Municipios.Nombre, Municipios.DepartamentoId, Municipios.IsActive, Departamentos.Nombre AS DepartamentoNombre " +
+                conn.Open();
+
+                var command = conn.CreateCommand();
+
+                string sqlQuery = "SELECT Municipios.Id, Municipios.Codigo, Municipios.Nombre, Municipios.DepartamentoId, Municipios.IsActive, Departamentos.Nombre AS DepartamentoNombre " +
                         "FROM Municipios " +
                         "INNER JOIN Departamentos ON Municipios.DepartamentoId = Departamentos.Id";
 
-                    using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
+                command.CommandText = sqlQuery;
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    objlista.Add(new MunicipioDto()
                     {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandTimeout *= 3;
-
-                        con.Open();
-
-                        SqlDataReader reader = cmd.ExecuteReader();
-
-                        List<MunicipioDto> listObj = new List<MunicipioDto>();
-                        MunicipioDto objModel = null;
-
-                        while (reader.Read())
-                        {
-                            objModel = new MunicipioDto();
-
-                            objModel.Id = Convert.ToInt32(reader["Id"].ToString());
-                            objModel.Codigo = reader["Codigo"].ToString();
-                            objModel.Nombre = reader["Nombre"].ToString();
-                            objModel.DepartamentoNombre = reader["DepartamentoNombre"].ToString();
-                            objModel.DepartamentoId = Convert.ToInt32(reader["DepartamentoId"].ToString());
-                            objModel.IsActive = Convert.ToBoolean(reader["IsActive"].ToString());
-
-                            listObj.Add(objModel);
-                        }
-
-                        con.Close();
-
-                        return listObj;
-                    }
+                        Id = Convert.ToInt32(reader["Id"].ToString()),
+                        Codigo = reader["Codigo"].ToString(),
+                        Nombre = reader["Nombre"].ToString(),
+                        DepartamentoNombre = reader["DepartamentoNombre"].ToString(),
+                        DepartamentoId = Convert.ToInt32(reader["DepartamentoId"].ToString()),
+                        IsActive = Convert.ToBoolean(reader["IsActive"].ToString()),
+                    });
                 }
+
+                conn.Close();
+
+                return objlista;              
 
             }
             catch (Exception ex)

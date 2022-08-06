@@ -3,7 +3,7 @@ using DomainLayer.Models;
 
 namespace RepositoryLayer.RespositoryPattern.Interface
 {
-    public interface IMunicipioRepository : IDisposable
+    public interface IMunicipioRepository : IDisposable 
     {
         IEnumerable<Municipio> GetAll();
         Municipio GetByID(int Id);
