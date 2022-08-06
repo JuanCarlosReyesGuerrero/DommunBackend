@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DomainLayer.DTOs
 {
-    public class DepartamentoDTO
+    public class DepartamentoDto
     {
         [HiddenInput]
         public int Id { get; set; }

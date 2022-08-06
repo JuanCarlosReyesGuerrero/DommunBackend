@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DomainLayer.DTOs.DepartamentoDto>
+﻿@model IEnumerable<DomainLayer.DTOs.ZonaDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,7 +14,7 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Codigo)
+                        @Html.DisplayNameFor(model => model.Slug)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Nombre)
@@ -30,7 +30,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Codigo)
+                            @Html.DisplayFor(modelItem => item.Slug)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nombre)

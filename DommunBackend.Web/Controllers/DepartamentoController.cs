@@ -36,11 +36,11 @@ namespace DommunBackend.Web.Controllers
 
                 if (permisoUsuario)
                 {
-                    List<DepartamentoDTO> model = new List<DepartamentoDTO>();
+                    List<DepartamentoDto> model = new List<DepartamentoDto>();
 
                     objService.GetAllDepartamentos().ToList().ForEach(u =>
                     {
-                        DepartamentoDTO objModel = new DepartamentoDTO
+                        DepartamentoDto objModel = new DepartamentoDto
                         {
                             Id = u.Id,
                             Codigo = u.Codigo,
@@ -76,7 +76,7 @@ namespace DommunBackend.Web.Controllers
                         return NotFound();
                     }
 
-                    DepartamentoDTO model = new DepartamentoDTO();
+                    DepartamentoDto model = new DepartamentoDto();
 
                     if (id.HasValue && id != 0)
                     {
@@ -109,7 +109,7 @@ namespace DommunBackend.Web.Controllers
 
                 if (permisoUsuario)
                 {
-                    DepartamentoDTO model = new DepartamentoDTO();
+                    DepartamentoDto model = new DepartamentoDto();
 
                     return View(model);
                 }
@@ -123,7 +123,7 @@ namespace DommunBackend.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DepartamentoDTO model)
+        public ActionResult Create(DepartamentoDto model)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -175,7 +175,7 @@ namespace DommunBackend.Web.Controllers
                         return NotFound();
                     }
 
-                    DepartamentoDTO model = new DepartamentoDTO();
+                    DepartamentoDto model = new DepartamentoDto();
 
                     if (id.HasValue && id != 0)
                     {
@@ -204,7 +204,7 @@ namespace DommunBackend.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(DepartamentoDTO model)
+        public ActionResult Edit(DepartamentoDto model)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -254,7 +254,7 @@ namespace DommunBackend.Web.Controllers
                         return NotFound();
                     }
 
-                    DepartamentoDTO model = new DepartamentoDTO();
+                    DepartamentoDto model = new DepartamentoDto();
 
                     if (id.HasValue && id != 0)
                     {

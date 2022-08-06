@@ -8,11 +8,11 @@ namespace DomainLayer.EntityMapper
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Departamento, DepartamentoDTO>().ReverseMap();
-            CreateMap<DepartamentoDTO, Departamento>();
+            CreateMap<Departamento, DepartamentoDto>().ReverseMap();
+            CreateMap<DepartamentoDto, Departamento>();
 
-            CreateMap<Municipio, MunicipioDTO>().ReverseMap();
-            CreateMap<MunicipioDTO, Municipio>();
+            CreateMap<Municipio, DepartamentoDto>().ReverseMap();
+            CreateMap<DepartamentoDto, Municipio>();
         }
     }
 }

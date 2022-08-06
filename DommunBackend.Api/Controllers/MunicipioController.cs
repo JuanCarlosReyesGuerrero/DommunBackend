@@ -47,7 +47,7 @@ namespace DommunBackend.Api.Controllers
                 var queryTable = await Task.FromResult(municipioService.GetAllMunicipios());
                 var municipios = queryTable.OrderBy(x => x.Nombre).ToList();
 
-                var lstTemp = mapper.Map<List<MunicipioDTO>>(municipios);
+                var lstTemp = mapper.Map<List<MunicipioDto>>(municipios);
 
                 if (lstTemp.Count >= 0)
                 {
@@ -65,7 +65,7 @@ namespace DommunBackend.Api.Controllers
             //var queryTable = municipioService.GetAllMunicipios();
             //var municipios = queryTable.OrderBy(x => x.Nombre).ToList();
 
-            //var result = mapper.Map<List<MunicipioDTO>>(municipios);
+            //var result = mapper.Map<List<MunicipioDto>>(municipios);
 
             //if (result.Count > 0)
             //{

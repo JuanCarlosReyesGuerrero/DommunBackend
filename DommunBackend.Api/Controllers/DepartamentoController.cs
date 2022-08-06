@@ -48,7 +48,7 @@ namespace DommunBackend.Api.Controllers
                 var queryTable = departamentoService.GetAllDepartamentos();
                 var departamentos = queryTable.OrderBy(x => x.Nombre).ToList();
 
-                var lstTemp = mapper.Map<List<DepartamentoDTO>>(departamentos);
+                var lstTemp = mapper.Map<List<DepartamentoDto>>(departamentos);
 
                 if (lstTemp.Count >= 0)
                 {
