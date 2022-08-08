@@ -1,0 +1,29 @@
+﻿@model List<DommunBackend.DomainLayer.DTOs.RolePermissionDto>
+@{
+    ViewData["Title"] = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>User Roles</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Permisos</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@role.RoleId</td>
+                <td>@role.Name</td>
+                <td>@string.Join(" , ", role.Claim.ToList())</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="RolePermission" asp-action="Create" asp-route-roleId="@role.RoleId">Manage Claims</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*
