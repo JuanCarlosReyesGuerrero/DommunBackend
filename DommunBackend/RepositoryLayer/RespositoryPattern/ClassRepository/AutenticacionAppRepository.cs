@@ -57,5 +57,10 @@ namespace DommunBackend.RepositoryLayer.RespositoryPattern.ClassRepository
 
             return vResultado;
         }
+
+        public Task<ApplicationUser> GetUserIdentity(string email, string password)
+        {
+            throw new NotImplementedException();
+        }       
     }
 }
