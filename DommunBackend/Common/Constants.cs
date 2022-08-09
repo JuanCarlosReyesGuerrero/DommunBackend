@@ -4,7 +4,8 @@
     {
         public const string pivotePass = "24hN*H1pj";
 
-        public const string routeLogin = "/";
+        //public const string routeLogin = "/";
+        public const string routeLogin = "Identity/Account/Login";
 
 
         public const string Autorizado = "Autorizado";

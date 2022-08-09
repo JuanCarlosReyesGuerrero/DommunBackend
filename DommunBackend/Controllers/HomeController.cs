@@ -1,4 +1,5 @@
-﻿using DommunBackend.Models;
+﻿using DommunBackend.Common;
+using DommunBackend.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,7 +16,14 @@ namespace DommunBackend.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect(Constants.routeLogin);
+            }
         }
 
         public IActionResult Privacy()
