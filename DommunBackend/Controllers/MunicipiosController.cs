@@ -44,20 +44,16 @@ namespace DommunBackend.Controllers
                 {
                     List<MunicipioDto> model = new List<MunicipioDto>();
 
-                    objService.GetAllMunicipios().ToList().ForEach(u =>
+                    objService.ObtenerMunicipioByDepartamento().ToList().ForEach(u =>
                     {
-                        Departamento departamento = objDepartamentoService.GetDepartamentoById((int)u.DepartamentoId);
-
                         MunicipioDto objModel = new MunicipioDto
                         {
                             Id = u.Id,
                             Codigo = u.Codigo,
                             Nombre = u.Nombre,
                             DepartamentoId = u.DepartamentoId,
+                            DepartamentoNombre = u.DepartamentoNombre,
                             IsActive = u.IsActive,
-
-                            DepartamentoNombre = departamento.Nombre
-
                         };
 
                         model.Add(objModel);
