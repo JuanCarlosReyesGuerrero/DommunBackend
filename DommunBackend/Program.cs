@@ -41,6 +41,9 @@ builder.Services.AddTransient<ITipoZonaService, TipoZonaService>();
 builder.Services.AddTransient<IDepartamentoService, DepartamentoService>();
 builder.Services.AddTransient<IMunicipioService, MunicipioService>();
 builder.Services.AddTransient<IAutenticacionAppService, AutenticacionAppService>();
+builder.Services.AddTransient<IAgenteService, AgenteService>();
+builder.Services.AddTransient<IZonificacionService, ZonificacionService>();
+builder.Services.AddTransient<IPlanMembresiaService, PlanMembresiaService>();
 
 //builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 //builder.Services.AddTransient<IUserService, UserService>();

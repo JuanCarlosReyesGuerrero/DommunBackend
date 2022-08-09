@@ -74,10 +74,17 @@ namespace DommunBackend.Controllers
             {
                 userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-                //permisoUsuario = objAutenticacion.ListPermissions(userId, Convert.ToString(MenuOptions.Departamento), Convert.ToString(MenuPermiso.View));
+                ApplicationDbModel objModelAuth = new ApplicationDbModel()
+                {
+                    vUserId = userId,
+                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vPermiso = Convert.ToString(MenuPermiso.View)
+                };
 
-                //if (permisoUsuario)
-                //{
+                permisoUsuario = objAutenticacion.ObtenerListPermissions(objModelAuth);
+
+                if (permisoUsuario)
+                {
                 if (id == null)
                 {
                     return NotFound();
@@ -93,7 +100,7 @@ namespace DommunBackend.Controllers
                     model.Codigo = Entity.Codigo;
                     model.Nombre = Entity.Nombre;
                     model.IsActive = Entity.IsActive;
-                    //}
+                    }
 
                     return View(model);
 

@@ -74,11 +74,11 @@
 
     <meta charset="utf-8" />
     @*<title>Starter | Dommun - Admin & Dashboard Template</title>*@
-     <title>@ViewData["Title"] - DommunBackend</title>
+    <title>@ViewData["Title"] - DommunBackend</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
-   
+
     <!-- App favicon -->
     <link rel="shortcut icon" href="~/assets/images/favicon.ico">
 
@@ -90,7 +90,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
 
 
-      <!-- Sweet Alert css-->
+    <!-- Sweet Alert css-->
     <link href="~/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Layout config Js -->
@@ -1001,22 +1001,28 @@
                                 </ul>
                             </div>
                         </li> <!-- end Dashboard Menu -->
-                    
-                     
+
+
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarConfiguracion" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
                                 <i class="ri-layout-3-line"></i> <span data-key="t-Configuracion">Configuración</span>
                             </a>
                             <div class="collapse menu-dropdown" id="sidebarConfiguracion">
-                                <ul class="nav nav-sm flex-column">                                    
-                                    <li class="nav-item ">
-                                        <a asp-controller="Departamentos" asp-action="Index" class="nav-link @Url.MakeActiveClass("departamentos","index")">Departamentos</a>
+                                <ul class="nav nav-sm flex-column">
+                                   
+                                     <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Agentes" asp-action="Index">Agentes</a>
                                     </li>
-                                    <li class="nav-item ">
-                                        <a asp-controller="Zonas" asp-action="Index" class="nav-link @Url.MakeActiveClass("zonas","index")">Zonas</a>
+
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Departamentos" asp-action="Index">Departamentos</a>
                                     </li>
-                                     <li class="nav-item ">
-                                        <a asp-controller="Municipios" asp-action="Index" class="nav-link @Url.MakeActiveClass("municipios","index")">Municipios</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Zonas" asp-action="Index">Zonas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Municipios" asp-action="Index">Municipios</a>
                                     </li>
                                 </ul>
                             </div>
@@ -1713,7 +1719,7 @@
     <!-- Sweet Alerts js -->
     <script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!--datatable js-->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>

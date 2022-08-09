@@ -76,5 +76,9 @@ namespace DommunBackend.Data
                 );
         }
 
+        public DbSet<DommunBackend.DomainLayer.DTOs.AgenteDto>? AgenteDto { get; set; }
+
+        //public DbSet<DommunBackend.DomainLayer.DTOs.DepartamentoDto>? DepartamentoDto { get; set; }
+
     }
 }

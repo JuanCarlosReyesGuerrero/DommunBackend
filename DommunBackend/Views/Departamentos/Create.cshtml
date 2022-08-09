@@ -14,6 +14,7 @@
             <div class="card-body">
                 <div class="live-preview">
                     <form asp-action="Create" class="row g-3">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-md-4">
                             <label asp-for="Codigo" class="control-label"></label>
                             <input asp-for="Codigo" class="form-control" placeholder="Código" required />
@@ -43,8 +44,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div>    
+    <a asp-action="Index" class="btn btn-info">Regresar</a>
 </div>
 
 @section Scripts {

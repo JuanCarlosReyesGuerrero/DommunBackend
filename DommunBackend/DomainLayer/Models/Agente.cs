@@ -18,14 +18,14 @@
         public string? TelefonoContacto { get; set; }
         public string? Descripcion { get; set; }
         public string? FotoPerfil { get; set; }
-        public bool AeptaArriendo { get; set; }
+        public bool AceptaArriendo { get; set; }
         public bool AceptaVenta { get; set; }
         public bool Publicado { get; set; }
         public double PrecioArriendoMin { get; set; }
         public double PrecioVentaMin { get; set; }
         public string? DescripcionPerfil { get; set; }
         public int NumeroAvaluo { get; set; }
-        public DateTime fecha_inicio_plan { get; set; }
+        public DateTime FechaInicioPlan { get; set; }
         public string? RedesSociales { get; set; }
         public int ZonificacionId { get; set; }
         public int PlanMembresiaId { get; set; }
