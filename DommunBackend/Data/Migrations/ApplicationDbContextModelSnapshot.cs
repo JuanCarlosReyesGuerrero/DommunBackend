@@ -22,6 +22,94 @@ namespace DommunBackend.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("DommunBackend.DomainLayer.DTOs.AgenteDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("AceptaArriendo")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("AceptaVenta")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Apellido")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DescripcionPerfil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaInicioPlan")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FotoPerfil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MunicipioId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MunicipioNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumeroAvaluo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlanMembresiaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PlanMembresiaNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PrecioArriendoMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PrecioVentaMin")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("Publicado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RedesSociales")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TelefonoContacto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ZonificacionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZonificacionNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AgenteDto");
+                });
+
             modelBuilder.Entity("DommunBackend.DomainLayer.Models.Agente", b =>
                 {
                     b.Property<int>("Id")
@@ -1189,22 +1277,6 @@ namespace DommunBackend.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "ce9e7f01-a8f7-4234-b81a-ab36a6e74faa",
-                            ConcurrencyStamp = "2fc9bd3c-1b84-4489-8712-00b38e92cc0e",
-                            Name = "Agente",
-                            NormalizedName = "AGENTE"
-                        },
-                        new
-                        {
-                            Id = "fa327e3c-9f7d-4081-b0b3-657d3572b58e",
-                            ConcurrencyStamp = "2219f073-99dd-4a5a-abfc-10cf3d0b1e58",
-                            Name = "SuperAdmin",
-                            NormalizedName = "SUPERADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1357,18 +1429,6 @@ namespace DommunBackend.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "7074f8ef-a02b-4593-821f-b148c5687b66",
-                            RoleId = "ce9e7f01-a8f7-4234-b81a-ab36a6e74faa"
-                        },
-                        new
-                        {
-                            UserId = "7074f8ef-a02b-4593-821f-b148c5687b66",
-                            RoleId = "fa327e3c-9f7d-4081-b0b3-657d3572b58e"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

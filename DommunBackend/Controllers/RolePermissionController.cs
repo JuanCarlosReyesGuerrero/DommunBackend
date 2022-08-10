@@ -64,7 +64,7 @@ namespace DommunBackend.Controllers
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
 
@@ -127,7 +127,7 @@ namespace DommunBackend.Controllers
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
 
@@ -185,7 +185,7 @@ namespace DommunBackend.Controllers
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
 

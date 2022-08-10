@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DommunBackend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220808201506_modelos")]
-    partial class modelos
+    [Migration("20220810004929_nuevo")]
+    partial class nuevo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace DommunBackend.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("DommunBackend.DomainLayer.Models.Agente", b =>
+            modelBuilder.Entity("DommunBackend.DomainLayer.DTOs.AgenteDto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,10 +32,10 @@ namespace DommunBackend.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("AceptaVenta")
+                    b.Property<bool>("AceptaArriendo")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("AeptaArriendo")
+                    b.Property<bool>("AceptaVenta")
                         .HasColumnType("bit");
 
                     b.Property<string>("Apellido")
@@ -52,6 +52,97 @@ namespace DommunBackend.Data.Migrations
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaInicioPlan")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FotoPerfil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MunicipioId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MunicipioNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumeroAvaluo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlanMembresiaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PlanMembresiaNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PrecioArriendoMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PrecioVentaMin")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("Publicado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RedesSociales")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TelefonoContacto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ZonificacionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZonificacionNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AgenteDto");
+                });
+
+            modelBuilder.Entity("DommunBackend.DomainLayer.Models.Agente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("AceptaArriendo")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("AceptaVenta")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Apellido")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DescripcionPerfil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaInicioPlan")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FotoPerfil")
                         .HasColumnType("nvarchar(max)");
@@ -94,9 +185,6 @@ namespace DommunBackend.Data.Migrations
 
                     b.Property<int>("ZonificacionId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("fecha_inicio_plan")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1311,12 +1399,10 @@ namespace DommunBackend.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -1353,12 +1439,10 @@ namespace DommunBackend.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

@@ -5,10 +5,83 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DommunBackend.Data.Migrations
 {
-    public partial class modelos : Migration
+    public partial class nuevo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "AspNetUserTokens",
+                type: "nvarchar(450)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(128)",
+                oldMaxLength: 128);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "LoginProvider",
+                table: "AspNetUserTokens",
+                type: "nvarchar(450)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(128)",
+                oldMaxLength: 128);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "ProviderKey",
+                table: "AspNetUserLogins",
+                type: "nvarchar(450)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(128)",
+                oldMaxLength: 128);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "LoginProvider",
+                table: "AspNetUserLogins",
+                type: "nvarchar(450)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(128)",
+                oldMaxLength: 128);
+
+            migrationBuilder.CreateTable(
+                name: "AgenteDto",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TelefonoContacto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FotoPerfil = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AceptaArriendo = table.Column<bool>(type: "bit", nullable: false),
+                    AceptaVenta = table.Column<bool>(type: "bit", nullable: false),
+                    Publicado = table.Column<bool>(type: "bit", nullable: false),
+                    PrecioArriendoMin = table.Column<double>(type: "float", nullable: false),
+                    PrecioVentaMin = table.Column<double>(type: "float", nullable: false),
+                    DescripcionPerfil = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumeroAvaluo = table.Column<int>(type: "int", nullable: false),
+                    FechaInicioPlan = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RedesSociales = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ZonificacionId = table.Column<int>(type: "int", nullable: false),
+                    PlanMembresiaId = table.Column<int>(type: "int", nullable: false),
+                    MunicipioId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    ZonificacionNombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PlanMembresiaNombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MunicipioNombre = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AgenteDto", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "CatGestionDocumentales",
                 columns: table => new
@@ -27,27 +100,20 @@ namespace DommunBackend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Municipios",
+                name: "Departamentos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DepartamentoId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Municipios", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Municipios_Departamentos_DepartamentoId",
-                        column: x => x.DepartamentoId,
-                        principalTable: "Departamentos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_Departamentos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,6 +248,30 @@ namespace DommunBackend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Municipios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DepartamentoId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Municipios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Municipios_Departamentos_DepartamentoId",
+                        column: x => x.DepartamentoId,
+                        principalTable: "Departamentos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Caracteristicas",
                 columns: table => new
                 {
@@ -271,14 +361,14 @@ namespace DommunBackend.Data.Migrations
                     TelefonoContacto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FotoPerfil = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AeptaArriendo = table.Column<bool>(type: "bit", nullable: false),
+                    AceptaArriendo = table.Column<bool>(type: "bit", nullable: false),
                     AceptaVenta = table.Column<bool>(type: "bit", nullable: false),
                     Publicado = table.Column<bool>(type: "bit", nullable: false),
                     PrecioArriendoMin = table.Column<double>(type: "float", nullable: false),
                     PrecioVentaMin = table.Column<double>(type: "float", nullable: false),
                     DescripcionPerfil = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NumeroAvaluo = table.Column<int>(type: "int", nullable: false),
-                    fecha_inicio_plan = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaInicioPlan = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RedesSociales = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ZonificacionId = table.Column<int>(type: "int", nullable: false),
                     PlanMembresiaId = table.Column<int>(type: "int", nullable: false),
@@ -886,6 +976,9 @@ namespace DommunBackend.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AgenteDto");
+
+            migrationBuilder.DropTable(
                 name: "Comerciales");
 
             migrationBuilder.DropTable(
@@ -962,6 +1055,45 @@ namespace DommunBackend.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Zonificaciones");
+
+            migrationBuilder.DropTable(
+                name: "Departamentos");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "AspNetUserTokens",
+                type: "nvarchar(128)",
+                maxLength: 128,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(450)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "LoginProvider",
+                table: "AspNetUserTokens",
+                type: "nvarchar(128)",
+                maxLength: 128,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(450)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "ProviderKey",
+                table: "AspNetUserLogins",
+                type: "nvarchar(128)",
+                maxLength: 128,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(450)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "LoginProvider",
+                table: "AspNetUserLogins",
+                type: "nvarchar(128)",
+                maxLength: 128,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(450)");
         }
     }
 }

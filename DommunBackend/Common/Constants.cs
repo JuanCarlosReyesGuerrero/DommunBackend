@@ -7,6 +7,10 @@
         //public const string routeLogin = "/";
         public const string routeLogin = "Identity/Account/Login";
 
+        public const string Index = "Index";
+        public const string Home = "Home";
+        
+
 
         public const string Autorizado = "Autorizado";
         public const string NoAutorizado = "NoAutorizado";

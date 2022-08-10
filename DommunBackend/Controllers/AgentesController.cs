@@ -95,7 +95,7 @@ namespace DommunBackend.Controllers
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
 
@@ -166,7 +166,7 @@ namespace DommunBackend.Controllers
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
 
@@ -199,7 +199,7 @@ namespace DommunBackend.Controllers
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
 
@@ -258,11 +258,12 @@ namespace DommunBackend.Controllers
                     return View(model);
 
                 }
+
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
 
@@ -332,7 +333,7 @@ namespace DommunBackend.Controllers
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
 
@@ -397,7 +398,7 @@ namespace DommunBackend.Controllers
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
 
@@ -464,7 +465,7 @@ namespace DommunBackend.Controllers
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
 
@@ -494,7 +495,7 @@ namespace DommunBackend.Controllers
             }
             else
             {
-                return Redirect(Constants.routeLogin);
+                return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
     }
