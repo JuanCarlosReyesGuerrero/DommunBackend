@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using DommunBackend.Common.Logs;
-using DommunBackend.Data;
 using DommunBackend.DomainLayer.DTOs;
 using DommunBackend.DomainLayer.Models;
 using DommunBackend.ServiceLayer.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DommunBackend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ApiAgentesController : ControllerBase

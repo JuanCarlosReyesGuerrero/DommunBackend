@@ -47,7 +47,7 @@ builder.Services.AddTransient<IPlanMembresiaService, PlanMembresiaService>();
 
 //builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 //builder.Services.AddTransient<IUserService, UserService>();
-//builder.Services.AddTransient<IAuthToken, AuthToken>();
+builder.Services.AddTransient<IAuthToken, AuthToken>();
 
 #endregion
 
