@@ -51,10 +51,28 @@ builder.Services.AddTransient<IPlanMembresiaService, PlanMembresiaService>();
 
 #endregion
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 var app = builder.Build();
 
 
-//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+#region Shows UseCors with CorsPolicyBuilder.
+
+app.UseCors(builder =>
+{
+    builder
+    //.WithOrigins("https://www.yogihosting.com")
+    //https://www.yogihosting.com/aspnet-core-enable-cors/
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+});
+
+app.UseCors();
+
+#endregion
+
 
 
 // Configure the HTTP request pipeline.

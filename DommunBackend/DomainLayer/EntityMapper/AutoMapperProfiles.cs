@@ -11,8 +11,11 @@ namespace DommunBackend.DomainLayer.EntityMapper
             CreateMap<Departamento, DepartamentoDto>().ReverseMap();
             CreateMap<DepartamentoDto, Departamento>();
 
-            //CreateMap<Municipio, DepartamentoDto>().ReverseMap();
-            //CreateMap<DepartamentoDto, Municipio>();
+            CreateMap<Municipio, MunicipioDto>().ReverseMap();
+            CreateMap<MunicipioDto, Municipio>();
+
+            CreateMap<Agente, AgenteDto>().ReverseMap();
+            CreateMap<AgenteDto, Agente>();
         }
     }
 }

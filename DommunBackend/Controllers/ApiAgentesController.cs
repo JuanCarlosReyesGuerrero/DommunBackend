@@ -5,35 +5,36 @@ using DommunBackend.DomainLayer.DTOs;
 using DommunBackend.DomainLayer.Models;
 using DommunBackend.ServiceLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DommunBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiDepartamentoController : ControllerBase
+    public class ApiAgentesController : ControllerBase
     {
         EnviarLog enviarLog = new EnviarLog();
 
-        private readonly IDepartamentoService objService;
+        private readonly IAgenteService objService;
         private readonly IMapper mapper;
 
-        public ApiDepartamentoController(IDepartamentoService _objService, IMapper _mapper)
+        public ApiAgentesController(IAgenteService _objService, IMapper _mapper)
         {
             this.objService = _objService;
             this.mapper = _mapper;
         }
-
-        [HttpGet(nameof(GetAllDepartamentos))]
-        public Result GetAllDepartamentos()
+        
+        [HttpGet(nameof(GetAllAgentes))]
+        public Result GetAllAgentes()
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var queryTable = objService.GetAllDepartamentos();
-                var departamentos = queryTable.OrderBy(x => x.Nombre).ToList();
+                var queryTable = objService.GetAllAgentes();
+                var agentes = queryTable.OrderBy(x => x.Nombre).ToList();
 
-                var lstTemp = mapper.Map<List<DepartamentoDto>>(departamentos);
+                var lstTemp = mapper.Map<List<AgenteDto>>(agentes);
 
                 if (lstTemp.Count >= 0)
                 {
@@ -51,56 +52,46 @@ namespace DommunBackend.Controllers
             return oRespuesta;
         }
 
-
-
-
-
-
-
-
-
-
-
-        //// GET: api/ApiDepartamentos
+        //// GET: api/ApiAgentes
         //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<DepartamentoDto>>> GetDepartamentoDto()
+        //public async Task<ActionResult<IEnumerable<AgenteDto>>> GetAgenteDto()
         //{
-        //  if (_context.DepartamentoDto == null)
+        //  if (_context.AgenteDto == null)
         //  {
         //      return NotFound();
         //  }
-        //    return await _context.DepartamentoDto.ToListAsync();
+        //    return await _context.AgenteDto.ToListAsync();
         //}
 
-        //// GET: api/ApiDepartamentos/5
+        //// GET: api/ApiAgentes/5
         //[HttpGet("{id}")]
-        //public async Task<ActionResult<DepartamentoDto>> GetDepartamentoDto(int id)
+        //public async Task<ActionResult<AgenteDto>> GetAgenteDto(int id)
         //{
-        //  if (_context.DepartamentoDto == null)
+        //  if (_context.AgenteDto == null)
         //  {
         //      return NotFound();
         //  }
-        //    var departamentoDto = await _context.DepartamentoDto.FindAsync(id);
+        //    var agenteDto = await _context.AgenteDto.FindAsync(id);
 
-        //    if (departamentoDto == null)
+        //    if (agenteDto == null)
         //    {
         //        return NotFound();
         //    }
 
-        //    return departamentoDto;
+        //    return agenteDto;
         //}
 
-        //// PUT: api/ApiDepartamentos/5
+        //// PUT: api/ApiAgentes/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutDepartamentoDto(int id, DepartamentoDto departamentoDto)
+        //public async Task<IActionResult> PutAgenteDto(int id, AgenteDto agenteDto)
         //{
-        //    if (id != departamentoDto.Id)
+        //    if (id != agenteDto.Id)
         //    {
         //        return BadRequest();
         //    }
 
-        //    _context.Entry(departamentoDto).State = EntityState.Modified;
+        //    _context.Entry(agenteDto).State = EntityState.Modified;
 
         //    try
         //    {
@@ -108,7 +99,7 @@ namespace DommunBackend.Controllers
         //    }
         //    catch (DbUpdateConcurrencyException)
         //    {
-        //        if (!DepartamentoDtoExists(id))
+        //        if (!AgenteDtoExists(id))
         //        {
         //            return NotFound();
         //        }
@@ -121,44 +112,44 @@ namespace DommunBackend.Controllers
         //    return NoContent();
         //}
 
-        //// POST: api/ApiDepartamentos
+        //// POST: api/ApiAgentes
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPost]
-        //public async Task<ActionResult<DepartamentoDto>> PostDepartamentoDto(DepartamentoDto departamentoDto)
+        //public async Task<ActionResult<AgenteDto>> PostAgenteDto(AgenteDto agenteDto)
         //{
-        //  if (_context.DepartamentoDto == null)
+        //  if (_context.AgenteDto == null)
         //  {
-        //      return Problem("Entity set 'ApplicationDbContext.DepartamentoDto'  is null.");
+        //      return Problem("Entity set 'ApplicationDbContext.AgenteDto'  is null.");
         //  }
-        //    _context.DepartamentoDto.Add(departamentoDto);
+        //    _context.AgenteDto.Add(agenteDto);
         //    await _context.SaveChangesAsync();
 
-        //    return CreatedAtAction("GetDepartamentoDto", new { id = departamentoDto.Id }, departamentoDto);
+        //    return CreatedAtAction("GetAgenteDto", new { id = agenteDto.Id }, agenteDto);
         //}
 
-        //// DELETE: api/ApiDepartamentos/5
+        //// DELETE: api/ApiAgentes/5
         //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteDepartamentoDto(int id)
+        //public async Task<IActionResult> DeleteAgenteDto(int id)
         //{
-        //    if (_context.DepartamentoDto == null)
+        //    if (_context.AgenteDto == null)
         //    {
         //        return NotFound();
         //    }
-        //    var departamentoDto = await _context.DepartamentoDto.FindAsync(id);
-        //    if (departamentoDto == null)
+        //    var agenteDto = await _context.AgenteDto.FindAsync(id);
+        //    if (agenteDto == null)
         //    {
         //        return NotFound();
         //    }
 
-        //    _context.DepartamentoDto.Remove(departamentoDto);
+        //    _context.AgenteDto.Remove(agenteDto);
         //    await _context.SaveChangesAsync();
 
         //    return NoContent();
         //}
 
-        //private bool DepartamentoDtoExists(int id)
+        //private bool AgenteDtoExists(int id)
         //{
-        //    return (_context.DepartamentoDto?.Any(e => e.Id == id)).GetValueOrDefault();
+        //    return (_context.AgenteDto?.Any(e => e.Id == id)).GetValueOrDefault();
         //}
     }
 }
