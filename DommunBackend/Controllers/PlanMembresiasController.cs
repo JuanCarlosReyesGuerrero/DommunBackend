@@ -8,22 +8,20 @@ using static DommunBackend.Common.Enums;
 
 namespace DommunBackend.Controllers
 {
-    public class DepartamentosController : Controller
+    public class PlanMembresiasController : Controller
     {
-        private readonly IDepartamentoService objService;
+        private readonly IPlanMembresiaService objService;
         private readonly IAutenticacionAppService objAutenticacion;
 
         private string userId = "";
         private bool permisoUsuario = false;
 
-        ApplicationDbModel objModelAuth = new ApplicationDbModel();
-
-        public DepartamentosController(IDepartamentoService _objService, IAutenticacionAppService _objAutenticacion)
+        public PlanMembresiasController(IAutenticacionAppService _objAutenticacion, IPlanMembresiaService _objService)
         {
             this.objService = _objService;
             this.objAutenticacion = _objAutenticacion;
         }
-       
+
         public async Task<IActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -33,7 +31,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.PlanMembresia),
                     vPermiso = Convert.ToString(MenuPermiso.View)
                 };
 
@@ -41,15 +39,16 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                    List<DepartamentoDto> model = new List<DepartamentoDto>();
+                    List<PlanMembresiaDto> model = new List<PlanMembresiaDto>();
 
-                    objService.GetAllDepartamentos().ToList().ForEach(u =>
+                    objService.GetAllPlanMembresias().ToList().ForEach(u =>
                     {
-                        DepartamentoDto objModel = new DepartamentoDto
+                        PlanMembresiaDto objModel = new PlanMembresiaDto
                         {
-                            Id = u.Id,
-                            Codigo = u.Codigo,
+                            Id = u.Id,                            
                             Nombre = u.Nombre,
+                            PrecioFijo = u.PrecioFijo,
+                            PrecioPromocion = u.PrecioPromocion,
                             IsActive = u.IsActive,
                         };
 
@@ -65,7 +64,7 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-        
+
         public async Task<IActionResult> Details(int? id)
         {
             if (User.Identity.IsAuthenticated)
@@ -75,7 +74,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.PlanMembresia),
                     vPermiso = Convert.ToString(MenuPermiso.View)
                 };
 
@@ -83,21 +82,22 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                if (id == null)
-                {
-                    return NotFound();
-                }
+                    if (id == null)
+                    {
+                        return NotFound();
+                    }
 
-                DepartamentoDto model = new DepartamentoDto();
+                    PlanMembresiaDto model = new PlanMembresiaDto();
 
-                if (id.HasValue && id != 0)
-                {
-                    Departamento Entity = objService.GetDepartamentoById(id);
+                    if (id.HasValue && id != 0)
+                    {
+                        PlanMembresia Entity = objService.GetPlanMembresiaById(id);
 
-                    model.Id = Entity.Id;
-                    model.Codigo = Entity.Codigo;
-                    model.Nombre = Entity.Nombre;
-                    model.IsActive = Entity.IsActive;
+                        model.Id = Entity.Id;                       
+                        model.Nombre = Entity.Nombre;
+                        model.PrecioFijo = Entity.PrecioFijo;
+                        model.PrecioPromocion = Entity.PrecioPromocion;
+                        model.IsActive = Entity.IsActive;
                     }
 
                     return View(model);
@@ -110,7 +110,7 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-        
+
         public IActionResult Create()
         {
             if (User.Identity.IsAuthenticated)
@@ -120,7 +120,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.PlanMembresia),
                     vPermiso = Convert.ToString(MenuPermiso.Create)
                 };
 
@@ -128,9 +128,9 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                    DepartamentoDto model = new DepartamentoDto();
+                    PlanMembresiaDto model = new PlanMembresiaDto();
 
-                return View(model);
+                    return View(model);
                 }
                 return RedirectToAction("Index", "Home");
             }
@@ -139,10 +139,10 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DepartamentoDto model)
+        public async Task<IActionResult> Create(PlanMembresiaDto model)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -151,7 +151,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.PlanMembresia),
                     vPermiso = Convert.ToString(MenuPermiso.Create)
                 };
 
@@ -159,23 +159,24 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                    Departamento Entity = new Departamento
-                {
-                    Id = model.Id,
-                    Codigo = model.Codigo,
-                    Nombre = model.Nombre,
-                    IsActive = model.IsActive,
-                    CreatedDate = DateTime.UtcNow,
-                };
+                    PlanMembresia Entity = new PlanMembresia
+                    {
+                        Id = model.Id,                        
+                        Nombre = model.Nombre,
+                        PrecioFijo = model.PrecioFijo,
+                        PrecioPromocion = model.PrecioPromocion,
+                        IsActive = model.IsActive,
+                        CreatedDate = DateTime.UtcNow,
+                    };
 
-                objService.InsertDepartamento(Entity);
+                    objService.InsertPlanMembresia(Entity);
 
-                if (Entity.Id > 0)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
+                    if (Entity.Id > 0)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
 
-                return View(model);
+                    return View(model);
 
                 }
                 return RedirectToAction("Index", "Home");
@@ -185,7 +186,7 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (User.Identity.IsAuthenticated)
@@ -195,7 +196,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.PlanMembresia),
                     vPermiso = Convert.ToString(MenuPermiso.Edit)
                 };
 
@@ -204,28 +205,29 @@ namespace DommunBackend.Controllers
                 if (permisoUsuario)
                 {
                     if (id == null)
-                {
-                    return NotFound();
-                }
+                    {
+                        return NotFound();
+                    }
 
-                DepartamentoDto model = new DepartamentoDto();
+                    PlanMembresiaDto model = new PlanMembresiaDto();
 
-                if (id.HasValue && id != 0)
-                {
-                    Departamento Entity = objService.GetDepartamentoById(id.Value);
+                    if (id.HasValue && id != 0)
+                    {
+                        PlanMembresia Entity = objService.GetPlanMembresiaById(id.Value);
 
-                    model.Id = Entity.Id;
-                    model.Codigo = Entity.Codigo;
-                    model.Nombre = Entity.Nombre;
-                    model.IsActive = Entity.IsActive;
-                }
+                        model.Id = Entity.Id;
+                        model.Nombre = Entity.Nombre;
+                        model.PrecioFijo = Entity.PrecioFijo;
+                        model.PrecioPromocion = Entity.PrecioPromocion;
+                        model.IsActive = Entity.IsActive;
+                    }
 
-                if (model == null)
-                {
-                    return NotFound();
-                }
+                    if (model == null)
+                    {
+                        return NotFound();
+                    }
 
-                return View(model);
+                    return View(model);
                 }
                 return RedirectToAction("Index", "Home");
             }
@@ -234,10 +236,10 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(DepartamentoDto model)
+        public async Task<IActionResult> Edit(PlanMembresiaDto model)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -246,7 +248,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.PlanMembresia),
                     vPermiso = Convert.ToString(MenuPermiso.Edit)
                 };
 
@@ -254,23 +256,24 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                    Departamento Entity = objService.GetDepartamentoById(model.Id);
+                    PlanMembresia Entity = objService.GetPlanMembresiaById(model.Id);
 
-                Entity.Id = model.Id;
-                Entity.Codigo = model.Codigo;
-                Entity.Nombre = model.Nombre;
-                Entity.IsActive = model.IsActive;
-                Entity.ModifiedDate = DateTime.UtcNow;
+                    Entity.Id = model.Id;                    
+                    Entity.Nombre = model.Nombre;
+                    Entity.PrecioFijo = model.PrecioFijo;
+                    Entity.PrecioPromocion = model.PrecioPromocion;
+                    Entity.IsActive = model.IsActive;
+                    Entity.ModifiedDate = DateTime.UtcNow;
 
-                objService.UpdateDepartamento(Entity);
+                    objService.UpdatePlanMembresia(Entity);
 
-                if (Entity.Id > 0)
-                {
-                    return RedirectToAction(nameof(Index));
+                    if (Entity.Id > 0)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                    return View(model);
                 }
-
-                return View(model);
-               }
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -278,7 +281,7 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (User.Identity.IsAuthenticated)
@@ -288,7 +291,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.PlanMembresia),
                     vPermiso = Convert.ToString(MenuPermiso.Delete)
                 };
 
@@ -297,28 +300,29 @@ namespace DommunBackend.Controllers
                 if (permisoUsuario)
                 {
                     if (id == null)
-                {
-                    return NotFound();
-                }
+                    {
+                        return NotFound();
+                    }
 
-                DepartamentoDto model = new DepartamentoDto();
+                    PlanMembresiaDto model = new PlanMembresiaDto();
 
-                if (id.HasValue && id != 0)
-                {
-                    Departamento Entity = objService.GetDepartamentoById(id);
+                    if (id.HasValue && id != 0)
+                    {
+                        PlanMembresia Entity = objService.GetPlanMembresiaById(id);
 
-                    model.Id = Entity.Id;
-                    model.Codigo = Entity.Codigo;
-                    model.Nombre = Entity.Nombre;
-                    model.IsActive = Entity.IsActive;
-                }
+                        model.Id = Entity.Id;                       
+                        model.Nombre = Entity.Nombre;
+                        model.PrecioFijo = Entity.PrecioFijo;
+                        model.PrecioPromocion = Entity.PrecioPromocion;
+                        model.IsActive = Entity.IsActive;
+                    }
 
-                if (model == null)
-                {
-                    return NotFound();
-                }
+                    if (model == null)
+                    {
+                        return NotFound();
+                    }
 
-                return View(model);
+                    return View(model);
                 }
                 return RedirectToAction("Index", "Home");
             }
@@ -327,7 +331,7 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -339,7 +343,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.PlanMembresia),
                     vPermiso = Convert.ToString(MenuPermiso.Delete)
                 };
 
@@ -347,8 +351,8 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                    objService.DeleteDepartamento(id);
-                return RedirectToAction(nameof(Index));
+                    objService.DeletePlanMembresia(id);
+                    return RedirectToAction(nameof(Index));
                 }
                 return RedirectToAction("Index", "Home");
             }

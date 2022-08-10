@@ -8,22 +8,20 @@ using static DommunBackend.Common.Enums;
 
 namespace DommunBackend.Controllers
 {
-    public class DepartamentosController : Controller
+    public class ZonificacionesController : Controller
     {
-        private readonly IDepartamentoService objService;
+        private readonly IZonificacionService objService;
         private readonly IAutenticacionAppService objAutenticacion;
 
         private string userId = "";
         private bool permisoUsuario = false;
 
-        ApplicationDbModel objModelAuth = new ApplicationDbModel();
-
-        public DepartamentosController(IDepartamentoService _objService, IAutenticacionAppService _objAutenticacion)
+        public ZonificacionesController(IAutenticacionAppService _objAutenticacion, IZonificacionService _objService)
         {
             this.objService = _objService;
             this.objAutenticacion = _objAutenticacion;
         }
-       
+
         public async Task<IActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -33,7 +31,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.Zonificacion),
                     vPermiso = Convert.ToString(MenuPermiso.View)
                 };
 
@@ -41,11 +39,11 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                    List<DepartamentoDto> model = new List<DepartamentoDto>();
+                    List<ZonificacionDto> model = new List<ZonificacionDto>();
 
-                    objService.GetAllDepartamentos().ToList().ForEach(u =>
+                    objService.GetAllZonificaciones().ToList().ForEach(u =>
                     {
-                        DepartamentoDto objModel = new DepartamentoDto
+                        ZonificacionDto objModel = new ZonificacionDto
                         {
                             Id = u.Id,
                             Codigo = u.Codigo,
@@ -65,7 +63,7 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-        
+
         public async Task<IActionResult> Details(int? id)
         {
             if (User.Identity.IsAuthenticated)
@@ -75,7 +73,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.Zonificacion),
                     vPermiso = Convert.ToString(MenuPermiso.View)
                 };
 
@@ -83,21 +81,21 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                if (id == null)
-                {
-                    return NotFound();
-                }
+                    if (id == null)
+                    {
+                        return NotFound();
+                    }
 
-                DepartamentoDto model = new DepartamentoDto();
+                    ZonificacionDto model = new ZonificacionDto();
 
-                if (id.HasValue && id != 0)
-                {
-                    Departamento Entity = objService.GetDepartamentoById(id);
+                    if (id.HasValue && id != 0)
+                    {
+                        Zonificacion Entity = objService.GetZonificacionById(id);
 
-                    model.Id = Entity.Id;
-                    model.Codigo = Entity.Codigo;
-                    model.Nombre = Entity.Nombre;
-                    model.IsActive = Entity.IsActive;
+                        model.Id = Entity.Id;
+                        model.Codigo = Entity.Codigo;
+                        model.Nombre = Entity.Nombre;
+                        model.IsActive = Entity.IsActive;
                     }
 
                     return View(model);
@@ -110,7 +108,7 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-        
+
         public IActionResult Create()
         {
             if (User.Identity.IsAuthenticated)
@@ -120,7 +118,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.Zonificacion),
                     vPermiso = Convert.ToString(MenuPermiso.Create)
                 };
 
@@ -128,9 +126,9 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                    DepartamentoDto model = new DepartamentoDto();
+                    ZonificacionDto model = new ZonificacionDto();
 
-                return View(model);
+                    return View(model);
                 }
                 return RedirectToAction("Index", "Home");
             }
@@ -139,10 +137,10 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DepartamentoDto model)
+        public async Task<IActionResult> Create(ZonificacionDto model)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -151,7 +149,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.Zonificacion),
                     vPermiso = Convert.ToString(MenuPermiso.Create)
                 };
 
@@ -159,23 +157,23 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                    Departamento Entity = new Departamento
-                {
-                    Id = model.Id,
-                    Codigo = model.Codigo,
-                    Nombre = model.Nombre,
-                    IsActive = model.IsActive,
-                    CreatedDate = DateTime.UtcNow,
-                };
+                    Zonificacion Entity = new Zonificacion
+                    {
+                        Id = model.Id,
+                        Codigo = model.Codigo,
+                        Nombre = model.Nombre,
+                        IsActive = model.IsActive,
+                        CreatedDate = DateTime.UtcNow,
+                    };
 
-                objService.InsertDepartamento(Entity);
+                    objService.InsertZonificacion(Entity);
 
-                if (Entity.Id > 0)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
+                    if (Entity.Id > 0)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
 
-                return View(model);
+                    return View(model);
 
                 }
                 return RedirectToAction("Index", "Home");
@@ -185,7 +183,7 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (User.Identity.IsAuthenticated)
@@ -195,7 +193,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.Zonificacion),
                     vPermiso = Convert.ToString(MenuPermiso.Edit)
                 };
 
@@ -204,28 +202,28 @@ namespace DommunBackend.Controllers
                 if (permisoUsuario)
                 {
                     if (id == null)
-                {
-                    return NotFound();
-                }
+                    {
+                        return NotFound();
+                    }
 
-                DepartamentoDto model = new DepartamentoDto();
+                    ZonificacionDto model = new ZonificacionDto();
 
-                if (id.HasValue && id != 0)
-                {
-                    Departamento Entity = objService.GetDepartamentoById(id.Value);
+                    if (id.HasValue && id != 0)
+                    {
+                        Zonificacion Entity = objService.GetZonificacionById(id.Value);
 
-                    model.Id = Entity.Id;
-                    model.Codigo = Entity.Codigo;
-                    model.Nombre = Entity.Nombre;
-                    model.IsActive = Entity.IsActive;
-                }
+                        model.Id = Entity.Id;
+                        model.Codigo = Entity.Codigo;
+                        model.Nombre = Entity.Nombre;
+                        model.IsActive = Entity.IsActive;
+                    }
 
-                if (model == null)
-                {
-                    return NotFound();
-                }
+                    if (model == null)
+                    {
+                        return NotFound();
+                    }
 
-                return View(model);
+                    return View(model);
                 }
                 return RedirectToAction("Index", "Home");
             }
@@ -234,10 +232,10 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(DepartamentoDto model)
+        public async Task<IActionResult> Edit(ZonificacionDto model)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -246,7 +244,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.Zonificacion),
                     vPermiso = Convert.ToString(MenuPermiso.Edit)
                 };
 
@@ -254,23 +252,23 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                    Departamento Entity = objService.GetDepartamentoById(model.Id);
+                    Zonificacion Entity = objService.GetZonificacionById(model.Id);
 
-                Entity.Id = model.Id;
-                Entity.Codigo = model.Codigo;
-                Entity.Nombre = model.Nombre;
-                Entity.IsActive = model.IsActive;
-                Entity.ModifiedDate = DateTime.UtcNow;
+                    Entity.Id = model.Id;
+                    Entity.Codigo = model.Codigo;
+                    Entity.Nombre = model.Nombre;
+                    Entity.IsActive = model.IsActive;
+                    Entity.ModifiedDate = DateTime.UtcNow;
 
-                objService.UpdateDepartamento(Entity);
+                    objService.UpdateZonificacion(Entity);
 
-                if (Entity.Id > 0)
-                {
-                    return RedirectToAction(nameof(Index));
+                    if (Entity.Id > 0)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                    return View(model);
                 }
-
-                return View(model);
-               }
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -278,7 +276,7 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (User.Identity.IsAuthenticated)
@@ -288,7 +286,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.Zonificacion),
                     vPermiso = Convert.ToString(MenuPermiso.Delete)
                 };
 
@@ -297,28 +295,28 @@ namespace DommunBackend.Controllers
                 if (permisoUsuario)
                 {
                     if (id == null)
-                {
-                    return NotFound();
-                }
+                    {
+                        return NotFound();
+                    }
 
-                DepartamentoDto model = new DepartamentoDto();
+                    ZonificacionDto model = new ZonificacionDto();
 
-                if (id.HasValue && id != 0)
-                {
-                    Departamento Entity = objService.GetDepartamentoById(id);
+                    if (id.HasValue && id != 0)
+                    {
+                        Zonificacion Entity = objService.GetZonificacionById(id);
 
-                    model.Id = Entity.Id;
-                    model.Codigo = Entity.Codigo;
-                    model.Nombre = Entity.Nombre;
-                    model.IsActive = Entity.IsActive;
-                }
+                        model.Id = Entity.Id;
+                        model.Codigo = Entity.Codigo;
+                        model.Nombre = Entity.Nombre;
+                        model.IsActive = Entity.IsActive;
+                    }
 
-                if (model == null)
-                {
-                    return NotFound();
-                }
+                    if (model == null)
+                    {
+                        return NotFound();
+                    }
 
-                return View(model);
+                    return View(model);
                 }
                 return RedirectToAction("Index", "Home");
             }
@@ -327,7 +325,7 @@ namespace DommunBackend.Controllers
                 return RedirectToAction(Constants.Index, Constants.Home);
             }
         }
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -339,7 +337,7 @@ namespace DommunBackend.Controllers
                 ApplicationDbModel objModelAuth = new ApplicationDbModel()
                 {
                     vUserId = userId,
-                    vMenu = Convert.ToString(MenuOptions.Departamento),
+                    vMenu = Convert.ToString(MenuOptions.Zonificacion),
                     vPermiso = Convert.ToString(MenuPermiso.Delete)
                 };
 
@@ -347,8 +345,8 @@ namespace DommunBackend.Controllers
 
                 if (permisoUsuario)
                 {
-                    objService.DeleteDepartamento(id);
-                return RedirectToAction(nameof(Index));
+                    objService.DeleteZonificacion(id);
+                    return RedirectToAction(nameof(Index));
                 }
                 return RedirectToAction("Index", "Home");
             }

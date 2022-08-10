@@ -13,6 +13,9 @@
             Departamento,
             Municipio,
 
+            Zonificacion,
+            PlanMembresia,
+
 
             Roles,
             RolPermisos,
