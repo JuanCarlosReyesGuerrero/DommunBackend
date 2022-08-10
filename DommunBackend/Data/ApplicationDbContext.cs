@@ -54,8 +54,8 @@ namespace DommunBackend.Data
 
             base.OnModelCreating(builder);
 
-            this.SeedRoles(builder);
-            this.SeedUserRoles(builder);
+            //this.SeedRoles(builder);
+            //this.SeedUserRoles(builder);
         }
 
         //public DbSet<DommunBackend.DomainLayer.DTOs.MunicipioDto>? MunicipioDto { get; set; }
