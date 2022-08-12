@@ -39,10 +39,11 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                     if (vValida.ToString() == "Success")
                     {
                         UsuarioLoginDto model = new UsuarioLoginDto();
-
-                        model.UserName = result.UserName;
-                        model.Email = result.Email;
-                        //model.Rol = result.ro
+                        {
+                            model.UserName = result.UserName;
+                            model.Email = result.Email;
+                            //model.Rol = result.ro
+                        };
 
                         oRespuesta.Success = true;
                         oRespuesta.Data = model;

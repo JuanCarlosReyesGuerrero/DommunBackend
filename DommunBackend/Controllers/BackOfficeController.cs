@@ -1,14 +1,13 @@
 ﻿using Commun;
 using Commun.Logs;
-using DomainLayer.Dtos;
 using DomainLayer.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 using ServicesLayer.Interface;
 
 namespace DommunBackend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BackOfficeController : ControllerBase
@@ -35,7 +34,7 @@ namespace DommunBackend.Controllers
                 if (vRespuesta.Success == true)
                 {
                     oRespuesta.Success = true;
-                    //oRespuesta.Data = vRespuesta;
+                    oRespuesta.Message = Constantes.msjLoginCorrecto;
                     oRespuesta.Data = vRespuesta.Data;
 
                     return Ok(oRespuesta);
