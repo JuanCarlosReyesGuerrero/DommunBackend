@@ -1,6 +1,6 @@
 ﻿using DomainLayer.Models;
 
-namespace RepositoryLayer.RespositoryPattern
+namespace RepositoryLayer.RespositoryPattern.Interface
 {
     public interface IRepository<T> where T : BaseEntity
     {

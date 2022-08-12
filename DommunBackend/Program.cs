@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
 using RepositoryLayer.RespositoryPattern;
+using RepositoryLayer.RespositoryPattern.Interface;
+using RepositoryLayer.RespositoryPattern.Repository;
 using ServicesLayer.Interface;
 using ServicesLayer.Service;
 using System.Text;
@@ -69,8 +71,11 @@ builder.Services.AddSwaggerGen();
 #region Services Injected  
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IBackOfficeRepository), typeof(BackOfficeRepository));
+
 builder.Services.AddTransient<IAgenteService, AgenteService>();
 builder.Services.AddTransient<IInmobiliariaService, InmobiliariaService>();
+builder.Services.AddScoped(typeof(IBackOfficeService), typeof(BackOfficeService));
 
 builder.Services.AddTransient<IAuthToken, AuthToken>();
 

@@ -1,5 +1,5 @@
 ﻿using DomainLayer.Models;
-using RepositoryLayer.RespositoryPattern;
+using RepositoryLayer.RespositoryPattern.Interface;
 using ServicesLayer.Interface;
 
 namespace ServicesLayer.Service

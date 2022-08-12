@@ -1,23 +1,20 @@
 ﻿using DomainLayer.Models;
 using Microsoft.EntityFrameworkCore;
+using RepositoryLayer.RespositoryPattern.Interface;
 
-namespace RepositoryLayer.RespositoryPattern
+namespace RepositoryLayer.RespositoryPattern.Repository
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
-    {
-        #region property  
+    {        
         private readonly ApplicationDbContext _applicationDbContext;
         private DbSet<T> entities;
-        #endregion
-
-        #region Constructor  
+          
         public Repository(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
             entities = _applicationDbContext.Set<T>();
         }
-        #endregion
-
+     
         public void Delete(T entity)
         {
             if (entity == null)

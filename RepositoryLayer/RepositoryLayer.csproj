@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Commun\Commun.csproj" />
     <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
   </ItemGroup>
 
