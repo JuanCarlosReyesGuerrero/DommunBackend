@@ -17,5 +17,7 @@
         public int? InmobiliariaId { get; set; }
 
         public virtual Inmobiliaria? Inmobiliaria { get; set; }
+
+        public virtual ICollection<Propiedad>? Propiedades { get; set; }
     }
 }

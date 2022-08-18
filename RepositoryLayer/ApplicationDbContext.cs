@@ -15,6 +15,14 @@ namespace RepositoryLayer
         }
 
         public DbSet<Agente> Agentes { get; set; }
+        public DbSet<Ciudad> Ciudades { get; set; }
+        public DbSet<EstadoPropiedad> EstadoPropiedades { get; set; }
+        public DbSet<Fotografia> Fotografias { get; set; }
+        public DbSet<FotografiaPropiedad> FotografiaPropiedades { get; set; }
+        public DbSet<Inmobiliaria> Inmobiliarias { get; set; }
+        public DbSet<Propiedad> Propiedades { get; set; }
+        public DbSet<TipoPropiedad> TipoPropiedades { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
