@@ -29,8 +29,8 @@ namespace DomainLayer.Dtos
         [Display(Name = "Celular")]
         public string? Celular { get; set; }
 
-        [Display(Name = "Empresa")]
-        public string? Empresa { get; set; }
+        [Display(Name = "Inmobiliaria")]
+        public int InmobiliariaId { get; set; }
 
         [Display(Name = "Facebook")]
         public string? Facebook { get; set; }

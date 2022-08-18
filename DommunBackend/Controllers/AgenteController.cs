@@ -94,13 +94,13 @@ namespace DommunBackend.Controllers
         /// <param name="customer"></param>
         /// <returns></returns>
         [HttpPost(nameof(InsertAgente))]
-        public Result InsertAgente(Agente customer)
+        public Result InsertAgente(Agente objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.InsertAgente(customer);
+                agenteService.InsertAgente(objModel);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Guardado";
@@ -122,13 +122,13 @@ namespace DommunBackend.Controllers
         /// <param name="customer"></param>
         /// <returns></returns>
         [HttpPut(nameof(UpdateAgente))]
-        public Result UpdateAgente(Agente customer)
+        public Result UpdateAgente(Agente objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.UpdateAgente(customer);
+                agenteService.UpdateAgente(objModel);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Actualizado";
