@@ -11,34 +11,34 @@ namespace DommunBackend.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AgenteController : ControllerBase
+    public class PropiedadController : ControllerBase
     {
         EnviarLog enviarLog = new EnviarLog();
 
-        private readonly IAgenteService agenteService;
+        private readonly IPropiedadService agenteService;
         private readonly IMapper mapper;
 
-        public AgenteController(IAgenteService _agenteService, IMapper _mapper)
+        public PropiedadController(IPropiedadService _agenteService, IMapper _mapper)
         {
             this.agenteService = _agenteService;
             this.mapper = _mapper;
         }
 
         /// <summary>
-        /// GetAllAgentes
+        /// GetAllPropiedads
         /// </summary>
         /// <returns></returns>
-        [HttpGet(nameof(GetAllAgentes))]
-        public Result GetAllAgentes()
+        [HttpGet(nameof(GetAllPropiedades))]
+        public Result GetAllPropiedades()
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var queryTable = agenteService.GetAllAgentes();
-                var objModel = queryTable.OrderBy(x => x.Nombres).ToList();
+                var queryTable = agenteService.GetAllPropiedades();
+                var objModel = queryTable.OrderBy(x => x.Titulo).ToList();
 
-                var lstTemp = mapper.Map<List<AgenteDto>>(objModel);
+                var lstTemp = mapper.Map<List<PropiedadDto>>(objModel);
 
                 if (lstTemp.Count >= 0)
                 {
@@ -57,20 +57,20 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// GetAgente
+        /// GetPropiedad
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpGet(nameof(GetAgente))]
-        public Result GetAgente(int Id)
+        [HttpGet(nameof(GetPropiedad))]
+        public Result GetPropiedad(int Id)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var objModel = agenteService.GetAgenteById(Id);
+                var objModel = agenteService.GetPropiedadById(Id);
 
-                var lstTemp = mapper.Map<AgenteDto>(objModel);
+                var lstTemp = mapper.Map<PropiedadDto>(objModel);
 
                 if (lstTemp != null)
                 {
@@ -89,18 +89,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// InsertAgente
+        /// InsertPropiedad
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        [HttpPost(nameof(InsertAgente))]
-        public Result InsertAgente(Agente customer)
+        [HttpPost(nameof(InsertPropiedad))]
+        public Result InsertPropiedad(Propiedad customer)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.InsertAgente(customer);
+                agenteService.InsertPropiedad(customer);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Guardado";
@@ -117,18 +117,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// UpdateAgente
+        /// UpdatePropiedad
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        [HttpPut(nameof(UpdateAgente))]
-        public Result UpdateAgente(Agente customer)
+        [HttpPut(nameof(UpdatePropiedad))]
+        public Result UpdatePropiedad(Propiedad customer)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.UpdateAgente(customer);
+                agenteService.UpdatePropiedad(customer);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Actualizado";
@@ -145,18 +145,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// DeleteAgente
+        /// DeletePropiedad
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpDelete(nameof(DeleteAgente))]
-        public Result DeleteAgente(int Id)
+        [HttpDelete(nameof(DeletePropiedad))]
+        public Result DeletePropiedad(int Id)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.DeleteAgente(Id);
+                agenteService.DeletePropiedad(Id);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Eliminado";

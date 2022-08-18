@@ -76,6 +76,12 @@ builder.Services.AddScoped(typeof(IBackOfficeRepository), typeof(BackOfficeRepos
 builder.Services.AddTransient<IAgenteService, AgenteService>();
 builder.Services.AddTransient<IInmobiliariaService, InmobiliariaService>();
 builder.Services.AddScoped(typeof(IBackOfficeService), typeof(BackOfficeService));
+builder.Services.AddScoped(typeof(ICiudadService), typeof(CiudadService));
+builder.Services.AddScoped(typeof(IEstadoPropiedadService), typeof(EstadoPropiedadService));
+builder.Services.AddScoped(typeof(IFotografiaService), typeof(FotografiaService));
+builder.Services.AddScoped(typeof(IFotografiaPropiedadService), typeof(FotografiaPropiedadService));
+builder.Services.AddScoped(typeof(IPropiedadService), typeof(PropiedadService));
+builder.Services.AddScoped(typeof(ITipoPropiedadService), typeof(TipoPropiedadService));
 
 builder.Services.AddTransient<IAuthToken, AuthToken>();
 

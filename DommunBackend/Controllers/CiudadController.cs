@@ -11,34 +11,34 @@ namespace DommunBackend.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AgenteController : ControllerBase
+    public class CiudadController : ControllerBase
     {
         EnviarLog enviarLog = new EnviarLog();
 
-        private readonly IAgenteService agenteService;
+        private readonly ICiudadService agenteService;
         private readonly IMapper mapper;
 
-        public AgenteController(IAgenteService _agenteService, IMapper _mapper)
+        public CiudadController(ICiudadService _agenteService, IMapper _mapper)
         {
             this.agenteService = _agenteService;
             this.mapper = _mapper;
         }
 
         /// <summary>
-        /// GetAllAgentes
+        /// GetAllCiudads
         /// </summary>
         /// <returns></returns>
-        [HttpGet(nameof(GetAllAgentes))]
-        public Result GetAllAgentes()
+        [HttpGet(nameof(GetAllCiudades))]
+        public Result GetAllCiudades()
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var queryTable = agenteService.GetAllAgentes();
-                var objModel = queryTable.OrderBy(x => x.Nombres).ToList();
+                var queryTable = agenteService.GetAllCiudades();
+                var objModel = queryTable.OrderBy(x => x.Nombre).ToList();
 
-                var lstTemp = mapper.Map<List<AgenteDto>>(objModel);
+                var lstTemp = mapper.Map<List<CiudadDto>>(objModel);
 
                 if (lstTemp.Count >= 0)
                 {
@@ -57,20 +57,20 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// GetAgente
+        /// GetCiudad
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpGet(nameof(GetAgente))]
-        public Result GetAgente(int Id)
+        [HttpGet(nameof(GetCiudad))]
+        public Result GetCiudad(int Id)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var objModel = agenteService.GetAgenteById(Id);
+                var objModel = agenteService.GetCiudadById(Id);
 
-                var lstTemp = mapper.Map<AgenteDto>(objModel);
+                var lstTemp = mapper.Map<CiudadDto>(objModel);
 
                 if (lstTemp != null)
                 {
@@ -89,18 +89,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// InsertAgente
+        /// InsertCiudad
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        [HttpPost(nameof(InsertAgente))]
-        public Result InsertAgente(Agente customer)
+        [HttpPost(nameof(InsertCiudad))]
+        public Result InsertCiudad(Ciudad customer)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.InsertAgente(customer);
+                agenteService.InsertCiudad(customer);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Guardado";
@@ -117,18 +117,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// UpdateAgente
+        /// UpdateCiudad
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        [HttpPut(nameof(UpdateAgente))]
-        public Result UpdateAgente(Agente customer)
+        [HttpPut(nameof(UpdateCiudad))]
+        public Result UpdateCiudad(Ciudad customer)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.UpdateAgente(customer);
+                agenteService.UpdateCiudad(customer);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Actualizado";
@@ -145,18 +145,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// DeleteAgente
+        /// DeleteCiudad
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpDelete(nameof(DeleteAgente))]
-        public Result DeleteAgente(int Id)
+        [HttpDelete(nameof(DeleteCiudad))]
+        public Result DeleteCiudad(int Id)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.DeleteAgente(Id);
+                agenteService.DeleteCiudad(Id);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Eliminado";

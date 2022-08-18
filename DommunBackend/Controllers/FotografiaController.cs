@@ -11,34 +11,34 @@ namespace DommunBackend.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AgenteController : ControllerBase
+    public class FotografiaController : ControllerBase
     {
         EnviarLog enviarLog = new EnviarLog();
 
-        private readonly IAgenteService agenteService;
+        private readonly IFotografiaService agenteService;
         private readonly IMapper mapper;
 
-        public AgenteController(IAgenteService _agenteService, IMapper _mapper)
+        public FotografiaController(IFotografiaService _agenteService, IMapper _mapper)
         {
             this.agenteService = _agenteService;
             this.mapper = _mapper;
         }
 
         /// <summary>
-        /// GetAllAgentes
+        /// GetAllFotografias
         /// </summary>
         /// <returns></returns>
-        [HttpGet(nameof(GetAllAgentes))]
-        public Result GetAllAgentes()
+        [HttpGet(nameof(GetAllFotografias))]
+        public Result GetAllFotografias()
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var queryTable = agenteService.GetAllAgentes();
-                var objModel = queryTable.OrderBy(x => x.Nombres).ToList();
+                var queryTable = agenteService.GetAllFotografias();
+                var objModel = queryTable.OrderBy(x => x.Imagen).ToList();
 
-                var lstTemp = mapper.Map<List<AgenteDto>>(objModel);
+                var lstTemp = mapper.Map<List<FotografiaDto>>(objModel);
 
                 if (lstTemp.Count >= 0)
                 {
@@ -57,20 +57,20 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// GetAgente
+        /// GetFotografia
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpGet(nameof(GetAgente))]
-        public Result GetAgente(int Id)
+        [HttpGet(nameof(GetFotografia))]
+        public Result GetFotografia(int Id)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var objModel = agenteService.GetAgenteById(Id);
+                var objModel = agenteService.GetFotografiaById(Id);
 
-                var lstTemp = mapper.Map<AgenteDto>(objModel);
+                var lstTemp = mapper.Map<FotografiaDto>(objModel);
 
                 if (lstTemp != null)
                 {
@@ -89,18 +89,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// InsertAgente
+        /// InsertFotografia
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        [HttpPost(nameof(InsertAgente))]
-        public Result InsertAgente(Agente customer)
+        [HttpPost(nameof(InsertFotografia))]
+        public Result InsertFotografia(Fotografia customer)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.InsertAgente(customer);
+                agenteService.InsertFotografia(customer);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Guardado";
@@ -117,18 +117,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// UpdateAgente
+        /// UpdateFotografia
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        [HttpPut(nameof(UpdateAgente))]
-        public Result UpdateAgente(Agente customer)
+        [HttpPut(nameof(UpdateFotografia))]
+        public Result UpdateFotografia(Fotografia customer)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.UpdateAgente(customer);
+                agenteService.UpdateFotografia(customer);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Actualizado";
@@ -145,18 +145,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// DeleteAgente
+        /// DeleteFotografia
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpDelete(nameof(DeleteAgente))]
-        public Result DeleteAgente(int Id)
+        [HttpDelete(nameof(DeleteFotografia))]
+        public Result DeleteFotografia(int Id)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.DeleteAgente(Id);
+                agenteService.DeleteFotografia(Id);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Eliminado";
