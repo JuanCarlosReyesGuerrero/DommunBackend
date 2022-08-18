@@ -15,12 +15,12 @@ namespace DommunBackend.Controllers
     {
         EnviarLog enviarLog = new EnviarLog();
 
-        private readonly ITipoPropiedadService agenteService;
+        private readonly ITipoPropiedadService objService;
         private readonly IMapper mapper;
 
-        public TipoPropiedadController(ITipoPropiedadService _agenteService, IMapper _mapper)
+        public TipoPropiedadController(ITipoPropiedadService _objService, IMapper _mapper)
         {
-            this.agenteService = _agenteService;
+            this.objService = _objService;
             this.mapper = _mapper;
         }
 
@@ -35,7 +35,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var queryTable = agenteService.GetAllTipoPropiedades();
+                var queryTable = objService.GetAllTipoPropiedades();
                 var objModel = queryTable.OrderBy(x => x.Nombre).ToList();
 
                 var lstTemp = mapper.Map<List<TipoPropiedadDto>>(objModel);
@@ -68,7 +68,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var objModel = agenteService.GetTipoPropiedadById(Id);
+                var objModel = objService.GetTipoPropiedadById(Id);
 
                 var lstTemp = mapper.Map<TipoPropiedadDto>(objModel);
 
@@ -100,7 +100,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                agenteService.InsertTipoPropiedad(customer);
+                objService.InsertTipoPropiedad(customer);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Guardado";
@@ -128,7 +128,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                agenteService.UpdateTipoPropiedad(customer);
+                objService.UpdateTipoPropiedad(customer);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Actualizado";
@@ -156,7 +156,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                agenteService.DeleteTipoPropiedad(Id);
+                objService.DeleteTipoPropiedad(Id);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Eliminado";
