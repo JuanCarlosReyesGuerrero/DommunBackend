@@ -22,6 +22,11 @@ namespace RepositoryLayer
         public DbSet<Inmobiliaria> Inmobiliarias { get; set; }
         public DbSet<Propiedad> Propiedades { get; set; }
         public DbSet<TipoPropiedad> TipoPropiedades { get; set; }
+        public DbSet<Caracteristica> Caracteristicas { get; set; }
+        public DbSet<CaracteristicaPropiedad> CaracteristicaPropiedades { get; set; }
+        public DbSet<Estrato> Estratos { get; set; }
+        public DbSet<TipoCaracteristica> TipoCaracteristicas { get; set; }
+        public DbSet<TipoNegocio> TipoNegocios { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
