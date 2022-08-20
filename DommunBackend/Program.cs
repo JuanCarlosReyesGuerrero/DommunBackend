@@ -20,9 +20,12 @@ builder.Services.AddSwaggerGen();
 
 #region Connection String  
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+
+string dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
 
 #endregion
 
