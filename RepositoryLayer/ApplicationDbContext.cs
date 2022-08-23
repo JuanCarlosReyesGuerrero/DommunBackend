@@ -25,8 +25,11 @@ namespace RepositoryLayer
         public DbSet<Caracteristica> Caracteristicas { get; set; }
         public DbSet<CaracteristicaPropiedad> CaracteristicaPropiedades { get; set; }
         public DbSet<Estrato> Estratos { get; set; }
-        public DbSet<TipoCaracteristica> TipoCaracteristicas { get; set; }
-        public DbSet<TipoNegocio> TipoNegocios { get; set; }
+        public DbSet<TipoCaracteristica> TipoCaracteristicas { get; set; }        
+        public DbSet<TipoOferta> TipoOfertas { get; set; }
+        public DbSet<TiempoConstruido> TiempoConstruidos { get; set; }
+        public DbSet<TipoParqueadero> TipoParqueaderos { get; set; }
+        public DbSet<CaracteristicaParqueadero> CaracteristicaParqueaderos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,12 +46,15 @@ namespace RepositoryLayer
             this.SeedUsers(modelBuilder);
             this.SeedRoles(modelBuilder);
             this.SeedUserRoles(modelBuilder);
-            this.SeedTipoPropiedades(modelBuilder);
-            this.SeedTipoNegocios(modelBuilder);
+            this.SeedTipoPropiedades(modelBuilder);           
             this.SeedEstratos(modelBuilder);
             this.SeedTipoCaracteristicas(modelBuilder);
             this.SeedCaracteristicas(modelBuilder);
             this.SeedCiudad(modelBuilder);
+            this.SeedTipoOfertas(modelBuilder);
+            this.SeedTiempoConstruidos(modelBuilder);
+            this.SeedTipoParqueaderos(modelBuilder);
+            this.SeedCaracteristicaParqueaderos(modelBuilder);
         }
 
         private void SeedUsers(ModelBuilder builder)
@@ -84,33 +90,65 @@ namespace RepositoryLayer
                 );
         }
 
+        private void SeedTipoOfertas(ModelBuilder builder)
+        {
+            builder.Entity<TipoOferta>().HasData(
+               new TipoOferta() { Id = 1, Codigo = "01", Nombre = "Vender", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoOferta() { Id = 2, Codigo = "02", Nombre = "Arrendar", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
+               );
+        }
+
         private void SeedTipoPropiedades(ModelBuilder builder)
         {
             builder.Entity<TipoPropiedad>().HasData(
-               new TipoPropiedad() { Id = 1, Codigo = "01", Nombre = "Oficina", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-               new TipoPropiedad() { Id = 2, Codigo = "02", Nombre = "Casa", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-               new TipoPropiedad() { Id = 3, Codigo = "03", Nombre = "Apartamento", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-               new TipoPropiedad() { Id = 4, Codigo = "04", Nombre = "Lote", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
+               new TipoPropiedad() { Id = 1, Codigo = "01", Nombre = "Apartamento", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoPropiedad() { Id = 2, Codigo = "02", Nombre = "Casa", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoPropiedad() { Id = 3, Codigo = "03", Nombre = "Oficina", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoPropiedad() { Id = 4, Codigo = "04", Nombre = "Lote o Casalote", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoPropiedad() { Id = 5, Codigo = "05", Nombre = "Consultorio", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoPropiedad() { Id = 6, Codigo = "06", Nombre = "Local Comercial", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoPropiedad() { Id = 7, Codigo = "07", Nombre = "Bodega", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
                );
         }
 
-        private void SeedTipoNegocios(ModelBuilder builder)
+        private void SeedCaracteristicaParqueaderos(ModelBuilder builder)
         {
-            builder.Entity<TipoNegocio>().HasData(
-               new TipoNegocio() { Id = 1, Codigo = "01", Nombre = "Arriendo", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-               new TipoNegocio() { Id = 2, Codigo = "02", Nombre = "Venta", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-               new TipoNegocio() { Id = 3, Codigo = "03", Nombre = "Super Oferta", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
+            builder.Entity<CaracteristicaParqueadero>().HasData(
+               new CaracteristicaParqueadero() { Id = 1, Codigo = "01", Nombre = "Cubierto", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new CaracteristicaParqueadero() { Id = 2, Codigo = "02", Nombre = "Descubierto", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new CaracteristicaParqueadero() { Id = 3, Codigo = "03", Nombre = "Exterior", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
                );
         }
 
+        private void SeedTipoParqueaderos(ModelBuilder builder)
+        {
+            builder.Entity<TipoParqueadero>().HasData(
+               new TipoParqueadero() { Id = 1, Codigo = "01", Nombre = "Propio", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoParqueadero() { Id = 2, Codigo = "02", Nombre = "Comunal", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoParqueadero() { Id = 3, Codigo = "03", Nombre = "Servidumbre", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoParqueadero() { Id = 4, Codigo = "04", Nombre = "Independiente", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
+               );
+        }
+
+        private void SeedTiempoConstruidos(ModelBuilder builder)
+        {
+            builder.Entity<TiempoConstruido>().HasData(
+               new TiempoConstruido() { Id = 1, Codigo = "01", Nombre = "Remodelado", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TiempoConstruido() { Id = 2, Codigo = "02", Nombre = "Entre 0 y 5 años", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TiempoConstruido() { Id = 3, Codigo = "03", Nombre = "Entre 5 y 10 años", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TiempoConstruido() { Id = 4, Codigo = "04", Nombre = "Entre 10 y 20 años", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TiempoConstruido() { Id = 5, Codigo = "05", Nombre = "Más de 20 años", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
+               );
+        }
+        
         private void SeedEstratos(ModelBuilder builder)
         {
             builder.Entity<Estrato>().HasData(
-               new Estrato() { Id = 1, Codigo = "1", Nombre = "Uno", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-               new Estrato() { Id = 2, Codigo = "2", Nombre = "Dos", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-               new Estrato() { Id = 3, Codigo = "3", Nombre = "Tres", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-               new Estrato() { Id = 4, Codigo = "4", Nombre = "Cuatro", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-               new Estrato() { Id = 5, Codigo = "5", Nombre = "Cinco", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
+               new Estrato() { Id = 1, Codigo = "1", Nombre = "Uno", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new Estrato() { Id = 2, Codigo = "2", Nombre = "Dos", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new Estrato() { Id = 3, Codigo = "3", Nombre = "Tres", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new Estrato() { Id = 4, Codigo = "4", Nombre = "Cuatro", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new Estrato() { Id = 5, Codigo = "5", Nombre = "Cinco", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
                new Estrato() { Id = 6, Codigo = "6", Nombre = "Seis", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
                );
         }
@@ -118,8 +156,8 @@ namespace RepositoryLayer
         private void SeedTipoCaracteristicas(ModelBuilder builder)
         {
             builder.Entity<TipoCaracteristica>().HasData(
-               new TipoCaracteristica() { Id = 1, Codigo = "1", Nombre = "Características del exterior", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-               new TipoCaracteristica() { Id = 2, Codigo = "2", Nombre = "Características del interior", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
+               new TipoCaracteristica() { Id = 1, Codigo = "1", Nombre = "Características del exterior", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+               new TipoCaracteristica() { Id = 2, Codigo = "2", Nombre = "Características del interior", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
                new TipoCaracteristica() { Id = 3, Codigo = "3", Nombre = "Características del sector", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
                );
         }
@@ -127,34 +165,34 @@ namespace RepositoryLayer
         private void SeedCaracteristicas(ModelBuilder builder)
         {
             builder.Entity<Caracteristica>().HasData(
-                new Caracteristica() { Id = 1, Codigo = "1", Nombre = "Garaje(s)", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 2, Codigo = "2", Nombre = "Jardín", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 3, Codigo = "3", Nombre = "Sala de internet", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 4, Codigo = "4", Nombre = "Salón Comunal", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 5, Codigo = "5", Nombre = "Terraza", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 6, Codigo = "6", Nombre = "Vista panorámica", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 7, Codigo = "7", Nombre = "Vivienda Bifamiliar", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 8, Codigo = "8", Nombre = "Vivienda Multifamiliar", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 9, Codigo = "9", Nombre = "Zonas Verdes", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 10, Codigo = "10", Nombre = "Alarma", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 11, Codigo = "11", Nombre = "Baño Auxiliar", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 12, Codigo = "12", Nombre = "Cocina Integral", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 13, Codigo = "13", Nombre = "Comedor auxiliar", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 14, Codigo = "14", Nombre = "Cuarto de Servicio", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 15, Codigo = "15", Nombre = "Depósito / Bodega", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 16, Codigo = "16", Nombre = "Despensa", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 17, Codigo = "17", Nombre = "Estudio", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 18, Codigo = "18", Nombre = "Hall de Alcobas", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 19, Codigo = "19", Nombre = "Instalación de gas", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 20, Codigo = "20", Nombre = "Patio", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 21, Codigo = "21", Nombre = "Piso en Baldosa / Mármol", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 22, Codigo = "22", Nombre = "Zona de lavandería", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 23, Codigo = "23", Nombre = "Colegios / Universidades", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 24, Codigo = "24", Nombre = "Parques cercanos", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 25, Codigo = "25", Nombre = "Sobre vía principal", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 26, Codigo = "26", Nombre = "Supermercados / C.Comerciales", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 27, Codigo = "27", Nombre = "Trans. Público cercano", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
-                new Caracteristica() { Id = 28, Codigo = "28", Nombre = "Zona Campestre", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive =true },
+                new Caracteristica() { Id = 1, Codigo = "1", Nombre = "Garaje(s)", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 2, Codigo = "2", Nombre = "Jardín", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 3, Codigo = "3", Nombre = "Sala de internet", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 4, Codigo = "4", Nombre = "Salón Comunal", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 5, Codigo = "5", Nombre = "Terraza", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 6, Codigo = "6", Nombre = "Vista panorámica", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 7, Codigo = "7", Nombre = "Vivienda Bifamiliar", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 8, Codigo = "8", Nombre = "Vivienda Multifamiliar", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 9, Codigo = "9", Nombre = "Zonas Verdes", TipoCaracteristicaId = 1, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 10, Codigo = "10", Nombre = "Alarma", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 11, Codigo = "11", Nombre = "Baño Auxiliar", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 12, Codigo = "12", Nombre = "Cocina Integral", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 13, Codigo = "13", Nombre = "Comedor auxiliar", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 14, Codigo = "14", Nombre = "Cuarto de Servicio", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 15, Codigo = "15", Nombre = "Depósito / Bodega", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 16, Codigo = "16", Nombre = "Despensa", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 17, Codigo = "17", Nombre = "Estudio", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 18, Codigo = "18", Nombre = "Hall de Alcobas", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 19, Codigo = "19", Nombre = "Instalación de gas", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 20, Codigo = "20", Nombre = "Patio", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 21, Codigo = "21", Nombre = "Piso en Baldosa / Mármol", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 22, Codigo = "22", Nombre = "Zona de lavandería", TipoCaracteristicaId = 2, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 23, Codigo = "23", Nombre = "Colegios / Universidades", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 24, Codigo = "24", Nombre = "Parques cercanos", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 25, Codigo = "25", Nombre = "Sobre vía principal", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 26, Codigo = "26", Nombre = "Supermercados / C.Comerciales", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 27, Codigo = "27", Nombre = "Trans. Público cercano", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new Caracteristica() { Id = 28, Codigo = "28", Nombre = "Zona Campestre", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
                 new Caracteristica() { Id = 29, Codigo = "29", Nombre = "Zona Residencial", TipoCaracteristicaId = 3, CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
                );
         }

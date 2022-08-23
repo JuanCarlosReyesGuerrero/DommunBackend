@@ -1,6 +1,6 @@
 ﻿namespace DomainLayer.Models
 {
-    public class TipoNegocio : BaseEntity
+    public class CaracteristicaParqueadero : BaseEntity
     {
         public string? Codigo { get; set; }
         public string? Nombre { get; set; }
