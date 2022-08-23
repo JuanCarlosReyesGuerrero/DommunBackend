@@ -1,5 +1,26 @@
-﻿namespace DomainLayer.Models
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace DomainLayer.Models
 {
+    public enum NumPisos
+    {
+        [Description("1")]
+        Uno = 1,
+
+        [Description("2")]
+        Dos = 2,
+
+        [Description("3")]
+        Tres = 3,
+
+        [Description("4")]
+        Cuatro = 4,
+
+        [Description("5+")]
+        Cinco = 5,
+    }
+
     public class Propiedad : BaseEntity
     {
         public string? Titulo { get; set; }
@@ -19,7 +40,11 @@
         public int? EstratoId { get; set; }
         public decimal AreaPrivada { get; set; }
         public decimal AreaConstruida { get; set; }
-        public int NumeroPiso { get; set; }
+
+        //public int NumeroPiso { get; set; }
+        [EnumDataType(typeof(NumPisos)), Display(Name = "Número de Pisos")]
+        public NumPisos NumPiso { get; set; }
+        
         public decimal AreaFondo{ get; set; }
         public int? TiempoConstruidoId { get; set; }
         public int NumeroHabitaciones { get; set; }
