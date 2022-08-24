@@ -21,7 +21,7 @@ namespace DomainLayer.EntityMapper
             CreateMap<EstadoPropiedadDto, EstadoPropiedad>();
 
             CreateMap<Fotografia, FotografiaDto>().ReverseMap();
-            CreateMap<FotografiaDto, Fotografia>();            
+            CreateMap<FotografiaDto, Fotografia>();
 
             CreateMap<Propiedad, PropiedadDto>().ReverseMap();
             CreateMap<PropiedadDto, Propiedad>();
@@ -34,6 +34,24 @@ namespace DomainLayer.EntityMapper
 
             CreateMap<Estrato, EstratoDto>().ReverseMap();
             CreateMap<EstratoDto, Estrato>();
+
+            CreateMap<TiempoConstruido, TiempoConstruidoDto>().ReverseMap();
+            CreateMap<TiempoConstruidoDto, TiempoConstruido>();
+
+            CreateMap<TipoParqueadero, TipoParqueaderoDto>().ReverseMap();
+            CreateMap<TipoParqueaderoDto, TipoParqueadero>();
+
+            CreateMap<CaracteristicaParqueadero, CaracteristicaParqueaderoDto>().ReverseMap();
+            CreateMap<CaracteristicaParqueaderoDto, CaracteristicaParqueadero>();
+
+            CreateMap<NumeroBano, NumeroBanoDto>().ReverseMap();
+            CreateMap<NumeroBanoDto, NumeroBano>();
+
+            CreateMap<NumeroHabitacion, NumeroHabitacionDto>().ReverseMap();
+            CreateMap<NumeroHabitacionDto, NumeroHabitacion>();
+
+            CreateMap<NumeroParqueadero, NumeroParqueaderoDto>().ReverseMap();
+            CreateMap<NumeroParqueaderoDto, NumeroParqueadero>();
         }
     }
 }

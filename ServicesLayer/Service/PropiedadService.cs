@@ -1,5 +1,4 @@
-﻿using DomainLayer.Dtos;
-using DomainLayer.Models;
+﻿using DomainLayer.Models;
 using RepositoryLayer.RespositoryPattern.Interface;
 using ServicesLayer.Interface;
 
@@ -50,6 +49,11 @@ namespace ServicesLayer.Service
         public Task<Result> ObtenerPropiedades()
         {
             return propiedadRepository.ObtenerPropiedades();
+        }
+
+        public Task<Result> ObtenerPropiedadesById(int vId)
+        {
+            return propiedadRepository.ObtenerPropiedadesById(vId);
         }
     }
 }

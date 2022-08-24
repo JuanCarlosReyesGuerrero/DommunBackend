@@ -1,5 +1,4 @@
-﻿using DomainLayer.Dtos;
-using DomainLayer.Models;
+﻿using DomainLayer.Models;
 
 namespace ServicesLayer.Interface
 {
@@ -12,5 +11,6 @@ namespace ServicesLayer.Interface
         void DeletePropiedad(int id);
 
         Task<Result> ObtenerPropiedades();
+        Task<Result> ObtenerPropiedadesById(int vId);
     }
 }

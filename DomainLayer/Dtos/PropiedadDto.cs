@@ -58,15 +58,16 @@ namespace DomainLayer.Dtos
 
         public TipoOfertaDto? TipoOferta { get; set; }
         public TipoPropiedadDto? TipoPropiedad { get; set; }
-        //public EstadoPropiedad? EstadoPropiedad { get; set; }
+        public EstadoPropiedadDto? EstadoPropiedad { get; set; }
         public CiudadDto? Ciudad { get; set; }
         public AgenteDto? Agente { get; set; }
         public EstratoDto? Estrato { get; set; }
-        //public TiempoConstruido? TiempoConstruido { get; set; }
-        //public TipoParqueadero? TipoParqueadero { get; set; }
-        //public CaracteristicaParqueadero? CaracteristicaParqueadero { get; set; }
-        //public NumeroBano? NumeroBano { get; set; }
-        //public NumeroHabitacion? NumeroHabitacion { get; set; }
-        //public NumeroParqueadero? NumeroParqueadero { get; set; }
+        
+        public TiempoConstruidoDto? TiempoConstruido { get; set; }
+        public TipoParqueaderoDto? TipoParqueadero { get; set; }
+        public CaracteristicaParqueaderoDto? CaracteristicaParqueadero { get; set; }
+        public NumeroBanoDto? NumeroBano { get; set; }
+        public NumeroHabitacionDto? NumeroHabitacion { get; set; }
+        public NumeroParqueaderoDto? NumeroParqueadero { get; set; }
     }
 }

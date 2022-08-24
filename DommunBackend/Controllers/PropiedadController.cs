@@ -209,5 +209,40 @@ namespace DommunBackend.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet(nameof(GetPropiedadById))]
+        public async Task<IActionResult> GetPropiedadById(int Id)
+        {
+            Result oRespuesta = new Result();
+
+            try
+            {
+                var vRespuesta = await propiedadService.ObtenerPropiedadesById(Id);
+
+                if (vRespuesta.Success == true)
+                {
+                    oRespuesta.Success = true;
+                    oRespuesta.Message = vRespuesta.Message;
+                    oRespuesta.Data = vRespuesta.Data;
+
+                    return Ok(oRespuesta);
+                }
+                else
+                {
+                    oRespuesta.Success = false;
+                    oRespuesta.Message = vRespuesta.Message;
+
+                    return Ok(oRespuesta);
+                }
+            }
+            catch (Exception ex)
+            {
+                enviarLog.EnviarExcepcion(ex.Message, ex);
+
+                oRespuesta.Message = ex.Message;
+
+                return BadRequest();
+            }
+        }
     }
 }
