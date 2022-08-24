@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models;
+﻿using DomainLayer.Dtos;
+using DomainLayer.Models;
 using RepositoryLayer.RespositoryPattern.Interface;
 using ServicesLayer.Interface;
 
@@ -8,12 +9,14 @@ namespace ServicesLayer.Service
     {
         #region Property  
         private readonly IRepository<Propiedad> objRepository;
+        private readonly IPropiedadRepository propiedadRepository;
         #endregion
 
         #region Constructor  
-        public PropiedadService(IRepository<Propiedad> _objRepository)
+        public PropiedadService(IRepository<Propiedad> _objRepository,IPropiedadRepository _propiedadRepository)
         {
             this.objRepository = _objRepository;
+            this.propiedadRepository = _propiedadRepository;
         }
         #endregion
 
@@ -42,6 +45,11 @@ namespace ServicesLayer.Service
         public void UpdatePropiedad(Propiedad model)
         {
             objRepository.Update(model);
+        }
+
+        public Task<Result> ObtenerPropiedades()
+        {
+            return propiedadRepository.ObtenerPropiedades();
         }
     }
 }

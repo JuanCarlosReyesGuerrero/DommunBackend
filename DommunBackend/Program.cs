@@ -76,6 +76,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IBackOfficeRepository), typeof(BackOfficeRepository));
+builder.Services.AddScoped(typeof(IPropiedadRepository), typeof(PropiedadRepository));
 
 builder.Services.AddTransient<IAgenteService, AgenteService>();
 builder.Services.AddTransient<IInmobiliariaService, InmobiliariaService>();

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Commun;
 using Commun.Logs;
 using DomainLayer.Dtos;
 using DomainLayer.Models;
@@ -31,38 +32,60 @@ namespace DommunBackend.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet(nameof(GetAllPropiedades))]
-        public Result GetAllPropiedades()
+        public async Task<IActionResult> GetAllPropiedades()
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var objListPropiedad = propiedadService.GetAllPropiedades().ToList();                
+                //var objListPropiedad = propiedadService.GetAllPropiedades().ToList();                
 
-                var objListAgente = agenteService.GetAllAgentes().ToList();
-                
+                //var objListAgente = agenteService.GetAllAgentes().ToList();
 
-                var objModel = (from pr in objListPropiedad
-                                join ag in objListAgente
-                                on pr.AgenteId equals ag.Id
-                                select pr).ToList();                                
 
-                var lstTemp = mapper.Map<List<PropiedadDto>>(objModel);
+                //var objModel = (from pr in objListPropiedad
+                //                join ag in objListAgente
+                //                on pr.AgenteId equals ag.Id
+                //                select pr).ToList();                                
 
-                if (lstTemp.Count >= 0)
+                //var lstTemp = mapper.Map<List<PropiedadDto>>(objModel);
+
+
+                var vRespuesta = await propiedadService.ObtenerPropiedades();               
+
+                if (vRespuesta.Success == true)
                 {
                     oRespuesta.Success = true;
-                    oRespuesta.Data = lstTemp;
+                    oRespuesta.Message = Constantes.msjLoginCorrecto;
+                    oRespuesta.Data = vRespuesta.Data;
+
+                    return Ok(oRespuesta);
                 }
+                else
+                {
+                    oRespuesta.Success = false;
+                    oRespuesta.Message = Constantes.msjLoginErrado;
+
+                    return Ok(oRespuesta);
+                }
+
+
+                //if (lstTemp.Count >= 0)
+                //{
+                //    oRespuesta.Success = true;
+                //    oRespuesta.Data = lstTemp;
+                //}
             }
             catch (Exception ex)
             {
                 enviarLog.EnviarExcepcion(ex.Message, ex);
 
                 oRespuesta.Message = ex.Message;
+
+                return BadRequest();
             }
 
-            return oRespuesta;
+            //return oRespuesta;
         }
 
         /// <summary>
