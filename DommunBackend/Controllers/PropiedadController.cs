@@ -32,60 +32,30 @@ namespace DommunBackend.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet(nameof(GetAllPropiedades))]
-        public async Task<IActionResult> GetAllPropiedades()
+        public Result GetAllPropiedades()
         {
             Result oRespuesta = new Result();
 
             try
             {
-                //var objListPropiedad = propiedadService.GetAllPropiedades().ToList();                
+                var queryTable = propiedadService.GetAllPropiedades().ToList();
 
-                //var objListAgente = agenteService.GetAllAgentes().ToList();
+                var lstTemp = mapper.Map<List<PropiedadDto>>(queryTable);
 
-
-                //var objModel = (from pr in objListPropiedad
-                //                join ag in objListAgente
-                //                on pr.AgenteId equals ag.Id
-                //                select pr).ToList();                                
-
-                //var lstTemp = mapper.Map<List<PropiedadDto>>(objModel);
-
-
-                var vRespuesta = await propiedadService.ObtenerPropiedades();               
-
-                if (vRespuesta.Success == true)
+                if (lstTemp.Count >= 0)
                 {
                     oRespuesta.Success = true;
-                    oRespuesta.Message = Constantes.msjLoginCorrecto;
-                    oRespuesta.Data = vRespuesta.Data;
-
-                    return Ok(oRespuesta);
+                    oRespuesta.Data = lstTemp;
                 }
-                else
-                {
-                    oRespuesta.Success = false;
-                    oRespuesta.Message = Constantes.msjLoginErrado;
-
-                    return Ok(oRespuesta);
-                }
-
-
-                //if (lstTemp.Count >= 0)
-                //{
-                //    oRespuesta.Success = true;
-                //    oRespuesta.Data = lstTemp;
-                //}
             }
             catch (Exception ex)
             {
                 enviarLog.EnviarExcepcion(ex.Message, ex);
 
                 oRespuesta.Message = ex.Message;
-
-                return BadRequest();
             }
 
-            //return oRespuesta;
+            return oRespuesta;
         }
 
         /// <summary>
@@ -202,6 +172,42 @@ namespace DommunBackend.Controllers
             }
 
             return oRespuesta;
+        }
+
+
+        [HttpGet(nameof(GetPropiedadesFull))]
+        public async Task<IActionResult> GetPropiedadesFull()
+        {
+            Result oRespuesta = new Result();
+
+            try
+            {
+                var vRespuesta = await propiedadService.ObtenerPropiedades();
+
+                if (vRespuesta.Success == true)
+                {
+                    oRespuesta.Success = true;
+                    oRespuesta.Message = Constantes.msjLoginCorrecto;
+                    oRespuesta.Data = vRespuesta.Data;
+
+                    return Ok(oRespuesta);
+                }
+                else
+                {
+                    oRespuesta.Success = false;
+                    oRespuesta.Message = Constantes.msjLoginErrado;
+
+                    return Ok(oRespuesta);
+                }
+            }
+            catch (Exception ex)
+            {
+                enviarLog.EnviarExcepcion(ex.Message, ex);
+
+                oRespuesta.Message = ex.Message;
+
+                return BadRequest();
+            }
         }
     }
 }

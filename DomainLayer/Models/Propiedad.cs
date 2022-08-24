@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using static Commun.Enums;
-
-namespace DomainLayer.Models
+﻿namespace DomainLayer.Models
 {
     public class Propiedad : BaseEntity
-    {
-        public string? Titulo { get; set; }
+    {        
         public int? TipoOfertaId { get; set; }
         public int? TipoPropiedadId { get; set; }
         public double ValorVenta { get; set; }
