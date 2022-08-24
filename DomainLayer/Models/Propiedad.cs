@@ -1,4 +1,6 @@
-﻿namespace DomainLayer.Models
+﻿using System.ComponentModel;
+
+namespace DomainLayer.Models
 {
     public class Propiedad : BaseEntity
     {        
@@ -10,6 +12,7 @@
         public double ValorAdministracion { get; set; }
         public double ValorMetro { get; set; }
 
+        //[DefaultValue(0)]
         public int? CiudadId { get; set; }
         public string? Direccion { get; set; }
         public string? Barrio { get; set; }
