@@ -15,11 +15,13 @@ namespace DommunBackend.Controllers
     {
         EnviarLog enviarLog = new EnviarLog();
 
-        private readonly IPropiedadService agenteService;
+        private readonly IPropiedadService propiedadService;
+        private readonly IAgenteService agenteService;
         private readonly IMapper mapper;
 
-        public PropiedadController(IPropiedadService _agenteService, IMapper _mapper)
+        public PropiedadController(IPropiedadService _propiedadService, IAgenteService _agenteService, IMapper _mapper)
         {
+            this.propiedadService = _propiedadService;
             this.agenteService = _agenteService;
             this.mapper = _mapper;
         }
@@ -35,11 +37,18 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var queryTable = agenteService.GetAllPropiedades();
-                var objModel = queryTable.OrderBy(x => x.Titulo).ToList();
+                var objListPropiedad = propiedadService.GetAllPropiedades().ToList();                
+
+                var objListAgente = agenteService.GetAllAgentes().ToList();
+                
+
+                var objModel = (from pr in objListPropiedad
+                                join ag in objListAgente
+                                on pr.AgenteId equals ag.Id
+                                select pr).ToList();                                
 
                 var lstTemp = mapper.Map<List<PropiedadDto>>(objModel);
-                
+
                 if (lstTemp.Count >= 0)
                 {
                     oRespuesta.Success = true;
@@ -68,7 +77,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var objModel = agenteService.GetPropiedadById(Id);
+                var objModel = propiedadService.GetPropiedadById(Id);
 
                 var lstTemp = mapper.Map<PropiedadDto>(objModel);
 
@@ -100,7 +109,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                agenteService.InsertPropiedad(customer);
+                propiedadService.InsertPropiedad(customer);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Guardado";
@@ -128,7 +137,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                agenteService.UpdatePropiedad(customer);
+                propiedadService.UpdatePropiedad(customer);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Actualizado";
@@ -156,7 +165,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                agenteService.DeletePropiedad(Id);
+                propiedadService.DeletePropiedad(Id);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Eliminado";

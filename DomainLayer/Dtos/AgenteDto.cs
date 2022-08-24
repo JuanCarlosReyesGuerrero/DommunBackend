@@ -52,6 +52,6 @@ namespace DomainLayer.Dtos
         public string? ModifiedUser { get; set; }
 
         [Display(Name = "Activo")]
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; }        
     }
 }

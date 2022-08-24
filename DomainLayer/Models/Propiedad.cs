@@ -3,24 +3,6 @@ using static Commun.Enums;
 
 namespace DomainLayer.Models
 {
-    //public enum NumPisos
-    //{
-    //    [Description("1")]
-    //    Uno = 1,
-
-    //    [Description("2")]
-    //    Dos = 2,
-
-    //    [Description("3")]
-    //    Tres = 3,
-
-    //    [Description("4")]
-    //    Cuatro = 4,
-
-    //    [Description("5+")]
-    //    Cinco = 5,
-    //}
-
     public class Propiedad : BaseEntity
     {
         public string? Titulo { get; set; }
@@ -39,17 +21,14 @@ namespace DomainLayer.Models
 
         public int? EstratoId { get; set; }
         public decimal AreaPrivada { get; set; }
-        public decimal AreaConstruida { get; set; }
-
-        //public int NumeroPiso { get; set; }
-        [EnumDataType(typeof(NumPisos)), Display(Name = "Número de Pisos")]
-        public NumPisos NumPiso { get; set; }
+        public decimal AreaConstruida { get; set; }       
         
+        public int? NumeroPiso { get; set; }        
         public decimal AreaFondo{ get; set; }
         public int? TiempoConstruidoId { get; set; }
-        public int NumeroHabitaciones { get; set; }
-        public int NumeroBanos { get; set; }
-        public int NumeroParqueaderos { get; set; }
+        public int? NumeroHabitacionId { get; set; }
+        public int? NumeroBanoId { get; set; }
+        public int? NumeroParqueaderoId { get; set; }
         public int? TipoParqueaderoId { get; set; }
         public int? CaracteristicaParqueaderoId { get; set; }
 
@@ -73,7 +52,10 @@ namespace DomainLayer.Models
         public virtual Estrato? Estrato { get; set; }        
         public virtual TiempoConstruido? TiempoConstruido { get; set; }
         public virtual TipoParqueadero? TipoParqueadero { get; set; }
-        public virtual CaracteristicaParqueadero? CaracteristicaParqueadero { get; set; }
+        public virtual CaracteristicaParqueadero? CaracteristicaParqueadero { get; set; }        
+        public virtual NumeroBano? NumeroBano { get; set; }
+        public virtual NumeroHabitacion? NumeroHabitacion { get; set; }
+        public virtual NumeroParqueadero? NumeroParqueadero { get; set; }
 
         public virtual ICollection<Fotografia>? Fotografias { get; set; }
         public virtual ICollection<CaracteristicaPropiedad>? CaracteristicaPropiedades { get; set; }

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
-using RepositoryLayer.RespositoryPattern;
 using RepositoryLayer.RespositoryPattern.Interface;
 using RepositoryLayer.RespositoryPattern.Repository;
 using ServicesLayer.Interface;
@@ -117,7 +116,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    //app.UseItToSeedSqlServer();
+    app.UseItToSeedSqlServer();
 }
 
 app.UseHttpsRedirection();

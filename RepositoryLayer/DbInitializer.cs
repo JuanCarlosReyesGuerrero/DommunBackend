@@ -18,6 +18,77 @@ namespace RepositoryLayer
             }
 
             //************************************
+            //EstadoPropiedad
+            //************************************
+            var estadoPropiedad = new EstadoPropiedad[]
+            {
+                new EstadoPropiedad { Id = 1, Codigo = "01", Nombre = "Excelente", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new EstadoPropiedad { Id = 2, Codigo = "02", Nombre = "Bueno", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new EstadoPropiedad { Id = 3, Codigo = "03", Nombre = "Regular", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new EstadoPropiedad { Id = 4, Codigo = "04", Nombre = "Malo", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new EstadoPropiedad { Id = 5, Codigo = "05", Nombre = "Planos", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
+            };
+
+            foreach (EstadoPropiedad s in estadoPropiedad)
+                dbContext.EstadoPropiedades.Add(s);
+
+            dbContext.SaveChanges();
+
+            //************************************
+            //NumeroHabitacion
+            //************************************
+            var numeroHabitacion = new NumeroHabitacion[]
+            {
+                new NumeroHabitacion { Id = 1, Codigo = "01", Nombre = "1", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroHabitacion { Id = 2, Codigo = "02", Nombre = "2", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroHabitacion { Id = 3, Codigo = "03", Nombre = "3", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroHabitacion { Id = 4, Codigo = "04", Nombre = "4", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroHabitacion { Id = 5, Codigo = "05", Nombre = "5+", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
+            };
+
+            foreach (NumeroHabitacion s in numeroHabitacion)
+                dbContext.NumeroHabitaciones.Add(s);
+
+            dbContext.SaveChanges();
+
+
+            //************************************
+            //NumeroBano
+            //************************************
+            var numeroBano = new NumeroBano[]
+            {
+                new NumeroBano { Id = 1, Codigo = "01", Nombre = "1", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroBano { Id = 2, Codigo = "02", Nombre = "2", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroBano { Id = 3, Codigo = "03", Nombre = "3", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroBano { Id = 4, Codigo = "04", Nombre = "4", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroBano { Id = 5, Codigo = "05", Nombre = "5+", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
+            };
+
+            foreach (NumeroBano s in numeroBano)
+                dbContext.NumeroBanos.Add(s);
+
+            dbContext.SaveChanges();
+
+
+            //************************************
+            //NumeroParqueadero
+            //************************************
+            var numeroParqueadero = new NumeroParqueadero[]
+            {
+                new NumeroParqueadero { Id = 1, Codigo = "01", Nombre = "1", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroParqueadero { Id = 2, Codigo = "02", Nombre = "2", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroParqueadero { Id = 3, Codigo = "03", Nombre = "3", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                new NumeroParqueadero { Id = 4, Codigo = "04", Nombre = "4+", CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
+            };
+            
+            foreach (NumeroParqueadero s in numeroParqueadero)
+                dbContext.NumeroParqueaderos.Add(s);
+
+            dbContext.SaveChanges();
+
+
+
+            //************************************
             //TipoOferta
             //************************************
             var tipoOferta = new TipoOferta[]
@@ -29,8 +100,8 @@ namespace RepositoryLayer
             foreach (TipoOferta s in tipoOferta)
                 dbContext.TipoOfertas.Add(s);
 
-
             dbContext.SaveChanges();
+
 
             //************************************
             //TipoPropiedad

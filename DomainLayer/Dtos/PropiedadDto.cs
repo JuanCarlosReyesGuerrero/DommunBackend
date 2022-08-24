@@ -33,9 +33,8 @@ namespace DomainLayer.Dtos
 
         [Display(Name = "Activo")]
         public bool IsActive { get; set; }
+              
 
-        //public int NumeroPiso { get; set; }
-        [EnumDataType(typeof(NumPisos)), Display(Name = "Número de Pisos")]
-        public NumPisos NumPiso { get; set; }
+        public AgenteDto? Agente { get; set; }
     }
 }
