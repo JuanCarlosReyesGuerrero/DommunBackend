@@ -2,6 +2,7 @@
 using Commun.Logs;
 using DomainLayer.Dtos;
 using DomainLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.RespositoryPattern.Interface;
 
 namespace RepositoryLayer.RespositoryPattern.Repository
@@ -26,72 +27,27 @@ namespace RepositoryLayer.RespositoryPattern.Repository
 
             try
             {
-                var result = (from pr in objContext.Propiedades
-                              join ag in objContext.Agentes on pr.AgenteId equals ag.Id
-                              select new Propiedad
-                              {                                  
-                                  TipoOfertaId = pr.TipoOfertaId,
-                                  TipoPropiedadId = pr.TipoPropiedadId,
-                                  ValorVenta = pr.ValorVenta,
-                                  ValorArriendo = pr.ValorArriendo,
-                                  IncluyeAdministracion = pr.IncluyeAdministracion,
-                                  ValorAdministracion = pr.ValorAdministracion,
-                                  ValorMetro = pr.ValorMetro,
-                                  CiudadId = pr.CiudadId,
-                                  Direccion = pr.Direccion,
-                                  Barrio = pr.Barrio,
-                                  Localizacion = pr.Localizacion,
-                                  EstratoId = pr.EstratoId,
-                                  AreaPrivada = pr.AreaPrivada,
-                                  AreaConstruida = pr.AreaConstruida,
-                                  NumeroPiso = pr.NumeroPiso,
-                                  AreaFondo = pr.AreaFondo,
-                                  TiempoConstruidoId = pr.TiempoConstruidoId,
-                                  NumeroHabitacionId = pr.NumeroHabitacionId,
-                                  NumeroBanoId = pr.NumeroBanoId,
-                                  NumeroParqueaderoId = pr.NumeroParqueaderoId,
-                                  TipoParqueaderoId = pr.TipoParqueaderoId,
-                                  CaracteristicaParqueaderoId = pr.CaracteristicaParqueaderoId,
-                                  Caracteristicas = pr.Caracteristicas,
-                                  Video = pr.Video,
-                                  Descripcion = pr.Descripcion,
-                                  AnioConstruccion = pr.AnioConstruccion,
-                                  EstadoPropiedadId = pr.EstadoPropiedadId,
-                                  AgenteId = pr.AgenteId,
-                                  IsActive = pr.IsActive,
+                var listPropiedad = (from x in objContext.Propiedades select x).ToList();
+                var listCiudad = (from x in objContext.Ciudades select x).ToList();
+                var listTipoPropiedad = (from x in objContext.TipoPropiedades select x).ToList();
+                var listTipoOferta = (from x in objContext.TipoOfertas select x).ToList();
+                var listEstrato = (from x in objContext.Estratos select x).ToList();
+                var listAgente = (from x in objContext.Agentes select x).ToList();
 
-                                  Agente = new Agente
-                                  {
-                                      Slug = ag.Slug,
-                                      Nombres = ag.Nombres,
-                                      Apellidos = ag.Apellidos,
-                                      Email = ag.Email,
-                                      FotoPerfil = ag.FotoPerfil,
-                                      DescripcionPerfil = ag.DescripcionPerfil,
-                                      Celular = ag.Celular,
-                                      Facebook = ag.Facebook,
-                                      Twitter = ag.Twitter,
-                                      Linkedin = ag.Linkedin,
-                                      Instagram = ag.Instagram,
-                                      Website = ag.Website,
-                                      InmobiliariaId = ag.InmobiliariaId,
-                                      Inmobiliaria = ag.Inmobiliaria,
-                                      Propiedades = ag.Propiedades,
-                                      Id = ag.Id,
-                                      CreatedDate = ag.CreatedDate,
-                                      ModifiedDate = ag.ModifiedDate,
-                                      CreateUser = ag.CreateUser,
-                                      ModifiedUser = ag.ModifiedUser,
-                                      IsActive = ag.IsActive,
-                                  }
-                              }).ToList();
+                var result = (from pr in listPropiedad
+                              join ag in listCiudad on pr.AgenteId equals ag.Id
+                              join ci in listCiudad on pr.CiudadId equals ci.Id
+                              join tp in listTipoPropiedad on pr.TipoPropiedadId equals tp.Id
+                              join to in listTipoPropiedad on pr.TipoOfertaId equals to.Id
+                              join es in listEstrato on pr.EstratoId equals es.Id
+                              select pr).ToList();               
 
                 var lstTemp = mapper.Map<List<PropiedadDto>>(result);
 
-                if (result != null)
+                if (lstTemp != null)
                 {
                     oRespuesta.Success = true;
-                    oRespuesta.Data = result;
+                    oRespuesta.Data = lstTemp;
                 }
                 else
                 {

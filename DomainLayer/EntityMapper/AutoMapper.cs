@@ -28,6 +28,12 @@ namespace DomainLayer.EntityMapper
 
             CreateMap<TipoPropiedad, TipoPropiedadDto>().ReverseMap();
             CreateMap<TipoPropiedadDto, TipoPropiedad>();
+
+            CreateMap<TipoOferta, TipoOfertaDto>().ReverseMap();
+            CreateMap<TipoOfertaDto, TipoOferta>();
+
+            CreateMap<Estrato, EstratoDto>().ReverseMap();
+            CreateMap<EstratoDto, Estrato>();
         }
     }
 }
