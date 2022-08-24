@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DomainLayer.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using static Commun.Enums;
 
 namespace DomainLayer.Dtos
 {
@@ -31,5 +33,9 @@ namespace DomainLayer.Dtos
 
         [Display(Name = "Activo")]
         public bool IsActive { get; set; }
+
+        //public int NumeroPiso { get; set; }
+        [EnumDataType(typeof(NumPisos)), Display(Name = "Número de Pisos")]
+        public NumPisos NumPiso { get; set; }
     }
 }

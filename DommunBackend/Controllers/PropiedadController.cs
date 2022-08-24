@@ -39,7 +39,7 @@ namespace DommunBackend.Controllers
                 var objModel = queryTable.OrderBy(x => x.Titulo).ToList();
 
                 var lstTemp = mapper.Map<List<PropiedadDto>>(objModel);
-
+                
                 if (lstTemp.Count >= 0)
                 {
                     oRespuesta.Success = true;

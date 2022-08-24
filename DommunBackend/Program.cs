@@ -27,6 +27,8 @@ builder.Services.AddSwaggerGen();
 string dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
 
+builder.Services.AddScoped<DbInitializer>();
+
 #endregion
 
 #region Services Autentication  
@@ -82,7 +84,6 @@ builder.Services.AddScoped(typeof(IBackOfficeService), typeof(BackOfficeService)
 builder.Services.AddScoped(typeof(ICiudadService), typeof(CiudadService));
 builder.Services.AddScoped(typeof(IEstadoPropiedadService), typeof(EstadoPropiedadService));
 builder.Services.AddScoped(typeof(IFotografiaService), typeof(FotografiaService));
-builder.Services.AddScoped(typeof(IFotografiaPropiedadService), typeof(FotografiaPropiedadService));
 builder.Services.AddScoped(typeof(IPropiedadService), typeof(PropiedadService));
 builder.Services.AddScoped(typeof(ITipoPropiedadService), typeof(TipoPropiedadService));
 
@@ -116,6 +117,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    //app.UseItToSeedSqlServer();
 }
 
 app.UseHttpsRedirection();

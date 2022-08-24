@@ -21,10 +21,7 @@ namespace DomainLayer.EntityMapper
             CreateMap<EstadoPropiedadDto, EstadoPropiedad>();
 
             CreateMap<Fotografia, FotografiaDto>().ReverseMap();
-            CreateMap<FotografiaDto, Fotografia>();
-
-            CreateMap<FotografiaPropiedad, FotografiaPropiedadDto>().ReverseMap();
-            CreateMap<FotografiaPropiedadDto, FotografiaPropiedad>();
+            CreateMap<FotografiaDto, Fotografia>();            
 
             CreateMap<Propiedad, PropiedadDto>().ReverseMap();
             CreateMap<PropiedadDto, Propiedad>();
