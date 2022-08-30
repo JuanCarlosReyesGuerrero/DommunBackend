@@ -1,12 +1,5 @@
 using DependencyInjection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
-using RepositoryLayer.RespositoryPattern.Interface;
-using RepositoryLayer.RespositoryPattern.Repository;
-using ServicesLayer.Interface;
-using ServicesLayer.Service;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,20 +27,7 @@ builder.Services.AddSwaggerGen();
 
 #region Services Injected  
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped(typeof(IBackOfficeRepository), typeof(BackOfficeRepository));
-builder.Services.AddScoped(typeof(IPropiedadRepository), typeof(PropiedadRepository));
-
-builder.Services.AddTransient<IAgenteService, AgenteService>();
-builder.Services.AddTransient<IInmobiliariaService, InmobiliariaService>();
-builder.Services.AddScoped(typeof(IBackOfficeService), typeof(BackOfficeService));
-builder.Services.AddScoped(typeof(ICiudadService), typeof(CiudadService));
-builder.Services.AddScoped(typeof(IEstadoPropiedadService), typeof(EstadoPropiedadService));
-builder.Services.AddScoped(typeof(IFotografiaService), typeof(FotografiaService));
-builder.Services.AddScoped(typeof(IPropiedadService), typeof(PropiedadService));
-builder.Services.AddScoped(typeof(ITipoPropiedadService), typeof(TipoPropiedadService));
-
-builder.Services.AddTransient<IAuthToken, AuthToken>();
+builder.Services.InyeccionServicios(builder.Configuration);
 
 #endregion
 

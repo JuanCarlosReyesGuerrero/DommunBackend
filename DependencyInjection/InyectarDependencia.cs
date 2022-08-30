@@ -4,6 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
+using RepositoryLayer.RespositoryPattern.Interface;
+using RepositoryLayer.RespositoryPattern.Repository;
+using ServicesLayer.Interface;
+using ServicesLayer.Service;
 using System.Text;
 
 namespace DependencyInjection
@@ -43,6 +47,24 @@ namespace DependencyInjection
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretPassword"]))
                 };
             });
+        }
+
+        public static void InyeccionServicios(this IServiceCollection services, IConfiguration Configuration)
+        {
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IBackOfficeRepository), typeof(BackOfficeRepository));
+            services.AddScoped(typeof(IPropiedadRepository), typeof(PropiedadRepository));
+
+            services.AddTransient<IAgenteService, AgenteService>();
+            services.AddTransient<IInmobiliariaService, InmobiliariaService>();
+            services.AddScoped(typeof(IBackOfficeService), typeof(BackOfficeService));
+            services.AddScoped(typeof(ICiudadService), typeof(CiudadService));
+            services.AddScoped(typeof(IEstadoPropiedadService), typeof(EstadoPropiedadService));
+            services.AddScoped(typeof(IFotografiaService), typeof(FotografiaService));
+            services.AddScoped(typeof(IPropiedadService), typeof(PropiedadService));
+            services.AddScoped(typeof(ITipoPropiedadService), typeof(TipoPropiedadService));
+
+            services.AddTransient<IAuthToken, AuthToken>();
         }
     }
 }
