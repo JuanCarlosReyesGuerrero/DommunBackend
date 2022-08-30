@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Commun\Commun.csproj" />
+    <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
     <ProjectReference Include="..\RepositoryLayer\RepositoryLayer.csproj" />
     <ProjectReference Include="..\ServicesLayer\ServicesLayer.csproj" />
   </ItemGroup>

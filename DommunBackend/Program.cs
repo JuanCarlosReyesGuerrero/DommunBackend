@@ -1,5 +1,5 @@
+using DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
 using RepositoryLayer.RespositoryPattern.Interface;
@@ -19,53 +19,13 @@ builder.Services.AddSwaggerGen();
 
 #region Connection String  
 
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlServer(connectionString));
-
-string dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
-
-builder.Services.AddScoped<DbInitializer>();
+builder.Services.ConexionDataBases(builder.Configuration);
 
 #endregion
 
 #region Services Autentication  
 
-builder.Services.AddControllers();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretPassword"]))
-    };
-});
-
-//builder.Services
-//    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddJwtBearer(options =>
-//    {
-//                   options.TokenValidationParameters = new TokenValidationParameters()
-//                   {
-//                       ValidateIssuer = true,
-//                       ValidateAudience = true,
-//                       ValidateLifetime = true,
-//                       ValidateIssuerSigningKey = true,
-//                       ValidIssuer = builder.Configuration["JWT:Issuer"],
-//                       ValidAudience = builder.Configuration["JWT:Audience"],
-//                       ClockSkew = TimeSpan.Zero,
-//                       IssuerSigningKey = new SymmetricSecurityKey(
-//                           Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretPassword"])
-//                       )
-//                   };
-//               });
-
+builder.Services.AutenticacionJwt(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

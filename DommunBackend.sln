@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryLayer", "Reposito
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicesLayer", "ServicesLayer\ServicesLayer.csproj", "{8BF4AA2B-589C-4D4C-A741-C631D28BFBC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commun", "Commun\Commun.csproj", "{83C962A1-4385-446E-81A0-244AE45C7EDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commun", "Commun\Commun.csproj", "{83C962A1-4385-446E-81A0-244AE45C7EDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection", "DependencyInjection\DependencyInjection.csproj", "{E1F5F0A5-A25B-4A99-90BD-CD909DBE865F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{83C962A1-4385-446E-81A0-244AE45C7EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83C962A1-4385-446E-81A0-244AE45C7EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83C962A1-4385-446E-81A0-244AE45C7EDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1F5F0A5-A25B-4A99-90BD-CD909DBE865F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1F5F0A5-A25B-4A99-90BD-CD909DBE865F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1F5F0A5-A25B-4A99-90BD-CD909DBE865F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1F5F0A5-A25B-4A99-90BD-CD909DBE865F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
