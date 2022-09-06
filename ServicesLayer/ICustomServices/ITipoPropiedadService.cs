@@ -1,6 +1,6 @@
 ﻿using DomainLayer.Models;
 
-namespace ServicesLayer.Interface
+namespace ServicesLayer.ICustomServices
 {
     public interface ITipoPropiedadService
     {

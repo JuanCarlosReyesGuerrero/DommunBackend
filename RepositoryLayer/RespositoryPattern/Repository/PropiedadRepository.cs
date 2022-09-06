@@ -3,9 +3,8 @@ using Commun;
 using Commun.Logs;
 using DomainLayer.Dtos;
 using DomainLayer.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RepositoryLayer.RespositoryPattern.Interface;
+using RepositoryLayer.Data;
+using RepositoryLayer.RespositoryPattern.IRepository;
 
 namespace RepositoryLayer.RespositoryPattern.Repository
 {

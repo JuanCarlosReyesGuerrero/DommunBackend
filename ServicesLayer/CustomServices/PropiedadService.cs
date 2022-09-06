@@ -1,8 +1,8 @@
 ﻿using DomainLayer.Models;
-using RepositoryLayer.RespositoryPattern.Interface;
-using ServicesLayer.Interface;
+using RepositoryLayer.RespositoryPattern.IRepository;
+using ServicesLayer.ICustomServices;
 
-namespace ServicesLayer.Service
+namespace ServicesLayer.CustomServices
 {
     public class PropiedadService : IPropiedadService
     {

@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using RepositoryLayer;
-using RepositoryLayer.RespositoryPattern.Interface;
+using RepositoryLayer.Data;
+using RepositoryLayer.RespositoryPattern.IRepository;
 using RepositoryLayer.RespositoryPattern.Repository;
-using ServicesLayer.Interface;
-using ServicesLayer.Service;
+using ServicesLayer.CustomServices;
+using ServicesLayer.ICustomServices;
 using System.Text;
 
 namespace DependencyInjection
@@ -65,6 +66,13 @@ namespace DependencyInjection
             services.AddScoped(typeof(ITipoPropiedadService), typeof(TipoPropiedadService));
 
             services.AddTransient<IAuthToken, AuthToken>();
+        }
+
+        public static void UserIdentity(this IServiceCollection services, IConfiguration Configuration)
+        {
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
         }
     }
 }

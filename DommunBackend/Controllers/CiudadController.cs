@@ -4,7 +4,7 @@ using DomainLayer.Dtos;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ServicesLayer.Interface;
+using ServicesLayer.ICustomServices;
 
 namespace DommunBackend.Controllers
 {

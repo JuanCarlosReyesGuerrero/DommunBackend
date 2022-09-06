@@ -1,6 +1,7 @@
 ﻿using DomainLayer.Models;
 using Microsoft.EntityFrameworkCore;
-using RepositoryLayer.RespositoryPattern.Interface;
+using RepositoryLayer.Data;
+using RepositoryLayer.RespositoryPattern.IRepository;
 
 namespace RepositoryLayer.RespositoryPattern.Repository
 {

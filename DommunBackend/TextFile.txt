@@ -1,0 +1,17 @@
+﻿
+
+autenticacion
+https://www.youtube.com/watch?v=_H5X8-YvWG0
+
+Using React Router with Apache
+https://www.malikbrowne.com/blog/using-react-router-with-apache
+
+
+DOCKER
+//builder.WebHost.UseKestrel(serverOptions =>
+//{
+//    serverOptions.ListenAnyIP(4000);
+//    serverOptions.ListenAnyIP(7207, listenOptions => listenOptions.UseHttps());
+//});
+
+//https://www.youtube.com/watch?v=8WO-WlZ9NoA&t=433s

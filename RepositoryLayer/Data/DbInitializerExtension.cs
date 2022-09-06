@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace RepositoryLayer
+namespace RepositoryLayer.Data
 {
     public static class DbInitializerExtension
     {

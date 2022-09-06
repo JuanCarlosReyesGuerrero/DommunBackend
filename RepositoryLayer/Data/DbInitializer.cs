@@ -1,7 +1,7 @@
 ﻿using DomainLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace RepositoryLayer
+namespace RepositoryLayer.Data
 {
     public class DbInitializer
     {

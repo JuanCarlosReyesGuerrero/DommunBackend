@@ -1,11 +1,11 @@
 ﻿using DomainLayer.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using ServicesLayer.Interface;
+using ServicesLayer.ICustomServices;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace ServicesLayer.Service
+namespace ServicesLayer.CustomServices
 {
     public class AuthToken : IAuthToken
     {

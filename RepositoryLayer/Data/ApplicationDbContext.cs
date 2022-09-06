@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace RepositoryLayer
+namespace RepositoryLayer.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

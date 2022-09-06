@@ -1,6 +1,6 @@
 ﻿using DomainLayer.Models;
 
-namespace RepositoryLayer.RespositoryPattern.Interface
+namespace RepositoryLayer.RespositoryPattern.IRepository
 {
     public interface IBackOfficeRepository
     {

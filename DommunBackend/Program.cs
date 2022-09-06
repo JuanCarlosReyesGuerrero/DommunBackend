@@ -1,5 +1,7 @@
 using DependencyInjection;
-using RepositoryLayer;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using RepositoryLayer.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,12 @@ builder.Services.AddSwaggerGen();
 #region Services Injected  
 
 builder.Services.InyeccionServicios(builder.Configuration);
+
+#endregion
+
+#region User Identity
+
+builder.Services.UserIdentity(builder.Configuration);
 
 #endregion
 
@@ -63,6 +71,19 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+app.Use(async (context, next) =>
+{
+    if (!context.User.Identity.IsAuthenticated)
+    {
+        var result = await context.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
+        if (result?.Principal != null)
+        {
+            context.User = result.Principal;
+        }
+    }
+
+    await next.Invoke();
+});
 app.UseAuthorization();
 
 app.MapControllers();

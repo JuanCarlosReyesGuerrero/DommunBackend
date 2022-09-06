@@ -2,7 +2,8 @@
 using DomainLayer.Dtos;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Identity;
-using RepositoryLayer.RespositoryPattern.Interface;
+using RepositoryLayer.Data;
+using RepositoryLayer.RespositoryPattern.IRepository;
 
 namespace RepositoryLayer.RespositoryPattern.Repository
 {
