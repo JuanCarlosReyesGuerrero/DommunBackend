@@ -56,56 +56,74 @@ namespace DommunBackend.Controllers
             }
         }
 
-        /// <summary>
-        /// Genera un correo con una clave temporal
-        /// </summary>
-        /// <param name="loginModel"></param>
-        /// <returns></returns>
-        //[HttpPost]
-        //[Route("RecuperarClave")]
-        //public IActionResult RecuperarClave([FromBody] LoginModel loginModel)
-        //{
-        //    try
-        //    {
-        //        if (loginBackOfficeService.RecuperaPassword(loginModel))
-        //            return Ok(true);
-        //        else
-        //            return BadRequest(false);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.LogError(ex, ex.StackTrace);
-        //        return BadRequest();
-        //    }
-        //}
+        [HttpPost]
+        [Route("Registrar")]
+        public async Task<IActionResult> RegistrarAsync([FromBody] LoginModel loginModel)
+        {
+            Result oRespuesta = new Result();
 
-        /// <summary>
-        /// Actualiza la clave del usuario
-        /// </summary>
-        /// <param name="cambioClaveModel"></param>
-        /// <returns></returns>
-        //[HttpPost]
-        //[Route("CambiarClave")]
-        //public IActionResult CambiarClave([FromBody] CambioPasswordModel cambioPasswordModel)
-        //{
-        //    try
-        //    {
-        //        var response = loginBackOfficeService.CambiarPassword(cambioPasswordModel);
-        //        if (!response.Error)
-        //        {
-        //            return Ok(true);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(response);
-        //        }
+            try
+            {
+                var vRespuesta = await objService.Registro(loginModel);
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.LogError(ex, ex.StackTrace);
-        //        return BadRequest();
-        //    }
-        //}
+                if (vRespuesta.Success == true)
+                {
+                    oRespuesta.Success = true;
+                    oRespuesta.Message = vRespuesta.Message;
+                    oRespuesta.Data = vRespuesta.Data;
+
+                    return Ok(oRespuesta);
+                }
+                else
+                {
+                    oRespuesta.Success = false;
+                    oRespuesta.Message = vRespuesta.Message;
+
+                    return Ok(oRespuesta);
+                }
+            }
+            catch (Exception ex)
+            {
+                enviarLog.EnviarExcepcion(ex.Message, ex);
+                oRespuesta.Message = ex.Message;
+
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        [Route("CambioPassword")]
+        public async Task<IActionResult> CambioPasswordAsync([FromBody] ChangePasswordModel loginModel)
+        {
+            Result oRespuesta = new Result();
+
+            try
+            {
+                var vRespuesta = await objService.CambioPassword(loginModel);
+
+                if (vRespuesta.Success == true)
+                {
+                    oRespuesta.Success = true;
+                    oRespuesta.Message = vRespuesta.Message;
+                    oRespuesta.Data = vRespuesta.Data;
+
+                    return Ok(oRespuesta);
+                }
+                else
+                {
+                    oRespuesta.Success = false;
+                    oRespuesta.Message = vRespuesta.Message;
+
+                    return Ok(oRespuesta);
+                }
+            }
+            catch (Exception ex)
+            {
+                enviarLog.EnviarExcepcion(ex.Message, ex);
+                oRespuesta.Message = ex.Message;
+
+                return BadRequest();
+            }
+        }
     }
 }

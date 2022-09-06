@@ -17,5 +17,15 @@ namespace ServicesLayer.CustomServices
         {
             return objRepository.ValidarLogin(loginModel);
         }
+
+        public Task<Result> Registro(LoginModel objModel)
+        {
+            return objRepository.Registro(objModel);
+        }
+
+        public Task<Result> CambioPassword(ChangePasswordModel objModel)
+        {
+            return objRepository.CambioPassword(objModel);
+        }
     }
 }
