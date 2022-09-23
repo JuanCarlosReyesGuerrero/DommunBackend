@@ -3,6 +3,7 @@ using Commun;
 using Commun.Logs;
 using DomainLayer.Dtos;
 using DomainLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Data;
 using RepositoryLayer.RespositoryPattern.IRepository;
 
@@ -31,36 +32,51 @@ namespace RepositoryLayer.RespositoryPattern.Repository
 
             try
             {
-                var listPropiedad = (from x in objContext.Propiedades select x).ToList();
-                var listCiudad = (from x in objContext.Ciudades select x).ToList();
-                var listTipoPropiedad = (from x in objContext.TipoPropiedades select x).ToList();
-                var listTipoOferta = (from x in objContext.TipoOfertas select x).ToList();
-                var listEstrato = (from x in objContext.Estratos select x).ToList();
-                var listAgente = (from x in objContext.Agentes select x).ToList();
+                listResult = await objContext.Propiedades
+                    .Include(b => b.Ciudad)
+                    .Include(b => b.TipoPropiedad)
+                    .Include(b => b.TipoOferta)
+                    .Include(b => b.Estrato)
+                   // .Include(b => b.Agente)
+                    .Include(b => b.EstadoPropiedad)
+                    .Include(b => b.TiempoConstruido)
+                    .Include(b => b.TipoParqueadero)
+                    .Include(b => b.CaracteristicaParqueadero)
+                    .Include(b => b.NumeroBano)
+                    .Include(b => b.NumeroHabitacion)
+                    .Include(b => b.NumeroParqueadero)
+                    .ToListAsync();
 
-                var listEstadoPropiedadDto = (from x in objContext.EstadoPropiedades select x).ToList();
-                var listTiempoConstruidoDto = (from x in objContext.TiempoConstruidos select x).ToList();
-                var listTipoParqueaderoDto = (from x in objContext.TipoParqueaderos select x).ToList();
-                var listCaracteristicaParqueaderoDto = (from x in objContext.CaracteristicaParqueaderos select x).ToList();
-                var listNumeroBanoDto = (from x in objContext.NumeroBanos select x).ToList();
-                var listNumeroHabitacionDto = (from x in objContext.NumeroHabitaciones select x).ToList();
-                var listNumeroParqueaderoDto = (from x in objContext.NumeroParqueaderos select x).ToList();
+                //var listPropiedad = (from x in objContext.Propiedades select x).ToList();
+                //var listCiudad = (from x in objContext.Ciudades select x).ToList();
+                //var listTipoPropiedad = (from x in objContext.TipoPropiedades select x).ToList();
+                //var listTipoOferta = (from x in objContext.TipoOfertas select x).ToList();
+                //var listEstrato = (from x in objContext.Estratos select x).ToList();
+                //var listAgente = (from x in objContext.Agentes select x).ToList();
+
+                //var listEstadoPropiedadDto = (from x in objContext.EstadoPropiedades select x).ToList();
+                //var listTiempoConstruidoDto = (from x in objContext.TiempoConstruidos select x).ToList();
+                //var listTipoParqueaderoDto = (from x in objContext.TipoParqueaderos select x).ToList();
+                //var listCaracteristicaParqueaderoDto = (from x in objContext.CaracteristicaParqueaderos select x).ToList();
+                //var listNumeroBanoDto = (from x in objContext.NumeroBanos select x).ToList();
+                //var listNumeroHabitacionDto = (from x in objContext.NumeroHabitaciones select x).ToList();
+                //var listNumeroParqueaderoDto = (from x in objContext.NumeroParqueaderos select x).ToList();
 
 
-                listResult = (from pr in listPropiedad
-                              join ag in listCiudad on pr.AgenteId equals ag.Id
-                              join ci in listCiudad on pr.CiudadId equals ci.Id
-                              join tp in listTipoPropiedad on pr.TipoPropiedadId equals tp.Id
-                              join to in listTipoPropiedad on pr.TipoOfertaId equals to.Id
-                              join es in listEstrato on pr.EstratoId equals es.Id
-                              join ep in listEstadoPropiedadDto on pr.EstadoPropiedadId equals ep.Id
-                              join tc in listTiempoConstruidoDto on pr.TiempoConstruidoId equals tc.Id
-                              join tpa in listTipoParqueaderoDto on pr.TipoParqueaderoId equals tpa.Id
-                              join cp in listCaracteristicaParqueaderoDto on pr.CaracteristicaParqueaderoId equals cp.Id
-                              join nb in listNumeroBanoDto on pr.NumeroBanoId equals nb.Id
-                              join nh in listNumeroHabitacionDto on pr.NumeroHabitacionId equals nh.Id
-                              join np in listNumeroParqueaderoDto on pr.NumeroParqueaderoId equals np.Id
-                              select pr).ToList();
+                //listResult = (from pr in listPropiedad
+                //              join ag in listCiudad on pr.AgenteId equals ag.Id
+                //              join ci in listCiudad on pr.CiudadId equals ci.Id
+                //              join tp in listTipoPropiedad on pr.TipoPropiedadId equals tp.Id
+                //              join to in listTipoPropiedad on pr.TipoOfertaId equals to.Id
+                //              join es in listEstrato on pr.EstratoId equals es.Id
+                //              join ep in listEstadoPropiedadDto on pr.EstadoPropiedadId equals ep.Id
+                //              join tc in listTiempoConstruidoDto on pr.TiempoConstruidoId equals tc.Id
+                //              join tpa in listTipoParqueaderoDto on pr.TipoParqueaderoId equals tpa.Id
+                //              join cp in listCaracteristicaParqueaderoDto on pr.CaracteristicaParqueaderoId equals cp.Id
+                //              join nb in listNumeroBanoDto on pr.NumeroBanoId equals nb.Id
+                //              join nh in listNumeroHabitacionDto on pr.NumeroHabitacionId equals nh.Id
+                //              join np in listNumeroParqueaderoDto on pr.NumeroParqueaderoId equals np.Id
+                //              select pr).ToList();
 
                 if (listResult.Count > 0)
                 {
@@ -92,7 +108,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             return oRespuesta;
         }
 
-        public async Task<Result> ObtenerPropiedadesById(int vId)
+        public async Task<Result> ObtenerPropiedadById(int vId)
         {
             Result oRespuesta = new Result();
 

@@ -9,7 +9,7 @@ namespace DomainLayer.EntityMapper
         public AutoMapper()
         {
             CreateMap<Agente, AgenteDto>().ReverseMap();
-            CreateMap<AgenteDto, Agente>();
+            CreateMap<AgenteDto, Agente>();           
 
             CreateMap<Inmobiliaria, InmobiliariaDto>().ReverseMap();
             CreateMap<InmobiliariaDto, Inmobiliaria>();
@@ -52,6 +52,13 @@ namespace DomainLayer.EntityMapper
 
             CreateMap<NumeroParqueadero, NumeroParqueaderoDto>().ReverseMap();
             CreateMap<NumeroParqueaderoDto, NumeroParqueadero>();
+
+
+            CreateMap<Agente, AgenteFullDto>().ReverseMap();
+            CreateMap<AgenteFullDto, Agente>();
+
+            CreateMap<Propiedad, PropiedadFullDto>().ReverseMap();
+            CreateMap<PropiedadFullDto, Propiedad>();
         }
     }
 }

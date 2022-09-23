@@ -8,12 +8,14 @@ namespace ServicesLayer.CustomServices
     {
         #region Property  
         private readonly IRepository<Agente> objRepository;
+        private readonly IAgenteRepository agenteRepository;
         #endregion
 
         #region Constructor  
-        public AgenteService(IRepository<Agente> _objRepository)
+        public AgenteService(IRepository<Agente> _objRepository, IAgenteRepository _agenteRepository)
         {
             this.objRepository = _objRepository;
+            this.agenteRepository = _agenteRepository;
         }
         #endregion
 
@@ -42,6 +44,16 @@ namespace ServicesLayer.CustomServices
         public void UpdateAgente(Agente model)
         {
             objRepository.Update(model);
+        }
+
+        public Task<Result> ObtenerAgentes()
+        {
+            return agenteRepository.ObtenerAgentes();
+        }
+
+        public Task<Result> ObtenerAgenteById(int vId)
+        {
+            return agenteRepository.ObtenerAgenteById(vId);
         }
     }
 }

@@ -11,6 +11,6 @@ namespace ServicesLayer.ICustomServices
         void DeletePropiedad(int id);
 
         Task<Result> ObtenerPropiedades();
-        Task<Result> ObtenerPropiedadesById(int vId);
+        Task<Result> ObtenerPropiedadById(int vId);
     }
 }

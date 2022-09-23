@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Commun;
 using Commun.Logs;
 using DomainLayer.Dtos;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using ServicesLayer.CustomServices;
 using ServicesLayer.ICustomServices;
 
 namespace DommunBackend.Controllers
@@ -170,6 +173,76 @@ namespace DommunBackend.Controllers
             }
 
             return oRespuesta;
+        }
+
+        [HttpGet(nameof(GetAgentesFull))]
+        public async Task<IActionResult> GetAgentesFull()
+        {
+            Result oRespuesta = new Result();
+
+            try
+            {
+                var vRespuesta = await agenteService.ObtenerAgentes();
+
+                if (vRespuesta.Success == true)
+                {
+                    oRespuesta.Success = true;
+                    oRespuesta.Message = Constantes.msjLoginCorrecto;
+                    oRespuesta.Data = vRespuesta.Data;
+
+                    return Ok(oRespuesta);
+                }
+                else
+                {
+                    oRespuesta.Success = false;
+                    oRespuesta.Message = Constantes.msjLoginErrado;
+
+                    return Ok(oRespuesta);
+                }
+            }
+            catch (Exception ex)
+            {
+                enviarLog.EnviarExcepcion(ex.Message, ex);
+
+                oRespuesta.Message = ex.Message;
+
+                return BadRequest();
+            }
+        }
+
+        [HttpGet(nameof(GetAgenteById))]
+        public async Task<Result> GetAgenteById(int Id)
+        {
+            Result oRespuesta = new Result();
+
+            try
+            {
+                var vRespuesta = await agenteService.ObtenerAgenteById(Id);                         
+
+                if (vRespuesta.Success == true)
+                {
+                    oRespuesta.Success = true;
+                    oRespuesta.Message = vRespuesta.Message;
+                    oRespuesta.Data = vRespuesta.Data;
+
+                    return oRespuesta;
+                }
+                else
+                {
+                    oRespuesta.Success = false;
+                    oRespuesta.Message = vRespuesta.Message;
+
+                    return oRespuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                enviarLog.EnviarExcepcion(ex.Message, ex);
+
+                oRespuesta.Message = ex.Message;
+
+                return oRespuesta;
+            }
         }
     }
 }

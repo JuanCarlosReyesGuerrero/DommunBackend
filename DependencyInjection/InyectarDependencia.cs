@@ -55,6 +55,7 @@ namespace DependencyInjection
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IBackOfficeRepository), typeof(BackOfficeRepository));
             services.AddScoped(typeof(IPropiedadRepository), typeof(PropiedadRepository));
+            services.AddScoped(typeof(IAgenteRepository), typeof(AgenteRepository));
 
             services.AddTransient<IAgenteService, AgenteService>();
             services.AddTransient<IInmobiliariaService, InmobiliariaService>();

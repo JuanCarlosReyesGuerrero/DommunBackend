@@ -217,7 +217,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var vRespuesta = await propiedadService.ObtenerPropiedadesById(Id);
+                var vRespuesta = await propiedadService.ObtenerPropiedadById(Id);
 
                 if (vRespuesta.Success == true)
                 {

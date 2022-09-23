@@ -51,9 +51,9 @@ namespace ServicesLayer.CustomServices
             return propiedadRepository.ObtenerPropiedades();
         }
 
-        public Task<Result> ObtenerPropiedadesById(int vId)
+        public Task<Result> ObtenerPropiedadById(int vId)
         {
-            return propiedadRepository.ObtenerPropiedadesById(vId);
+            return propiedadRepository.ObtenerPropiedadById(vId);
         }
     }
 }

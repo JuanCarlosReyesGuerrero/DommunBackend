@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DomainLayer.Dtos
 {
-    public class AgenteDto
+    public class AgenteFullDto
     {
         [HiddenInput]
         public int Id { get; set; }
@@ -35,6 +35,6 @@ namespace DomainLayer.Dtos
 
         public Inmobiliaria? Inmobiliaria { get; set; }
 
-        public List<PropiedadDto>? Propiedades { get; set; }
+        public List<PropiedadFullDto>? Propiedades { get; set; }     
     }
 }

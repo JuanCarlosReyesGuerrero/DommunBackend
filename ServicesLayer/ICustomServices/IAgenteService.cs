@@ -9,5 +9,8 @@ namespace ServicesLayer.ICustomServices
         void InsertAgente(Agente model);
         void UpdateAgente(Agente model);
         void DeleteAgente(int id);
+
+        Task<Result> ObtenerAgentes();
+        Task<Result> ObtenerAgenteById(int vId);
     }
 }
