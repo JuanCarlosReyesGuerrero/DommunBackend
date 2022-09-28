@@ -32,9 +32,6 @@ namespace DomainLayer.Dtos
         [Display(Name = "Activo")]
         public bool IsActive { get; set; }
 
-
-        public Inmobiliaria? Inmobiliaria { get; set; }
-
-        public List<PropiedadDto>? Propiedades { get; set; }
+        public InmobiliariaDto? Inmobiliaria { get; set; }        
     }
 }

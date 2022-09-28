@@ -11,7 +11,7 @@ using ServicesLayer.ICustomServices;
 
 namespace DommunBackend.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AgenteController : ControllerBase
@@ -39,9 +39,8 @@ namespace DommunBackend.Controllers
             try
             {
                 var queryTable = agenteService.GetAllAgentes();
-                var objModel = queryTable.OrderBy(x => x.Nombres).ToList();
 
-                var lstTemp = mapper.Map<List<AgenteDto>>(objModel);
+                var lstTemp = mapper.Map<List<AgenteDto>>(queryTable.Result.Data);
 
                 if (lstTemp.Count >= 0)
                 {
@@ -73,12 +72,10 @@ namespace DommunBackend.Controllers
             {
                 var objModel = agenteService.GetAgenteById(Id);
 
-                var lstTemp = mapper.Map<AgenteDto>(objModel);
-
-                if (lstTemp != null)
+                if (objModel != null)
                 {
-                    oRespuesta.Success = true;
-                    oRespuesta.Data = lstTemp;
+                    oRespuesta.Success = objModel.Result.Success;
+                    oRespuesta.Data = objModel.Result.Data;
                 }
             }
             catch (Exception ex)
@@ -97,16 +94,16 @@ namespace DommunBackend.Controllers
         /// <param name="customer"></param>
         /// <returns></returns>
         [HttpPost(nameof(InsertAgente))]
-        public Result InsertAgente(Agente objModel)
+        public Result InsertAgente(AgenteDto objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.InsertAgente(objModel);
+                var vRespuesta = agenteService.InsertAgente(objModel);
 
-                oRespuesta.Success = true;
-                oRespuesta.Message = "Registro Guardado";
+                oRespuesta.Success = vRespuesta.Result.Success;
+                oRespuesta.Message = vRespuesta.Result.Message;
 
             }
             catch (Exception ex)
@@ -125,16 +122,16 @@ namespace DommunBackend.Controllers
         /// <param name="customer"></param>
         /// <returns></returns>
         [HttpPut(nameof(UpdateAgente))]
-        public Result UpdateAgente(Agente objModel)
+        public Result UpdateAgente(AgenteDto objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.UpdateAgente(objModel);
+                var vRespuesta = agenteService.UpdateAgente(objModel);
 
-                oRespuesta.Success = true;
-                oRespuesta.Message = "Registro Actualizado";
+                oRespuesta.Success = vRespuesta.Result.Success;
+                oRespuesta.Message = vRespuesta.Result.Message;
 
             }
             catch (Exception ex)
@@ -153,16 +150,16 @@ namespace DommunBackend.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpDelete(nameof(DeleteAgente))]
-        public Result DeleteAgente(int Id)
+        public Result DeleteAgente(AgenteDto objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                agenteService.DeleteAgente(Id);
+                var vRespuesta = agenteService.DeleteAgente(objModel);
 
-                oRespuesta.Success = true;
-                oRespuesta.Message = "Registro Eliminado";
+                oRespuesta.Success = vRespuesta.Result.Success;
+                oRespuesta.Message = vRespuesta.Result.Message;
 
             }
             catch (Exception ex)
@@ -182,7 +179,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var vRespuesta = await agenteService.ObtenerAgentes();
+                var vRespuesta = await agenteService.ObtenerAgentesFull();
 
                 if (vRespuesta.Success == true)
                 {
@@ -217,7 +214,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var vRespuesta = await agenteService.ObtenerAgenteById(Id);                         
+                var vRespuesta = await agenteService.ObtenerAgenteFullById(Id);
 
                 if (vRespuesta.Success == true)
                 {

@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models;
+﻿using DomainLayer.Dtos;
+using DomainLayer.Models;
 using RepositoryLayer.RespositoryPattern.IRepository;
 using ServicesLayer.ICustomServices;
 
@@ -6,54 +7,46 @@ namespace ServicesLayer.CustomServices
 {
     public class AgenteService : IAgenteService
     {
-        #region Property  
-        private readonly IRepository<Agente> objRepository;
         private readonly IAgenteRepository agenteRepository;
-        #endregion
 
-        #region Constructor  
-        public AgenteService(IRepository<Agente> _objRepository, IAgenteRepository _agenteRepository)
+        public AgenteService(IAgenteRepository _agenteRepository)
         {
-            this.objRepository = _objRepository;
             this.agenteRepository = _agenteRepository;
         }
-        #endregion
 
-        public void DeleteAgente(int id)
+        public Task<Result> DeleteAgente(AgenteDto entity)
         {
-            Agente customer = GetAgenteById(id);
-            objRepository.Remove(customer);
-            objRepository.SaveChanges();
+            return agenteRepository.DeleteAgente(entity);
         }
 
-        public Agente GetAgenteById(int id)
+        public Task<Result> GetAgenteById(int Id)
         {
-            return objRepository.Get(id);
+            return agenteRepository.GetAgenteById(Id);
         }
 
-        public IEnumerable<Agente> GetAllAgentes()
+        public Task<Result> GetAllAgentes()
         {
-            return objRepository.GetAll();
+            return agenteRepository.GetAllAgentes();
         }
 
-        public void InsertAgente(Agente model)
+        public Task<Result> InsertAgente(AgenteDto entity)
         {
-            objRepository.Insert(model);
+            return agenteRepository.InsertAgente(entity);
         }
 
-        public void UpdateAgente(Agente model)
+        public Task<Result> ObtenerAgenteFullById(int vId)
         {
-            objRepository.Update(model);
+            return agenteRepository.ObtenerAgenteFullById(vId);
         }
 
-        public Task<Result> ObtenerAgentes()
+        public Task<Result> ObtenerAgentesFull()
         {
-            return agenteRepository.ObtenerAgentes();
+            return agenteRepository.ObtenerAgentesFull();
         }
 
-        public Task<Result> ObtenerAgenteById(int vId)
+        public Task<Result> UpdateAgente(AgenteDto entity)
         {
-            return agenteRepository.ObtenerAgenteById(vId);
+            return agenteRepository.UpdateAgente(entity);
         }
     }
 }

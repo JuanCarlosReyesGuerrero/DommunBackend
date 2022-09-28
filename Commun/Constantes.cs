@@ -18,5 +18,14 @@
         public const string msjDosPasseordNoIguales = "Las contraseñas no son iguales";
         public const string msjNoSepUdoCambiarPass = "No se pudo cambiar la contraseña";
         public const string msjPassCambiado = "La contraseña se cambio con éxito";
+
+        public const string msjRegGuardado = "El registro se guardó con éxito";
+        public const string msjRegNoGuardado = "El registro no se puedo guardar";
+
+        public const string msjRegActualizado = "El registro se actualizo con éxito";
+        public const string msjRegNoActualizado = "El registro no se puedo actualizar";
+
+        public const string msjRegEliminado = "El registro se eliminó con éxito";
+        public const string msjRegNoEliminado = "El registro no se puedo eliminar";
     }
 }
