@@ -61,8 +61,7 @@ namespace DomainLayer.Dtos
         public EstadoPropiedadDto? EstadoPropiedad { get; set; }
         public CiudadDto? Ciudad { get; set; }
         public AgenteDto? Agente { get; set; }
-        public EstratoDto? Estrato { get; set; }
-        
+        public EstratoDto? Estrato { get; set; }        
         public TiempoConstruidoDto? TiempoConstruido { get; set; }
         public TipoParqueaderoDto? TipoParqueadero { get; set; }
         public CaracteristicaParqueaderoDto? CaracteristicaParqueadero { get; set; }

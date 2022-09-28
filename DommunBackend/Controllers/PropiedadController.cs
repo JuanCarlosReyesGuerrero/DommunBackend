@@ -38,13 +38,13 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var queryTable = propiedadService.GetAllPropiedades().ToList();
+                var queryTable = propiedadService.GetAllPropiedades();
 
-                var lstTemp = mapper.Map<List<PropiedadDto>>(queryTable);
+                var lstTemp = mapper.Map<List<PropiedadDto>>(queryTable.Result.Data);
 
                 if (lstTemp.Count >= 0)
                 {
-                    oRespuesta.Success = true;
+                    oRespuesta.Success = queryTable.Result.Success;
                     oRespuesta.Data = lstTemp;
                 }
             }
@@ -70,14 +70,12 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var objModel = propiedadService.GetPropiedadById(Id);
+                var objModel = propiedadService.GetPropiedadById(Id);                
 
-                var lstTemp = mapper.Map<PropiedadDto>(objModel);
-
-                if (lstTemp != null)
+                if (objModel != null)
                 {
-                    oRespuesta.Success = true;
-                    oRespuesta.Data = lstTemp;
+                    oRespuesta.Success = objModel.Result.Success;
+                    oRespuesta.Data = objModel.Result.Data;
                 }
             }
             catch (Exception ex)
@@ -93,19 +91,19 @@ namespace DommunBackend.Controllers
         /// <summary>
         /// InsertPropiedad
         /// </summary>
-        /// <param name="customer"></param>
+        /// <param name="objModel"></param>
         /// <returns></returns>
         [HttpPost(nameof(InsertPropiedad))]
-        public Result InsertPropiedad(Propiedad customer)
+        public Result InsertPropiedad(PropiedadDto objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                propiedadService.InsertPropiedad(customer);
+                var vRespuesta = propiedadService.InsertPropiedad(objModel);
 
-                oRespuesta.Success = true;
-                oRespuesta.Message = "Registro Guardado";
+                oRespuesta.Success = vRespuesta.Result.Success;
+                oRespuesta.Message = vRespuesta.Result.Message;
 
             }
             catch (Exception ex)
@@ -121,19 +119,19 @@ namespace DommunBackend.Controllers
         /// <summary>
         /// UpdatePropiedad
         /// </summary>
-        /// <param name="customer"></param>
+        /// <param name="objModel"></param>
         /// <returns></returns>
         [HttpPut(nameof(UpdatePropiedad))]
-        public Result UpdatePropiedad(Propiedad customer)
+        public Result UpdatePropiedad(PropiedadDto objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                propiedadService.UpdatePropiedad(customer);
+                var vRespuesta = propiedadService.UpdatePropiedad(objModel);
 
-                oRespuesta.Success = true;
-                oRespuesta.Message = "Registro Actualizado";
+                oRespuesta.Success = vRespuesta.Result.Success;
+                oRespuesta.Message = vRespuesta.Result.Message;
 
             }
             catch (Exception ex)
@@ -152,16 +150,16 @@ namespace DommunBackend.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpDelete(nameof(DeletePropiedad))]
-        public Result DeletePropiedad(int Id)
+        public Result DeletePropiedad(PropiedadDto objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                propiedadService.DeletePropiedad(Id);
+                var vRespuesta = propiedadService.DeletePropiedad(objModel);
 
-                oRespuesta.Success = true;
-                oRespuesta.Message = "Registro Eliminado";
+                oRespuesta.Success = vRespuesta.Result.Success;
+                oRespuesta.Message = vRespuesta.Result.Message;
 
             }
             catch (Exception ex)
@@ -172,77 +170,6 @@ namespace DommunBackend.Controllers
             }
 
             return oRespuesta;
-        }
-
-
-        [HttpGet(nameof(GetPropiedadesFull))]
-        public async Task<IActionResult> GetPropiedadesFull()
-        {
-            Result oRespuesta = new Result();
-
-            try
-            {
-                var vRespuesta = await propiedadService.ObtenerPropiedades();
-
-                if (vRespuesta.Success == true)
-                {
-                    oRespuesta.Success = true;
-                    oRespuesta.Message = Constantes.msjLoginCorrecto;
-                    oRespuesta.Data = vRespuesta.Data;
-
-                    return Ok(oRespuesta);
-                }
-                else
-                {
-                    oRespuesta.Success = false;
-                    oRespuesta.Message = Constantes.msjLoginErrado;
-
-                    return Ok(oRespuesta);
-                }
-            }
-            catch (Exception ex)
-            {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
-
-                oRespuesta.Message = ex.Message;
-
-                return BadRequest();
-            }
-        }
-
-        [HttpGet(nameof(GetPropiedadById))]
-        public async Task<IActionResult> GetPropiedadById(int Id)
-        {
-            Result oRespuesta = new Result();
-
-            try
-            {
-                var vRespuesta = await propiedadService.ObtenerPropiedadById(Id);
-
-                if (vRespuesta.Success == true)
-                {
-                    oRespuesta.Success = true;
-                    oRespuesta.Message = vRespuesta.Message;
-                    oRespuesta.Data = vRespuesta.Data;
-
-                    return Ok(oRespuesta);
-                }
-                else
-                {
-                    oRespuesta.Success = false;
-                    oRespuesta.Message = vRespuesta.Message;
-
-                    return Ok(oRespuesta);
-                }
-            }
-            catch (Exception ex)
-            {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
-
-                oRespuesta.Message = ex.Message;
-
-                return BadRequest();
-            }
-        }
+        }       
     }
 }

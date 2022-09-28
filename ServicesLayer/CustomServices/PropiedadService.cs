@@ -1,4 +1,5 @@
-﻿using DomainLayer.Models;
+﻿using DomainLayer.Dtos;
+using DomainLayer.Models;
 using RepositoryLayer.RespositoryPattern.IRepository;
 using ServicesLayer.ICustomServices;
 
@@ -6,54 +7,36 @@ namespace ServicesLayer.CustomServices
 {
     public class PropiedadService : IPropiedadService
     {
-        #region Property  
-        private readonly IRepository<Propiedad> objRepository;
         private readonly IPropiedadRepository propiedadRepository;
-        #endregion
 
-        #region Constructor  
-        public PropiedadService(IRepository<Propiedad> _objRepository,IPropiedadRepository _propiedadRepository)
+        public PropiedadService(IRepository<Propiedad> _objRepository, IPropiedadRepository _propiedadRepository)
         {
-            this.objRepository = _objRepository;
             this.propiedadRepository = _propiedadRepository;
         }
-        #endregion
 
-        public void DeletePropiedad(int id)
+        public Task<Result> DeletePropiedad(PropiedadDto entity)
         {
-            Propiedad customer = GetPropiedadById(id);
-            objRepository.Remove(customer);
-            objRepository.SaveChanges();
+            return propiedadRepository.DeletePropiedad(entity);
         }
 
-        public Propiedad GetPropiedadById(int id)
+        public Task<Result> GetAllPropiedades()
         {
-            return objRepository.Get(id);
+            return propiedadRepository.GetAllPropiedades();
         }
 
-        public IEnumerable<Propiedad> GetAllPropiedades()
+        public Task<Result> GetPropiedadById(int Id)
         {
-            return objRepository.GetAll();
+            return propiedadRepository.GetPropiedadById(Id);
         }
 
-        public void InsertPropiedad(Propiedad model)
+        public Task<Result> InsertPropiedad(PropiedadDto entity)
         {
-            objRepository.Insert(model);
-        }
+            return propiedadRepository.InsertPropiedad(entity);
+        }       
 
-        public void UpdatePropiedad(Propiedad model)
+        public Task<Result> UpdatePropiedad(PropiedadDto entity)
         {
-            objRepository.Update(model);
-        }
-
-        public Task<Result> ObtenerPropiedades()
-        {
-            return propiedadRepository.ObtenerPropiedades();
-        }
-
-        public Task<Result> ObtenerPropiedadById(int vId)
-        {
-            return propiedadRepository.ObtenerPropiedadById(vId);
+            return propiedadRepository.UpdatePropiedad(entity);
         }
     }
 }

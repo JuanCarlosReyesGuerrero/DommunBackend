@@ -23,7 +23,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             this.mapper = _mapper;
         }
 
-        public async Task<Result> ObtenerPropiedades()
+        public async Task<Result> GetAllPropiedades()
         {
             Result oRespuesta = new Result();
 
@@ -37,7 +37,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                     .Include(b => b.TipoPropiedad)
                     .Include(b => b.TipoOferta)
                     .Include(b => b.Estrato)
-                   // .Include(b => b.Agente)
+                    .Include(b => b.Agente)
                     .Include(b => b.EstadoPropiedad)
                     .Include(b => b.TiempoConstruido)
                     .Include(b => b.TipoParqueadero)
@@ -47,37 +47,6 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                     .Include(b => b.NumeroParqueadero)
                     .ToListAsync();
 
-                //var listPropiedad = (from x in objContext.Propiedades select x).ToList();
-                //var listCiudad = (from x in objContext.Ciudades select x).ToList();
-                //var listTipoPropiedad = (from x in objContext.TipoPropiedades select x).ToList();
-                //var listTipoOferta = (from x in objContext.TipoOfertas select x).ToList();
-                //var listEstrato = (from x in objContext.Estratos select x).ToList();
-                //var listAgente = (from x in objContext.Agentes select x).ToList();
-
-                //var listEstadoPropiedadDto = (from x in objContext.EstadoPropiedades select x).ToList();
-                //var listTiempoConstruidoDto = (from x in objContext.TiempoConstruidos select x).ToList();
-                //var listTipoParqueaderoDto = (from x in objContext.TipoParqueaderos select x).ToList();
-                //var listCaracteristicaParqueaderoDto = (from x in objContext.CaracteristicaParqueaderos select x).ToList();
-                //var listNumeroBanoDto = (from x in objContext.NumeroBanos select x).ToList();
-                //var listNumeroHabitacionDto = (from x in objContext.NumeroHabitaciones select x).ToList();
-                //var listNumeroParqueaderoDto = (from x in objContext.NumeroParqueaderos select x).ToList();
-
-
-                //listResult = (from pr in listPropiedad
-                //              join ag in listCiudad on pr.AgenteId equals ag.Id
-                //              join ci in listCiudad on pr.CiudadId equals ci.Id
-                //              join tp in listTipoPropiedad on pr.TipoPropiedadId equals tp.Id
-                //              join to in listTipoPropiedad on pr.TipoOfertaId equals to.Id
-                //              join es in listEstrato on pr.EstratoId equals es.Id
-                //              join ep in listEstadoPropiedadDto on pr.EstadoPropiedadId equals ep.Id
-                //              join tc in listTiempoConstruidoDto on pr.TiempoConstruidoId equals tc.Id
-                //              join tpa in listTipoParqueaderoDto on pr.TipoParqueaderoId equals tpa.Id
-                //              join cp in listCaracteristicaParqueaderoDto on pr.CaracteristicaParqueaderoId equals cp.Id
-                //              join nb in listNumeroBanoDto on pr.NumeroBanoId equals nb.Id
-                //              join nh in listNumeroHabitacionDto on pr.NumeroHabitacionId equals nh.Id
-                //              join np in listNumeroParqueaderoDto on pr.NumeroParqueaderoId equals np.Id
-                //              select pr).ToList();
-
                 if (listResult.Count > 0)
                 {
                     lstTemp = mapper.Map<List<PropiedadDto>>(listResult);
@@ -108,50 +77,36 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             return oRespuesta;
         }
 
-        public async Task<Result> ObtenerPropiedadById(int vId)
+        public async Task<Result> GetPropiedadById(int Id)
         {
             Result oRespuesta = new Result();
 
             List<Propiedad> listResult = new List<Propiedad>();
-            List<PropiedadDto> lstTemp = new List<PropiedadDto>();
+            PropiedadDto lstTemp = new PropiedadDto();
 
             try
             {
-                var listPropiedad = (from x in objContext.Propiedades select x).ToList();
-                var listCiudad = (from x in objContext.Ciudades select x).ToList();
-                var listTipoPropiedad = (from x in objContext.TipoPropiedades select x).ToList();
-                var listTipoOferta = (from x in objContext.TipoOfertas select x).ToList();
-                var listEstrato = (from x in objContext.Estratos select x).ToList();
-                var listAgente = (from x in objContext.Agentes select x).ToList();
-
-                var listEstadoPropiedadDto = (from x in objContext.EstadoPropiedades select x).ToList();
-                var listTiempoConstruidoDto = (from x in objContext.TiempoConstruidos select x).ToList();
-                var listTipoParqueaderoDto = (from x in objContext.TipoParqueaderos select x).ToList();
-                var listCaracteristicaParqueaderoDto = (from x in objContext.CaracteristicaParqueaderos select x).ToList();
-                var listNumeroBanoDto = (from x in objContext.NumeroBanos select x).ToList();
-                var listNumeroHabitacionDto = (from x in objContext.NumeroHabitaciones select x).ToList();
-                var listNumeroParqueaderoDto = (from x in objContext.NumeroParqueaderos select x).ToList();
-
-
-                listResult = (from pr in listPropiedad
-                              join ag in listCiudad on pr.AgenteId equals ag.Id
-                              join ci in listCiudad on pr.CiudadId equals ci.Id
-                              join tp in listTipoPropiedad on pr.TipoPropiedadId equals tp.Id
-                              join to in listTipoPropiedad on pr.TipoOfertaId equals to.Id
-                              join es in listEstrato on pr.EstratoId equals es.Id
-                              join ep in listEstadoPropiedadDto on pr.EstadoPropiedadId equals ep.Id
-                              join tc in listTiempoConstruidoDto on pr.TiempoConstruidoId equals tc.Id
-                              join tpa in listTipoParqueaderoDto on pr.TipoParqueaderoId equals tpa.Id
-                              join cp in listCaracteristicaParqueaderoDto on pr.CaracteristicaParqueaderoId equals cp.Id
-                              join nb in listNumeroBanoDto on pr.NumeroBanoId equals nb.Id
-                              join nh in listNumeroHabitacionDto on pr.NumeroHabitacionId equals nh.Id
-                              join np in listNumeroParqueaderoDto on pr.NumeroParqueaderoId equals np.Id
-                              where pr.Id == vId
-                              select pr).ToList();
+                listResult = await objContext.Propiedades.Where(x => x.Id == Id)
+                    .Include(b => b.Ciudad)
+                    .Include(b => b.TipoPropiedad)
+                    .Include(b => b.TipoOferta)
+                    .Include(b => b.Estrato)
+                    .Include(b => b.Agente)
+                    .Include(b => b.EstadoPropiedad)
+                    .Include(b => b.TiempoConstruido)
+                    .Include(b => b.TipoParqueadero)
+                    .Include(b => b.CaracteristicaParqueadero)
+                    .Include(b => b.NumeroBano)
+                    .Include(b => b.NumeroHabitacion)
+                    .Include(b => b.NumeroParqueadero)
+                    .ToListAsync();
 
                 if (listResult.Count > 0)
                 {
-                    lstTemp = mapper.Map<List<PropiedadDto>>(listResult);
+                    foreach (var item in listResult)
+                    {
+                        lstTemp = mapper.Map<PropiedadDto>(item);
+                    }
                 }
                 else
                 {
@@ -178,5 +133,89 @@ namespace RepositoryLayer.RespositoryPattern.Repository
 
             return oRespuesta;
         }
+
+        public async Task<Result> InsertPropiedad(PropiedadDto entity)
+        {
+            Result oRespuesta = new Result();
+
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+
+                await objContext.AddAsync(entity);
+
+                await objContext.SaveChangesAsync();
+
+                oRespuesta.Success = true;
+                oRespuesta.Message = Constantes.msjRegGuardado;
+            }
+            catch (Exception ex)
+            {
+                enviarLog.EnviarExcepcion(ex.Message, ex);
+
+                oRespuesta.Message = ex.Message;
+            }
+
+            return oRespuesta;
+        }
+
+        public async Task<Result> UpdatePropiedad(PropiedadDto entity)
+        {
+            Result oRespuesta = new Result();
+
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+
+                objContext.Update(entity);
+
+                await objContext.SaveChangesAsync();
+
+                oRespuesta.Success = true;
+                oRespuesta.Message = Constantes.msjRegActualizado;
+            }
+            catch (Exception ex)
+            {
+                enviarLog.EnviarExcepcion(ex.Message, ex);
+
+                oRespuesta.Message = ex.Message;
+            }
+
+            return oRespuesta;
+        }
+
+        public async Task<Result> DeletePropiedad(PropiedadDto entity)
+        {
+            Result oRespuesta = new Result();
+
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+
+                objContext.Remove(entity);
+
+                await objContext.SaveChangesAsync();
+
+                oRespuesta.Success = true;
+                oRespuesta.Message = Constantes.msjRegEliminado;
+            }
+            catch (Exception ex)
+            {
+                enviarLog.EnviarExcepcion(ex.Message, ex);
+
+                oRespuesta.Message = ex.Message;
+            }
+
+            return oRespuesta;
+        }       
     }
 }

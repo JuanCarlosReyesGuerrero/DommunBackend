@@ -11,7 +11,7 @@ using ServicesLayer.ICustomServices;
 
 namespace DommunBackend.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AgenteController : ControllerBase
@@ -44,7 +44,7 @@ namespace DommunBackend.Controllers
 
                 if (lstTemp.Count >= 0)
                 {
-                    oRespuesta.Success = true;
+                    oRespuesta.Success = queryTable.Result.Success;
                     oRespuesta.Data = lstTemp;
                 }
             }
@@ -183,16 +183,16 @@ namespace DommunBackend.Controllers
 
                 if (vRespuesta.Success == true)
                 {
-                    oRespuesta.Success = true;
-                    oRespuesta.Message = Constantes.msjLoginCorrecto;
+                    oRespuesta.Success = vRespuesta.Success;
+                    oRespuesta.Message = vRespuesta.Message;
                     oRespuesta.Data = vRespuesta.Data;
 
                     return Ok(oRespuesta);
                 }
                 else
                 {
-                    oRespuesta.Success = false;
-                    oRespuesta.Message = Constantes.msjLoginErrado;
+                    oRespuesta.Success = vRespuesta.Success;
+                    oRespuesta.Message = vRespuesta.Message;
 
                     return Ok(oRespuesta);
                 }
@@ -218,7 +218,7 @@ namespace DommunBackend.Controllers
 
                 if (vRespuesta.Success == true)
                 {
-                    oRespuesta.Success = true;
+                    oRespuesta.Success = vRespuesta.Success;
                     oRespuesta.Message = vRespuesta.Message;
                     oRespuesta.Data = vRespuesta.Data;
 
@@ -226,7 +226,7 @@ namespace DommunBackend.Controllers
                 }
                 else
                 {
-                    oRespuesta.Success = false;
+                    oRespuesta.Success = vRespuesta.Success;
                     oRespuesta.Message = vRespuesta.Message;
 
                     return oRespuesta;
