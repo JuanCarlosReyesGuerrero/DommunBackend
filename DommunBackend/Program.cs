@@ -67,6 +67,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseItToSeedSqlServer();
 }
+else
+{
+    //app.UseSwagger();
+    //app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 

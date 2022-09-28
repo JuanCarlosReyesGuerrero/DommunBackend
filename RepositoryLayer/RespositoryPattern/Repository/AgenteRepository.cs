@@ -124,7 +124,9 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                     throw new ArgumentNullException("entity");
                 }
 
-                await objContext.AddAsync(entity);
+                var lstTemp = mapper.Map<Agente>(entity);                
+
+                await objContext.AddAsync(lstTemp);
 
                 await objContext.SaveChangesAsync();
 
@@ -152,7 +154,9 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                     throw new ArgumentNullException("entity");
                 }
 
-                objContext.Update(entity);
+                var lstTemp = mapper.Map<Agente>(entity);
+
+                objContext.Update(lstTemp);
 
                 await objContext.SaveChangesAsync();
 
@@ -180,7 +184,9 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                     throw new ArgumentNullException("entity");
                 }
 
-                objContext.Remove(entity);
+                var lstTemp = mapper.Map<Agente>(entity);
+
+                objContext.Remove(lstTemp);
 
                 await objContext.SaveChangesAsync();
 

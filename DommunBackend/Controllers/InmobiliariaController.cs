@@ -94,13 +94,15 @@ namespace DommunBackend.Controllers
         /// <param name="customer"></param>
         /// <returns></returns>
         [HttpPost(nameof(InsertInmobiliaria))]
-        public Result InsertInmobiliaria(Inmobiliaria customer)
+        public Result InsertInmobiliaria(Inmobiliaria objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                inmobiliariaService.InsertInmobiliaria(customer);
+                objModel.CreatedDate = DateTime.Now;
+
+                inmobiliariaService.InsertInmobiliaria(objModel);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Guardado";
@@ -122,13 +124,15 @@ namespace DommunBackend.Controllers
         /// <param name="customer"></param>
         /// <returns></returns>
         [HttpPut(nameof(UpdateInmobiliaria))]
-        public Result UpdateInmobiliaria(Inmobiliaria customer)
+        public Result UpdateInmobiliaria(Inmobiliaria objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                inmobiliariaService.UpdateInmobiliaria(customer);
+                objModel.ModifiedDate = DateTime.Now;
+
+                inmobiliariaService.UpdateInmobiliaria(objModel);
 
                 oRespuesta.Success = true;
                 oRespuesta.Message = "Registro Actualizado";

@@ -100,6 +100,8 @@ namespace DommunBackend.Controllers
 
             try
             {
+                objModel.CreatedDate = DateTime.Now;
+
                 var vRespuesta = propiedadService.InsertPropiedad(objModel);
 
                 oRespuesta.Success = vRespuesta.Result.Success;
@@ -128,6 +130,8 @@ namespace DommunBackend.Controllers
 
             try
             {
+                objModel.ModifiedDate = DateTime.Now;
+
                 var vRespuesta = propiedadService.UpdatePropiedad(objModel);
 
                 oRespuesta.Success = vRespuesta.Result.Success;
