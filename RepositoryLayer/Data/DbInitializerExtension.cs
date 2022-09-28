@@ -18,7 +18,7 @@ namespace RepositoryLayer.Data
             }
             catch (Exception ex)
             {
-
+                throw;
             }
 
             return app;

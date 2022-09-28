@@ -21,8 +21,11 @@ namespace DependencyInjection
             ////builder.Services.AddDbContext<ApplicationDbContext>(options =>
             ////    options.UseSqlServer(connectionString));
 
+            //string dbConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            //services.AddDbContext<ApplicationDbContext>(opt => opt.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
+
             string dbConnectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(opt => opt.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
+            services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(dbConnectionString));
 
             services.AddScoped<DbInitializer>();
         }
