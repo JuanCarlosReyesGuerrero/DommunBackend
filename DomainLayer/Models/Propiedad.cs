@@ -3,7 +3,9 @@
 namespace DomainLayer.Models
 {
     public class Propiedad : BaseEntity
-    {        
+    {
+        //Basico
+        public string? Titulo { get; set; }
         public int? TipoOfertaId { get; set; }
         public int? TipoPropiedadId { get; set; }
         public double ValorVenta { get; set; }
@@ -11,36 +13,42 @@ namespace DomainLayer.Models
         public bool IncluyeAdministracion { get; set; }
         public double ValorAdministracion { get; set; }
         public double ValorMetro { get; set; }
+        public int? EstadoPropiedadId { get; set; }
+        public string? Descripcion { get; set; }
 
-        //[DefaultValue(0)]
+        //Dirección
         public int? CiudadId { get; set; }
         public string? Direccion { get; set; }
         public string? Barrio { get; set; }
         public string? Localizacion { get; set; }
+        public int? EstratoId { get; set; }        
 
-        public int? EstratoId { get; set; }
-        public decimal AreaPrivada { get; set; }
-        public decimal AreaConstruida { get; set; }       
-        
-        public int? NumeroPiso { get; set; }        
-        public decimal AreaFondo{ get; set; }
+        //Adicional
+        public int? NumeroPiso { get; set; }
+        public decimal AreaFondo { get; set; }
         public int? TiempoConstruidoId { get; set; }
         public int? NumeroHabitacionId { get; set; }
         public int? NumeroBanoId { get; set; }
         public int? NumeroParqueaderoId { get; set; }
         public int? TipoParqueaderoId { get; set; }
         public int? CaracteristicaParqueaderoId { get; set; }
+        public int AnioConstruccion { get; set; }
+        public decimal AreaPrivada { get; set; }
+        public decimal AreaConstruida { get; set; }
 
 
         public string? Caracteristicas { get; set; }
 
-
+        //Medio
         public string? Video { get; set; }
-        public string? Descripcion { get; set; }
-        public int AnioConstruccion { get; set; }
-        public int? EstadoPropiedadId { get; set; }
+        //--imagenes
+        //--oferta especial
+        //--si esta vendido
 
+       
         
+
+
         public int? AgenteId { get; set; }
 
         public virtual TipoOferta? TipoOferta { get; set; }
@@ -48,10 +56,10 @@ namespace DomainLayer.Models
         public virtual EstadoPropiedad? EstadoPropiedad { get; set; }
         public virtual Ciudad? Ciudad { get; set; }
         public virtual Agente? Agente { get; set; }
-        public virtual Estrato? Estrato { get; set; }        
+        public virtual Estrato? Estrato { get; set; }
         public virtual TiempoConstruido? TiempoConstruido { get; set; }
         public virtual TipoParqueadero? TipoParqueadero { get; set; }
-        public virtual CaracteristicaParqueadero? CaracteristicaParqueadero { get; set; }        
+        public virtual CaracteristicaParqueadero? CaracteristicaParqueadero { get; set; }
         public virtual NumeroBano? NumeroBano { get; set; }
         public virtual NumeroHabitacion? NumeroHabitacion { get; set; }
         public virtual NumeroParqueadero? NumeroParqueadero { get; set; }
