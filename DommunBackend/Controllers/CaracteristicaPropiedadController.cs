@@ -11,33 +11,33 @@ namespace DommunBackend.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AgenteController : ControllerBase
+    public class CaracteristicaPropiedadController : ControllerBase
     {
         EnviarLog enviarLog = new EnviarLog();
 
-        private readonly IAgenteService agenteService;
+        private readonly ICaracteristicaPropiedadService caracteristicaPropiedadService;
         private readonly IMapper mapper;
 
-        public AgenteController(IAgenteService _agenteService, IMapper _mapper)
+        public CaracteristicaPropiedadController(ICaracteristicaPropiedadService _caracteristicaPropiedadService, IMapper _mapper)
         {
-            this.agenteService = _agenteService;
+            this.caracteristicaPropiedadService = _caracteristicaPropiedadService;
             this.mapper = _mapper;
         }
 
         /// <summary>
-        /// GetAllAgentes
+        /// GetAllCaracteristicaPropiedads
         /// </summary>
         /// <returns></returns>
-        [HttpGet(nameof(GetAllAgentes))]
-        public Result GetAllAgentes()
+        [HttpGet(nameof(GetAllCaracteristicaPropiedads))]
+        public Result GetAllCaracteristicaPropiedads()
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var queryTable = agenteService.GetAllAgentes();
+                var queryTable = caracteristicaPropiedadService.GetAllCaracteristicaPropiedades();
 
-                var lstTemp = mapper.Map<List<AgenteDto>>(queryTable.Result.Data);
+                var lstTemp = mapper.Map<List<CaracteristicaPropiedadDto>>(queryTable.Result.Data);
 
                 if (lstTemp.Count >= 0)
                 {
@@ -56,18 +56,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// GetAgente
+        /// GetCaracteristicaPropiedad
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpGet(nameof(GetAgente))]
-        public Result GetAgente(int Id)
+        [HttpGet(nameof(GetCaracteristicaPropiedad))]
+        public Result GetCaracteristicaPropiedad(int Id)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var objModel = agenteService.GetAgenteById(Id);
+                var objModel = caracteristicaPropiedadService.GetCaracteristicaPropiedadById(Id);
 
                 if (objModel != null)
                 {
@@ -86,12 +86,12 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// InsertAgente
+        /// InsertCaracteristicaPropiedad
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        [HttpPost(nameof(InsertAgente))]
-        public Result InsertAgente(AgenteDto objModel)
+        [HttpPost(nameof(InsertCaracteristicaPropiedad))]
+        public Result InsertCaracteristicaPropiedad(CaracteristicaPropiedadDto objModel)
         {
             Result oRespuesta = new Result();
 
@@ -99,7 +99,7 @@ namespace DommunBackend.Controllers
             {
                 objModel.CreatedDate = DateTime.Now;
 
-                var vRespuesta = agenteService.InsertAgente(objModel);
+                var vRespuesta = caracteristicaPropiedadService.InsertCaracteristicaPropiedad(objModel);
 
                 oRespuesta.Success = vRespuesta.Result.Success;
                 oRespuesta.Message = vRespuesta.Result.Message;
@@ -116,12 +116,12 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// UpdateAgente
+        /// UpdateCaracteristicaPropiedad
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        [HttpPut(nameof(UpdateAgente))]
-        public Result UpdateAgente(AgenteDto objModel)
+        [HttpPut(nameof(UpdateCaracteristicaPropiedad))]
+        public Result UpdateCaracteristicaPropiedad(CaracteristicaPropiedadDto objModel)
         {
             Result oRespuesta = new Result();
 
@@ -129,7 +129,7 @@ namespace DommunBackend.Controllers
             {
                 objModel.ModifiedDate = DateTime.Now;
 
-                var vRespuesta = agenteService.UpdateAgente(objModel);
+                var vRespuesta = caracteristicaPropiedadService.UpdateCaracteristicaPropiedad(objModel);
 
                 oRespuesta.Success = vRespuesta.Result.Success;
                 oRespuesta.Message = vRespuesta.Result.Message;
@@ -146,18 +146,18 @@ namespace DommunBackend.Controllers
         }
 
         /// <summary>
-        /// DeleteAgente
+        /// DeleteCaracteristicaPropiedad
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpDelete(nameof(DeleteAgente))]
-        public Result DeleteAgente(AgenteDto objModel)
+        [HttpDelete(nameof(DeleteCaracteristicaPropiedad))]
+        public Result DeleteCaracteristicaPropiedad(CaracteristicaPropiedadDto objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
-                var vRespuesta = agenteService.DeleteAgente(objModel);
+                var vRespuesta = caracteristicaPropiedadService.DeleteCaracteristicaPropiedad(objModel);
 
                 oRespuesta.Success = vRespuesta.Result.Success;
                 oRespuesta.Message = vRespuesta.Result.Message;
@@ -171,76 +171,6 @@ namespace DommunBackend.Controllers
             }
 
             return oRespuesta;
-        }
-
-        [HttpGet(nameof(GetAgentesFull))]
-        public async Task<IActionResult> GetAgentesFull()
-        {
-            Result oRespuesta = new Result();
-
-            try
-            {
-                var vRespuesta = await agenteService.ObtenerAgentesFull();
-
-                if (vRespuesta.Success == true)
-                {
-                    oRespuesta.Success = vRespuesta.Success;
-                    oRespuesta.Message = vRespuesta.Message;
-                    oRespuesta.Data = vRespuesta.Data;
-
-                    return Ok(oRespuesta);
-                }
-                else
-                {
-                    oRespuesta.Success = vRespuesta.Success;
-                    oRespuesta.Message = vRespuesta.Message;
-
-                    return Ok(oRespuesta);
-                }
-            }
-            catch (Exception ex)
-            {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
-
-                oRespuesta.Message = ex.Message;
-
-                return BadRequest();
-            }
-        }
-
-        [HttpGet(nameof(GetAgenteById))]
-        public async Task<Result> GetAgenteById(int Id)
-        {
-            Result oRespuesta = new Result();
-
-            try
-            {
-                var vRespuesta = await agenteService.ObtenerAgenteFullById(Id);
-
-                if (vRespuesta.Success == true)
-                {
-                    oRespuesta.Success = vRespuesta.Success;
-                    oRespuesta.Message = vRespuesta.Message;
-                    oRespuesta.Data = vRespuesta.Data;
-
-                    return oRespuesta;
-                }
-                else
-                {
-                    oRespuesta.Success = vRespuesta.Success;
-                    oRespuesta.Message = vRespuesta.Message;
-
-                    return oRespuesta;
-                }
-            }
-            catch (Exception ex)
-            {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
-
-                oRespuesta.Message = ex.Message;
-
-                return oRespuesta;
-            }
-        }
+        }        
     }
 }
