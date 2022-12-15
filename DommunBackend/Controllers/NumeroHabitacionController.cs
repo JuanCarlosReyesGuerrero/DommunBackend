@@ -28,8 +28,8 @@ namespace DommunBackend.Controllers
         /// GetAllNumeroHabitacions
         /// </summary>
         /// <returns></returns>
-        [HttpGet(nameof(GetAllNumeroHabitacions))]
-        public Result GetAllNumeroHabitacions()
+        [HttpGet(nameof(GetAllNumeroHabitaciones))]
+        public Result GetAllNumeroHabitaciones()
         {
             Result oRespuesta = new Result();
 
