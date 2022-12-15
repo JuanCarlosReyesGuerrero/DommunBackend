@@ -60,6 +60,20 @@ namespace DependencyInjection
             services.AddScoped(typeof(IPropiedadRepository), typeof(PropiedadRepository));
             services.AddScoped(typeof(IAgenteRepository), typeof(AgenteRepository));
 
+            services.AddScoped(typeof(ICaracteristicaParqueaderoRepository), typeof(CaracteristicaParqueaderoRepository));
+            services.AddScoped(typeof(ICaracteristicaPropiedadRepository), typeof(CaracteristicaPropiedadRepository));
+            services.AddScoped(typeof(ICaracteristicaRepository), typeof(CaracteristicaRepository));
+            services.AddScoped(typeof(IEstratoRepository), typeof(EstratoRepository));
+            services.AddScoped(typeof(INumeroBanoRepository), typeof(NumeroBanoRepository));
+            services.AddScoped(typeof(INumeroHabitacionRepository), typeof(NumeroHabitacionRepository));
+            services.AddScoped(typeof(INumeroParqueaderoRepository), typeof(NumeroParqueaderoRepository));
+            services.AddScoped(typeof(ITiempoConstruidoRepository), typeof(TiempoConstruidoRepository));
+            services.AddScoped(typeof(ITipoCaracteristicaRepository), typeof(TipoCaracteristicaRepository));
+            services.AddScoped(typeof(ITipoOfertaRepository), typeof(TipoOfertaRepository));
+            services.AddScoped(typeof(ITipoParqueaderoRepository), typeof(TipoParqueaderoRepository));
+
+            //*******************************************************************************************
+
             services.AddTransient<IAgenteService, AgenteService>();
             services.AddTransient<IInmobiliariaService, InmobiliariaService>();
             services.AddScoped(typeof(IBackOfficeService), typeof(BackOfficeService));
@@ -68,6 +82,18 @@ namespace DependencyInjection
             services.AddScoped(typeof(IFotografiaService), typeof(FotografiaService));
             services.AddScoped(typeof(IPropiedadService), typeof(PropiedadService));
             services.AddScoped(typeof(ITipoPropiedadService), typeof(TipoPropiedadService));
+
+            services.AddScoped(typeof(ICaracteristicaParqueaderoService), typeof(CaracteristicaParqueaderoService));
+            services.AddScoped(typeof(ICaracteristicaPropiedadService), typeof(CaracteristicaPropiedadService));
+            services.AddScoped(typeof(ICaracteristicaService), typeof(CaracteristicaService));
+            services.AddScoped(typeof(IEstratoService), typeof(EstratoService));
+            services.AddScoped(typeof(INumeroBanoService), typeof(NumeroBanoService));
+            services.AddScoped(typeof(INumeroHabitacionService), typeof(NumeroHabitacionService));
+            services.AddScoped(typeof(INumeroParqueaderoService), typeof(NumeroParqueaderoService));
+            services.AddScoped(typeof(ITiempoConstruidoService), typeof(TiempoConstruidoService));
+            services.AddScoped(typeof(ITipoCaracteristicaService), typeof(TipoCaracteristicaService));
+            services.AddScoped(typeof(ITipoOfertaService), typeof(TipoOfertaService));
+            services.AddScoped(typeof(ITipoParqueaderoService), typeof(TipoParqueaderoService));
 
             services.AddTransient<IAuthToken, AuthToken>();
         }
