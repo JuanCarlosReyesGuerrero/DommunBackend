@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RepositoryLayer.Migrations
 {
-    public partial class carga_inicial : Migration
+    public partial class CargaInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -472,6 +472,7 @@ namespace RepositoryLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TipoOfertaId = table.Column<int>(type: "int", nullable: true),
                     TipoPropiedadId = table.Column<int>(type: "int", nullable: true),
                     ValorVenta = table.Column<double>(type: "float", nullable: false),
@@ -479,13 +480,13 @@ namespace RepositoryLayer.Migrations
                     IncluyeAdministracion = table.Column<bool>(type: "bit", nullable: false),
                     ValorAdministracion = table.Column<double>(type: "float", nullable: false),
                     ValorMetro = table.Column<double>(type: "float", nullable: false),
+                    EstadoPropiedadId = table.Column<int>(type: "int", nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CiudadId = table.Column<int>(type: "int", nullable: true),
                     Direccion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Barrio = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Localizacion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EstratoId = table.Column<int>(type: "int", nullable: true),
-                    AreaPrivada = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AreaConstruida = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     NumeroPiso = table.Column<int>(type: "int", nullable: true),
                     AreaFondo = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TiempoConstruidoId = table.Column<int>(type: "int", nullable: true),
@@ -494,11 +495,11 @@ namespace RepositoryLayer.Migrations
                     NumeroParqueaderoId = table.Column<int>(type: "int", nullable: true),
                     TipoParqueaderoId = table.Column<int>(type: "int", nullable: true),
                     CaracteristicaParqueaderoId = table.Column<int>(type: "int", nullable: true),
+                    AnioConstruccion = table.Column<int>(type: "int", nullable: false),
+                    AreaPrivada = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AreaConstruida = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Caracteristicas = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Video = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AnioConstruccion = table.Column<int>(type: "int", nullable: false),
-                    EstadoPropiedadId = table.Column<int>(type: "int", nullable: true),
                     AgenteId = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -584,6 +585,39 @@ namespace RepositoryLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TipoPropiedadByCaracteristicas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdCaracteristica = table.Column<int>(type: "int", nullable: false),
+                    IdTipoPropiedad = table.Column<int>(type: "int", nullable: false),
+                    CaracteristicasId = table.Column<int>(type: "int", nullable: false),
+                    TipoPropiedadesId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreateUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoPropiedadByCaracteristicas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TipoPropiedadByCaracteristicas_Caracteristicas_CaracteristicasId",
+                        column: x => x.CaracteristicasId,
+                        principalTable: "Caracteristicas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TipoPropiedadByCaracteristicas_TipoPropiedades_TipoPropiedadesId",
+                        column: x => x.TipoPropiedadesId,
+                        principalTable: "TipoPropiedades",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CaracteristicaPropiedades",
                 columns: table => new
                 {
@@ -654,7 +688,7 @@ namespace RepositoryLayer.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, "0428da93-efdf-4fa4-a08c-285c08a265b6", "reygue28@gmail.com", true, false, null, null, null, "AQAAAAEAACcQAAAAEJ68rEgG45IofET6DqyTdcrsfgJc0SlzCHK7zmVnOnq+pswgsMwVkmSBucqWrq+yVQ==", "3015267740", false, "00aa3278-732b-438e-bc8f-c30932af9f97", false, "Admin" });
+                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, "cc7b5ed7-bd15-44c1-8333-4ea517bc8a5b", "reygue28@gmail.com", true, false, null, null, null, "AQAAAAEAACcQAAAAELsVAsYN4jKPRxP9r0XQ6X2Lr8HViUGFdAK5xSE+InyYgjFqvI+NGeUCOjMCwDCuFw==", "3015267740", false, "36bda4e5-2f6f-4581-8757-e28172d989f5", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -784,6 +818,16 @@ namespace RepositoryLayer.Migrations
                 name: "IX_Propiedades_TipoPropiedadId",
                 table: "Propiedades",
                 column: "TipoPropiedadId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TipoPropiedadByCaracteristicas_CaracteristicasId",
+                table: "TipoPropiedadByCaracteristicas",
+                column: "CaracteristicasId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TipoPropiedadByCaracteristicas_TipoPropiedadesId",
+                table: "TipoPropiedadByCaracteristicas",
+                column: "TipoPropiedadesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -810,19 +854,19 @@ namespace RepositoryLayer.Migrations
                 name: "Fotografias");
 
             migrationBuilder.DropTable(
+                name: "TipoPropiedadByCaracteristicas");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Caracteristicas");
-
-            migrationBuilder.DropTable(
                 name: "Propiedades");
 
             migrationBuilder.DropTable(
-                name: "TipoCaracteristicas");
+                name: "Caracteristicas");
 
             migrationBuilder.DropTable(
                 name: "Agentes");
@@ -859,6 +903,9 @@ namespace RepositoryLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "TipoPropiedades");
+
+            migrationBuilder.DropTable(
+                name: "TipoCaracteristicas");
 
             migrationBuilder.DropTable(
                 name: "Inmobiliarias");

@@ -29,6 +29,7 @@ namespace RepositoryLayer.Data
         public DbSet<NumeroBano> NumeroBanos { get; set; }
         public DbSet<NumeroHabitacion> NumeroHabitaciones { get; set; }
         public DbSet<NumeroParqueadero> NumeroParqueaderos { get; set; }
+        public DbSet<TipoPropiedadByCaracteristica> TipoPropiedadByCaracteristicas { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

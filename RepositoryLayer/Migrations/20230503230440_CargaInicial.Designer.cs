@@ -12,8 +12,8 @@ using RepositoryLayer.Data;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221215185429_titulo")]
-    partial class titulo
+    [Migration("20230503230440_CargaInicial")]
+    partial class CargaInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -802,6 +802,50 @@ namespace RepositoryLayer.Migrations
                     b.ToTable("TipoPropiedades");
                 });
 
+            modelBuilder.Entity("DomainLayer.Models.TipoPropiedadByCaracteristica", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CaracteristicasId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdCaracteristica")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdTipoPropiedad")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TipoPropiedadesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaracteristicasId");
+
+                    b.HasIndex("TipoPropiedadesId");
+
+                    b.ToTable("TipoPropiedadByCaracteristicas");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -1027,14 +1071,14 @@ namespace RepositoryLayer.Migrations
                         {
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4f0d539a-1492-4208-ad82-98cb43a21385",
+                            ConcurrencyStamp = "cc7b5ed7-bd15-44c1-8333-4ea517bc8a5b",
                             Email = "reygue28@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEB28KCKY7UXrXKjkmcle0ptU2Ew9M1sQVDrQBiHj0B8h0Z15gqfUDTyO54uGPugFrQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELsVAsYN4jKPRxP9r0XQ6X2Lr8HViUGFdAK5xSE+InyYgjFqvI+NGeUCOjMCwDCuFw==",
                             PhoneNumber = "3015267740",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "877b3d90-03b2-4872-be7e-b9122464a182",
+                            SecurityStamp = "36bda4e5-2f6f-4581-8757-e28172d989f5",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -1177,6 +1221,25 @@ namespace RepositoryLayer.Migrations
                     b.Navigation("TipoPropiedad");
                 });
 
+            modelBuilder.Entity("DomainLayer.Models.TipoPropiedadByCaracteristica", b =>
+                {
+                    b.HasOne("DomainLayer.Models.Caracteristica", "Caracteristicas")
+                        .WithMany("TipoPropiedadByCaracteristicas")
+                        .HasForeignKey("CaracteristicasId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DomainLayer.Models.TipoPropiedad", "TipoPropiedades")
+                        .WithMany("TipoPropiedadByCaracteristicas")
+                        .HasForeignKey("TipoPropiedadesId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Caracteristicas");
+
+                    b.Navigation("TipoPropiedades");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1236,6 +1299,8 @@ namespace RepositoryLayer.Migrations
             modelBuilder.Entity("DomainLayer.Models.Caracteristica", b =>
                 {
                     b.Navigation("CaracteristicaPropiedades");
+
+                    b.Navigation("TipoPropiedadByCaracteristicas");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.CaracteristicaParqueadero", b =>
@@ -1308,6 +1373,8 @@ namespace RepositoryLayer.Migrations
             modelBuilder.Entity("DomainLayer.Models.TipoPropiedad", b =>
                 {
                     b.Navigation("Propiedades");
+
+                    b.Navigation("TipoPropiedadByCaracteristicas");
                 });
 #pragma warning restore 612, 618
         }

@@ -59,6 +59,9 @@ namespace DomainLayer.EntityMapper
 
             CreateMap<Propiedad, PropiedadFullDto>().ReverseMap();
             CreateMap<PropiedadFullDto, Propiedad>();
+
+            CreateMap<Caracteristica, CaracteristicaDto>().ReverseMap();
+            CreateMap<CaracteristicaDto, Caracteristica>();
         }
     }
 }
