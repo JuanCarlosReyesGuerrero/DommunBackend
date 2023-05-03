@@ -34,11 +34,12 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             {
                 listResult = await objContext.Agentes
                     .Include(b => b.Propiedades)
+                    .Include(b => b.Inmobiliaria)
                     .ToListAsync();
 
                 if (listResult.Count > 0)
                 {
-                    lstTemp = mapper.Map<List<AgenteDto>>(listResult);
+                    lstTemp = mapper.Map<List<AgenteDto>>(listResult);                    
                 }
                 else
                 {

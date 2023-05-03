@@ -32,6 +32,15 @@ namespace DomainLayer.Dtos
         [Display(Name = "Activo")]
         public bool IsActive { get; set; }
 
+        [Display(Name = "fullName")]
+        public string fullName
+        {
+            get
+            {
+                return Nombres + " " + Apellidos;
+            }
+        }
+
         public InmobiliariaDto? Inmobiliaria { get; set; }        
     }
 }

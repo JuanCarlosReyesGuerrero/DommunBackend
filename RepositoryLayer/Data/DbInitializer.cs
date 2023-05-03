@@ -1,4 +1,7 @@
 ﻿using DomainLayer.Models;
+using static System.Net.WebRequestMethods;
+using System.Diagnostics.Metrics;
+using System.Security.Policy;
 
 namespace RepositoryLayer.Data
 {
@@ -14,6 +17,41 @@ namespace RepositoryLayer.Data
             if (dbContext.Ciudades.Any())
             {
                 return;   // DB has been seeded
+            }
+
+            //************************************
+            //Inmobiliaria
+            //************************************
+            if (!dbContext.Inmobiliarias.Any())
+            {
+                var inmobiliaria = new Inmobiliaria[]
+                {
+                    new Inmobiliaria { Codigo = "01", Nit = "123456789", Nombre="HouseKey", Direccion="Carrera 24 # 22-115 Torre 1,  Apto 304", Telefono="3015267740",  CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true }
+                };
+
+                foreach (Inmobiliaria s in inmobiliaria)
+                    dbContext.Inmobiliarias.Add(s);
+
+                dbContext.SaveChanges();
+            }
+
+            //************************************
+            //Agentes
+            //************************************
+            if (!dbContext.Agentes.Any())
+            {
+                var agente = new Agente[]
+                {
+                    new Agente { Slug = "Lusia Manuel", Nombres="Lusia", Apellidos="Manuel", Email="lusia.m@housekey.com",FotoPerfil="http://localhost:4200/assets/images/agents/a-1.jpg", DescripcionPerfil="\"Phasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.\r\n\r\nPhasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.\"\r\n",Celular="(224) 267-1346",Facebook="https://www.facebook.com/lusia",  Twitter="https://twitter.com/lusia", Linkedin="https://www.linkedin.com/lusia",    Instagram="https://instagram.com/lusia",   Website="https://lusia.manuel.com/", InmobiliariaId = 1,  CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                    new Agente { Slug = "Andy Warhol", Nombres = "Andy", Apellidos = "Warhol", Email = "andy.w@housekey.com",FotoPerfil = "http://localhost:4200/assets/images/agents/a-2.jpg", DescripcionPerfil = "Phasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.\r\n\r\nPhasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.",Celular="(212) 457 - 2308",Facebook="https://www.facebook.com/",  Twitter="https://twitter.com/", Linkedin="https://www.linkedin.com/",    Instagram="https://instagram.com/",   Website="https://andy.warhol.com/", InmobiliariaId = 1,  CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                    new Agente { Slug = "Tereza Stiles", Nombres = "Tereza", Apellidos = "Stiles", Email = "tereza.s@housekey.com",FotoPerfil = "http://localhost:4200/assets/images/agents/a-3.jpg", DescripcionPerfil = "Phasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.\r\n\r\nPhasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.",Celular="(214) 617 - 2614",Facebook="https://www.facebook.com/",  Twitter="https://twitter.com/", Linkedin="https://www.linkedin.com/",    Instagram="https://instagram.com/",   Website="https://tereza.stiles.com/", InmobiliariaId = 1,  CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                    new Agente { Slug = "Michael Blair", Nombres = "Michael", Apellidos = "Blair", Email = "michael.b@housekey.com",FotoPerfil = "http://localhost:4200/assets/images/agents/a-4.jpg", DescripcionPerfil = "Phasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.\r\n\r\nPhasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.",Celular="(267) 388 - 1637",Facebook="https://www.facebook.com/",  Twitter="https://twitter.com/", Linkedin="https://www.linkedin.com/",    Instagram="https://instagram.com/",   Website="https://michael.blair.com/", InmobiliariaId = 1,  CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                    new Agente { Slug = "Michelle Ormond", Nombres = "Michelle", Apellidos = "Ormond", Email = "michelle.o@housekey.com",FotoPerfil = "http://localhost:4200/assets/images/agents/a-5.jpg", DescripcionPerfil = "Phasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.\r\n\r\nPhasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.",Celular="(267) 388 - 1637",Facebook="https://www.facebook.com/",  Twitter="https://twitter.com/", Linkedin="https://www.linkedin.com/",    Instagram="https://instagram.com/",   Website="https://michelle.ormond.com/", InmobiliariaId = 1,  CreatedDate = DateTime.Now, CreateUser = "b74ddd14-6340-4840-95c2-db12554843e5", IsActive = true },
+                };
+
+                foreach (Agente s in agente)
+                    dbContext.Agentes.Add(s);
+                dbContext.SaveChanges();
             }
 
             //************************************
