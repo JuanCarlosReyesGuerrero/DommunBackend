@@ -193,11 +193,14 @@ namespace RepositoryLayer.Migrations
                     b.Property<int>("PropiedadId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TipoPropiedadByCaracteristicasId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CaracteristicaId");
-
                     b.HasIndex("PropiedadId");
+
+                    b.HasIndex("TipoPropiedadByCaracteristicasId");
 
                     b.ToTable("CaracteristicaPropiedades");
                 });
@@ -817,12 +820,6 @@ namespace RepositoryLayer.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdCaracteristica")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdTipoPropiedad")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -1069,14 +1066,14 @@ namespace RepositoryLayer.Migrations
                         {
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cc7b5ed7-bd15-44c1-8333-4ea517bc8a5b",
+                            ConcurrencyStamp = "113da868-9f18-48d7-8be3-d8ca0065c860",
                             Email = "reygue28@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAELsVAsYN4jKPRxP9r0XQ6X2Lr8HViUGFdAK5xSE+InyYgjFqvI+NGeUCOjMCwDCuFw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAWjMbUE09YARvuRel/6JenQjf4jSe9ROtFqYxQamBDHcAzzCGa/3QwGRN+7lw5yMQ==",
                             PhoneNumber = "3015267740",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "36bda4e5-2f6f-4581-8757-e28172d989f5",
+                            SecurityStamp = "fabb1c8c-f8a7-4955-b7fd-04635d4cebeb",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -1105,21 +1102,20 @@ namespace RepositoryLayer.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.CaracteristicaPropiedad", b =>
                 {
-                    b.HasOne("DomainLayer.Models.Caracteristica", "Caracteristica")
-                        .WithMany("CaracteristicaPropiedades")
-                        .HasForeignKey("CaracteristicaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("DomainLayer.Models.Propiedad", "Propiedad")
                         .WithMany("CaracteristicaPropiedades")
                         .HasForeignKey("PropiedadId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Caracteristica");
+                    b.HasOne("DomainLayer.Models.TipoPropiedadByCaracteristica", "TipoPropiedadByCaracteristicas")
+                        .WithMany("CaracteristicaPropiedades")
+                        .HasForeignKey("TipoPropiedadByCaracteristicasId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Propiedad");
+
+                    b.Navigation("TipoPropiedadByCaracteristicas");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Fotografia", b =>
@@ -1296,8 +1292,6 @@ namespace RepositoryLayer.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.Caracteristica", b =>
                 {
-                    b.Navigation("CaracteristicaPropiedades");
-
                     b.Navigation("TipoPropiedadByCaracteristicas");
                 });
 
@@ -1373,6 +1367,11 @@ namespace RepositoryLayer.Migrations
                     b.Navigation("Propiedades");
 
                     b.Navigation("TipoPropiedadByCaracteristicas");
+                });
+
+            modelBuilder.Entity("DomainLayer.Models.TipoPropiedadByCaracteristica", b =>
+                {
+                    b.Navigation("CaracteristicaPropiedades");
                 });
 #pragma warning restore 612, 618
         }

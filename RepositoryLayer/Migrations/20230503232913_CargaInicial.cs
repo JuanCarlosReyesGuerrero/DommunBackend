@@ -590,8 +590,6 @@ namespace RepositoryLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdCaracteristica = table.Column<int>(type: "int", nullable: false),
-                    IdTipoPropiedad = table.Column<int>(type: "int", nullable: false),
                     CaracteristicasId = table.Column<int>(type: "int", nullable: false),
                     TipoPropiedadesId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -613,37 +611,6 @@ namespace RepositoryLayer.Migrations
                         name: "FK_TipoPropiedadByCaracteristicas_TipoPropiedades_TipoPropiedadesId",
                         column: x => x.TipoPropiedadesId,
                         principalTable: "TipoPropiedades",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CaracteristicaPropiedades",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PropiedadId = table.Column<int>(type: "int", nullable: false),
-                    CaracteristicaId = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreateUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CaracteristicaPropiedades", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CaracteristicaPropiedades_Caracteristicas_CaracteristicaId",
-                        column: x => x.CaracteristicaId,
-                        principalTable: "Caracteristicas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CaracteristicaPropiedades_Propiedades_PropiedadId",
-                        column: x => x.PropiedadId,
-                        principalTable: "Propiedades",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -675,6 +642,38 @@ namespace RepositoryLayer.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CaracteristicaPropiedades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PropiedadId = table.Column<int>(type: "int", nullable: false),
+                    CaracteristicaId = table.Column<int>(type: "int", nullable: false),
+                    TipoPropiedadByCaracteristicasId = table.Column<int>(type: "int", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreateUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CaracteristicaPropiedades", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CaracteristicaPropiedades_Propiedades_PropiedadId",
+                        column: x => x.PropiedadId,
+                        principalTable: "Propiedades",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CaracteristicaPropiedades_TipoPropiedadByCaracteristicas_TipoPropiedadByCaracteristicasId",
+                        column: x => x.TipoPropiedadByCaracteristicasId,
+                        principalTable: "TipoPropiedadByCaracteristicas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
@@ -688,7 +687,7 @@ namespace RepositoryLayer.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, "cc7b5ed7-bd15-44c1-8333-4ea517bc8a5b", "reygue28@gmail.com", true, false, null, null, null, "AQAAAAEAACcQAAAAELsVAsYN4jKPRxP9r0XQ6X2Lr8HViUGFdAK5xSE+InyYgjFqvI+NGeUCOjMCwDCuFw==", "3015267740", false, "36bda4e5-2f6f-4581-8757-e28172d989f5", false, "Admin" });
+                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, "113da868-9f18-48d7-8be3-d8ca0065c860", "reygue28@gmail.com", true, false, null, null, null, "AQAAAAEAACcQAAAAEAWjMbUE09YARvuRel/6JenQjf4jSe9ROtFqYxQamBDHcAzzCGa/3QwGRN+7lw5yMQ==", "3015267740", false, "fabb1c8c-f8a7-4955-b7fd-04635d4cebeb", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -740,14 +739,14 @@ namespace RepositoryLayer.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CaracteristicaPropiedades_CaracteristicaId",
-                table: "CaracteristicaPropiedades",
-                column: "CaracteristicaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CaracteristicaPropiedades_PropiedadId",
                 table: "CaracteristicaPropiedades",
                 column: "PropiedadId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CaracteristicaPropiedades_TipoPropiedadByCaracteristicasId",
+                table: "CaracteristicaPropiedades",
+                column: "TipoPropiedadByCaracteristicasId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Caracteristicas_TipoCaracteristicaId",
@@ -854,13 +853,13 @@ namespace RepositoryLayer.Migrations
                 name: "Fotografias");
 
             migrationBuilder.DropTable(
-                name: "TipoPropiedadByCaracteristicas");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "TipoPropiedadByCaracteristicas");
 
             migrationBuilder.DropTable(
                 name: "Propiedades");
