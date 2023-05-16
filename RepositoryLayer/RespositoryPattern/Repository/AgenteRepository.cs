@@ -59,11 +59,11 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                //enviarLog.EnviarExcepcion(ex.Message, ex);
 
                 oRespuesta.Message = ex.Message;
             }
-
+            
             return oRespuesta;
         }
 

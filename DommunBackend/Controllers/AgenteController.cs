@@ -43,11 +43,12 @@ namespace DommunBackend.Controllers
                 {
                     oRespuesta.Success = queryTable.Result.Success;
                     oRespuesta.Data = lstTemp;
+                    oRespuesta.Message = queryTable.Result.Message;
                 }
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                //enviarLog.EnviarExcepcion(ex.Message, ex);
 
                 oRespuesta.Message = ex.Message;
             }
