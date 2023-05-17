@@ -43,6 +43,8 @@ namespace RepositoryLayer.Data
 
             base.OnModelCreating(modelBuilder);
 
+            //modelBuilder.Entity<Agente>().OwnsOne(x => x.RedesSociales);
+
             this.SeedUsers(modelBuilder);
             this.SeedRoles(modelBuilder);
             this.SeedUserRoles(modelBuilder);           

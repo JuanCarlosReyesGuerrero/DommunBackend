@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer.Data;
 
@@ -11,9 +12,10 @@ using RepositoryLayer.Data;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230516213135_RedSocial4")]
+    partial class RedSocial4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,6 +75,9 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombres")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RedesSociales")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Slug")
@@ -1066,14 +1071,14 @@ namespace RepositoryLayer.Migrations
                         {
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6ea6c987-bf69-4be6-8dff-6406a5869694",
+                            ConcurrencyStamp = "e27641b8-04f1-4997-a41b-30543f2f4679",
                             Email = "reygue28@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENkd3brcXm+aIrLUqdeXd7XWUgLE5El1UdFB/n8YhUAAkZDW/hNgadi6w/gK/tLlzw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMLwD5qkbADKW5LYvF2EC0m9oOLscOQxyBF2RRx9mwbPjJjqYn1sGPGxi0JJrcgJlQ==",
                             PhoneNumber = "3015267740",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0c090dce-d39b-44ac-b3b6-46d143db736d",
+                            SecurityStamp = "32f44ee7-8d50-44b3-bfb6-c66bfd1400c1",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });

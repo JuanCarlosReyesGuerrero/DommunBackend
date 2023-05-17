@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer.Data;
 
@@ -11,9 +12,10 @@ using RepositoryLayer.Data;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230516212219_RedSocial")]
+    partial class RedSocial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1066,14 +1068,14 @@ namespace RepositoryLayer.Migrations
                         {
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6ea6c987-bf69-4be6-8dff-6406a5869694",
+                            ConcurrencyStamp = "b8135209-845a-45b2-98b7-4702db529f69",
                             Email = "reygue28@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENkd3brcXm+aIrLUqdeXd7XWUgLE5El1UdFB/n8YhUAAkZDW/hNgadi6w/gK/tLlzw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEITkWI2fUtx2fGzmE+fV3nGZN3S1brF4QSnZv/843utUo3TGsgnnBI5zw1xWDTlLGw==",
                             PhoneNumber = "3015267740",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0c090dce-d39b-44ac-b3b6-46d143db736d",
+                            SecurityStamp = "bb1c228a-1b75-45fe-8f6d-d60493092711",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -1086,7 +1088,25 @@ namespace RepositoryLayer.Migrations
                         .HasForeignKey("InmobiliariaId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.OwnsOne("System.Collections.Generic.List<DomainLayer.Models.RedSocial>", "RedesSociales", b1 =>
+                        {
+                            b1.Property<int>("AgenteId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Capacity")
+                                .HasColumnType("int");
+
+                            b1.HasKey("AgenteId");
+
+                            b1.ToTable("Agentes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("AgenteId");
+                        });
+
                     b.Navigation("Inmobiliaria");
+
+                    b.Navigation("RedesSociales");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Caracteristica", b =>

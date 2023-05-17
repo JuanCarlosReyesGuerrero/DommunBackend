@@ -21,7 +21,7 @@ namespace DomainLayer.Dtos
         public string? Linkedin { get; set; }
         public string? Instagram { get; set; }
         public string? Website { get; set; }
-        public int? InmobiliariaId { get; set; }
+        public int? InmobiliariaId { get; set; }       
 
 
         public DateTime CreatedDate { get; set; }

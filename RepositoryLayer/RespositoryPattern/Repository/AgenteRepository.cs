@@ -37,6 +37,8 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                     .Include(b => b.Inmobiliaria)
                     .ToListAsync();
 
+                
+
                 if (listResult.Count > 0)
                 {
                     lstTemp = mapper.Map<List<AgenteDto>>(listResult);                    
