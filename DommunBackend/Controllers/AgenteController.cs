@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Commun.Logs;
+using Commun.Utilidades;
 using DomainLayer.Dtos;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -17,11 +18,17 @@ namespace DommunBackend.Controllers
 
         private readonly IAgenteService agenteService;
         private readonly IMapper mapper;
+        private readonly IAlmacenamientoAzureStorage almacenamientoAzureStorage;
 
-        public AgenteController(IAgenteService _agenteService, IMapper _mapper)
+        private readonly string contenedor = "agentes";
+
+        public AgenteController(IAgenteService _agenteService,
+            IMapper _mapper,
+            IAlmacenamientoAzureStorage _almacenamientoAzureStorage)
         {
             this.agenteService = _agenteService;
             this.mapper = _mapper;
+            this.almacenamientoAzureStorage = _almacenamientoAzureStorage;
         }
 
         /// <summary>
@@ -92,13 +99,18 @@ namespace DommunBackend.Controllers
         /// <param name="customer"></param>
         /// <returns></returns>
         [HttpPost(nameof(InsertAgente))]
-        public Result InsertAgente(AgenteDto objModel)
+        public async Task<Result> InsertAgente(AgenteDto objModel)
         {
             Result oRespuesta = new Result();
 
             try
             {
                 objModel.CreatedDate = DateTime.Now;
+
+                if (objModel.Foto != null)
+                {
+                    objModel.FotoPerfil = await almacenamientoAzureStorage.GuardarArchivo(contenedor, objModel.Foto);
+                }
 
                 var vRespuesta = agenteService.InsertAgente(objModel);
 

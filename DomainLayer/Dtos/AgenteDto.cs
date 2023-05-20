@@ -1,4 +1,5 @@
 ﻿using DomainLayer.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -21,7 +22,8 @@ namespace DomainLayer.Dtos
         public string? Linkedin { get; set; }
         public string? Instagram { get; set; }
         public string? Website { get; set; }
-        public int? InmobiliariaId { get; set; }       
+        public int? InmobiliariaId { get; set; }  
+        public IFormFile? Foto { get; set; }
 
 
         public DateTime CreatedDate { get; set; }

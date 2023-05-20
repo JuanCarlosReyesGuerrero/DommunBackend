@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Commun.Utilidades;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -96,6 +97,7 @@ namespace DependencyInjection
             services.AddScoped(typeof(ITipoParqueaderoService), typeof(TipoParqueaderoService));
 
             services.AddTransient<IAuthToken, AuthToken>();
+            services.AddTransient<IAlmacenamientoAzureStorage, AlmacenamientoAzureStorage>();
         }
 
         public static void UserIdentity(this IServiceCollection services, IConfiguration Configuration)
