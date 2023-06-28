@@ -18,17 +18,12 @@ namespace DommunBackend.Controllers
 
         private readonly IAgenteService agenteService;
         private readonly IMapper mapper;
-        private readonly IAlmacenamientoAzureStorage almacenamientoAzureStorage;
-
-        private readonly string contenedor = "agentes";
 
         public AgenteController(IAgenteService _agenteService,
-            IMapper _mapper,
-            IAlmacenamientoAzureStorage _almacenamientoAzureStorage)
+            IMapper _mapper)
         {
             this.agenteService = _agenteService;
             this.mapper = _mapper;
-            this.almacenamientoAzureStorage = _almacenamientoAzureStorage;
         }
 
         /// <summary>
@@ -107,10 +102,10 @@ namespace DommunBackend.Controllers
             {
                 objModel.CreatedDate = DateTime.Now;
 
-                if (objModel.Foto != null)
-                {
-                    objModel.FotoPerfil = await almacenamientoAzureStorage.GuardarArchivo(contenedor, objModel.Foto);
-                }
+                //if (objModel.Foto != null)
+                //{
+                //    objModel.FotoPerfil = await almacenamientoAzureStorage.GuardarArchivo(contenedor, objModel.Foto);
+                //}
 
                 var vRespuesta = agenteService.InsertAgente(objModel);
 

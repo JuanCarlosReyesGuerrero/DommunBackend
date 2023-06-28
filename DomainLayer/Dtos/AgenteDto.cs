@@ -23,7 +23,7 @@ namespace DomainLayer.Dtos
         public string? Instagram { get; set; }
         public string? Website { get; set; }
         public int? InmobiliariaId { get; set; }  
-        public IFormFile? Foto { get; set; }
+        //public IFormFile? Foto { get; set; }
 
 
         public DateTime CreatedDate { get; set; }
