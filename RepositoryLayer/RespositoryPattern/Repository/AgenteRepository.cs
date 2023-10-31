@@ -13,14 +13,14 @@ namespace RepositoryLayer.RespositoryPattern.Repository
     {
         private readonly ApplicationDbContext objContext;
 
-        EnviarLog enviarLog = new EnviarLog();
-
+       private readonly ICreateLogger _createLogger;
         private readonly IMapper mapper;
 
-        public AgenteRepository(ApplicationDbContext _objContext, IMapper _mapper)
+        public AgenteRepository(ApplicationDbContext _objContext, IMapper _mapper, ICreateLogger createLogger)
         {
             this.objContext = _objContext;
             this.mapper = _mapper;
+            _createLogger = createLogger;
         }
 
         public async Task<Result> GetAllAgentes()
@@ -35,9 +35,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                 listResult = await objContext.Agentes
                     .Include(b => b.Propiedades)
                     .Include(b => b.Inmobiliaria)
-                    .ToListAsync();
-
-                
+                    .ToListAsync();                
 
                 if (listResult.Count > 0)
                 {
@@ -61,7 +59,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                //enviarLog.EnviarExcepcion(ex.Message, ex);
+                //_createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -108,7 +106,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -116,7 +114,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             return oRespuesta;
         }
 
-        public async Task<Result> InsertAgente(AgenteDto entity)
+        public async Task<Result> InsertAgente(AgenteCreacionDto entity)
         {
             Result oRespuesta = new Result();
 
@@ -138,7 +136,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -168,7 +166,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -198,7 +196,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -241,7 +239,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -288,7 +286,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }

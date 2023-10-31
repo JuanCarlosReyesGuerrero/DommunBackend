@@ -12,8 +12,7 @@ namespace DommunBackend.Controllers
     [ApiController]
     public class BackOfficeController : ControllerBase
     {
-        EnviarLog enviarLog = new EnviarLog();
-
+        private readonly ICreateLogger _createLogger;
         private readonly IBackOfficeService objService;
 
         public BackOfficeController(IBackOfficeService _objService)
@@ -49,7 +48,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
                 oRespuesta.Message = ex.Message;
 
                 return BadRequest();
@@ -84,7 +83,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
                 oRespuesta.Message = ex.Message;
 
                 return BadRequest();
@@ -119,7 +118,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
                 oRespuesta.Message = ex.Message;
 
                 return BadRequest();

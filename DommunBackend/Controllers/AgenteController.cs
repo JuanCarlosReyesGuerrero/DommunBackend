@@ -14,16 +14,20 @@ namespace DommunBackend.Controllers
     [ApiController]
     public class AgenteController : ControllerBase
     {
-        EnviarLog enviarLog = new EnviarLog();
+        private readonly IAgenteService _agenteService;
+        private readonly IMapper _mapper;
+        private readonly ICreateLogger _createLogger;
+        private readonly IAlmacenamientoAzureStorage _almacenamientoAzureStorage;
 
-        private readonly IAgenteService agenteService;
-        private readonly IMapper mapper;
-
-        public AgenteController(IAgenteService _agenteService,
-            IMapper _mapper)
+        public AgenteController(IAgenteService agenteService,
+            IMapper mapper,
+            ICreateLogger createLogger,
+            IAlmacenamientoAzureStorage almacenamientoAzureStorage)
         {
-            this.agenteService = _agenteService;
-            this.mapper = _mapper;
+            _agenteService = agenteService;
+            _mapper = mapper;
+            _createLogger = createLogger;
+            _almacenamientoAzureStorage = almacenamientoAzureStorage;
         }
 
         /// <summary>
@@ -37,9 +41,9 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var queryTable = agenteService.GetAllAgentes();
+                var queryTable = _agenteService.GetAllAgentes();
 
-                var lstTemp = mapper.Map<List<AgenteDto>>(queryTable.Result.Data);
+                var lstTemp = _mapper.Map<List<AgenteDto>>(queryTable.Result.Data);
 
                 if (lstTemp.Count >= 0)
                 {
@@ -50,7 +54,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                //enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -70,7 +74,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var objModel = agenteService.GetAgenteById(Id);
+                var objModel = _agenteService.GetAgenteById(Id);
 
                 if (objModel != null)
                 {
@@ -80,7 +84,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -94,7 +98,7 @@ namespace DommunBackend.Controllers
         /// <param name="customer"></param>
         /// <returns></returns>
         [HttpPost(nameof(InsertAgente))]
-        public async Task<Result> InsertAgente(AgenteDto objModel)
+        public async Task<Result> InsertAgente([FromForm] AgenteCreacionDto objModel)
         {
             Result oRespuesta = new Result();
 
@@ -102,12 +106,12 @@ namespace DommunBackend.Controllers
             {
                 objModel.CreatedDate = DateTime.Now;
 
-                //if (objModel.Foto != null)
+                //if (objModel.FotoPerfil != null)
                 //{
-                //    objModel.FotoPerfil = await almacenamientoAzureStorage.GuardarArchivo(contenedor, objModel.Foto);
+                //    objModel.FotoPerfil = await _almacenamientoAzureStorage.GuardarArchivo(contenedor, objModel.FotoPerfil);
                 //}
 
-                var vRespuesta = agenteService.InsertAgente(objModel);
+                var vRespuesta = _agenteService.InsertAgente(objModel);
 
                 oRespuesta.Success = vRespuesta.Result.Success;
                 oRespuesta.Message = vRespuesta.Result.Message;
@@ -115,7 +119,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -137,7 +141,7 @@ namespace DommunBackend.Controllers
             {
                 objModel.ModifiedDate = DateTime.Now;
 
-                var vRespuesta = agenteService.UpdateAgente(objModel);
+                var vRespuesta = _agenteService.UpdateAgente(objModel);
 
                 oRespuesta.Success = vRespuesta.Result.Success;
                 oRespuesta.Message = vRespuesta.Result.Message;
@@ -145,7 +149,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -165,7 +169,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var vRespuesta = agenteService.DeleteAgente(objModel);
+                var vRespuesta = _agenteService.DeleteAgente(objModel);
 
                 oRespuesta.Success = vRespuesta.Result.Success;
                 oRespuesta.Message = vRespuesta.Result.Message;
@@ -173,7 +177,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -188,7 +192,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var vRespuesta = await agenteService.ObtenerAgentesFull();
+                var vRespuesta = await _agenteService.ObtenerAgentesFull();
 
                 if (vRespuesta.Success == true)
                 {
@@ -208,7 +212,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
 
@@ -223,7 +227,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var vRespuesta = await agenteService.ObtenerAgenteFullById(Id);
+                var vRespuesta = await _agenteService.ObtenerAgenteFullById(Id);
 
                 if (vRespuesta.Success == true)
                 {
@@ -243,7 +247,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
 

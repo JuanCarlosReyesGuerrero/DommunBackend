@@ -17,7 +17,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration configuration;
 
-        EnviarLog enviarLog = new EnviarLog();
+       private readonly ICreateLogger _createLogger;
 
         public BackOfficeRepository(
             ApplicationDbContext _objContext,
@@ -69,7 +69,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -115,7 +115,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -159,7 +159,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -214,7 +214,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }

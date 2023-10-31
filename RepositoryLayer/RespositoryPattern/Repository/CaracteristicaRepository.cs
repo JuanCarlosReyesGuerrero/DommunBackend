@@ -13,7 +13,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
     {
         private readonly ApplicationDbContext objContext;
 
-        EnviarLog enviarLog = new EnviarLog();
+       private readonly ICreateLogger _createLogger;
 
         private readonly IMapper mapper;
 
@@ -56,7 +56,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -101,7 +101,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -131,7 +131,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -161,7 +161,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -191,7 +191,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }

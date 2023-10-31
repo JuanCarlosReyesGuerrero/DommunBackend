@@ -1,4 +1,5 @@
-﻿using Commun.Utilidades;
+﻿using Commun.Logs;
+using Commun.Utilidades;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -95,6 +96,7 @@ namespace DependencyInjection
             services.AddScoped(typeof(ITipoCaracteristicaService), typeof(TipoCaracteristicaService));
             services.AddScoped(typeof(ITipoOfertaService), typeof(TipoOfertaService));
             services.AddScoped(typeof(ITipoParqueaderoService), typeof(TipoParqueaderoService));
+            services.AddScoped(typeof(ICreateLogger), typeof(CreateLogger));
 
             services.AddTransient<IAuthToken, AuthToken>();
             services.AddTransient<IAlmacenamientoAzureStorage, AlmacenamientoAzureStorage>();

@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace DomainLayer.Dtos
 {
-    public class AgenteDto
+    public class AgenteCreacionDto
     {
         [HiddenInput]
-        public int Id { get; set; }
-
         public string? Slug { get; set; }
         public string? Nombres { get; set; }
         public string? Apellidos { get; set; }
-        public string? Email { get; set; }
-        public string? FotoPerfil { get; set; }
+        public string? Email { get; set; }        
+        //public string? FotoPerfil { get; set; }
+        public IFormFile? FotoPerfil { get; set; }
         public string? DescripcionPerfil { get; set; }
         public string? Celular { get; set; }
         public string? Facebook { get; set; }
@@ -20,10 +20,7 @@ namespace DomainLayer.Dtos
         public string? Linkedin { get; set; }
         public string? Instagram { get; set; }
         public string? Website { get; set; }
-        public int? InmobiliariaId { get; set; }  
-        //public IFormFile? Foto { get; set; }
-
-
+        public int? InmobiliariaId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string? CreateUser { get; set; }
@@ -41,6 +38,6 @@ namespace DomainLayer.Dtos
             }
         }
 
-        public InmobiliariaDto? Inmobiliaria { get; set; }        
+        public InmobiliariaDto? Inmobiliaria { get; set; }
     }
 }

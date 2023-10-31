@@ -29,7 +29,7 @@ namespace ServicesLayer.CustomServices
             return agenteRepository.GetAllAgentes();
         }
 
-        public Task<Result> InsertAgente(AgenteDto entity)
+        public Task<Result> InsertAgente(AgenteCreacionDto entity)
         {
             return agenteRepository.InsertAgente(entity);
         }

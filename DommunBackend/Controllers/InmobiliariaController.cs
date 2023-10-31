@@ -13,8 +13,7 @@ namespace DommunBackend.Controllers
     [ApiController]
     public class InmobiliariaController : ControllerBase
     {
-        EnviarLog enviarLog = new EnviarLog();
-
+        private readonly ICreateLogger _createLogger;
         private readonly IInmobiliariaService inmobiliariaService;
         private readonly IMapper mapper;
 
@@ -48,7 +47,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -80,7 +79,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -110,7 +109,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -140,7 +139,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -168,7 +167,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }

@@ -33,7 +33,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                //enviarLog.EnviarExcepcion(ex.Message, ex);
+                //_createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -63,7 +63,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                //enviarLog.EnviarExcepcion(ex.Message, ex);
+                //_createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }

@@ -14,8 +14,7 @@ namespace DommunBackend.Controllers
     [ApiController]
     public class PropiedadController : ControllerBase
     {
-        EnviarLog enviarLog = new EnviarLog();
-
+        private readonly ICreateLogger _createLogger;
         private readonly IPropiedadService propiedadService;
         private readonly IAgenteService agenteService;
         private readonly IMapper mapper;
@@ -50,7 +49,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -70,7 +69,7 @@ namespace DommunBackend.Controllers
 
             try
             {
-                var objModel = propiedadService.GetPropiedadById(Id);                
+                var objModel = propiedadService.GetPropiedadById(Id);
 
                 if (objModel != null)
                 {
@@ -80,7 +79,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -110,7 +109,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -140,7 +139,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -168,12 +167,12 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
 
             return oRespuesta;
-        }       
+        }
     }
 }

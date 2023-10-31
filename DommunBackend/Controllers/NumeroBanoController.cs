@@ -13,8 +13,7 @@ namespace DommunBackend.Controllers
     [ApiController]
     public class NumeroBanoController : ControllerBase
     {
-        EnviarLog enviarLog = new EnviarLog();
-
+        private readonly ICreateLogger _createLogger;
         private readonly INumeroBanoService numeroBanoService;
         private readonly IMapper mapper;
 
@@ -47,7 +46,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -77,7 +76,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -107,7 +106,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -137,7 +136,7 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
@@ -165,12 +164,12 @@ namespace DommunBackend.Controllers
             }
             catch (Exception ex)
             {
-                enviarLog.EnviarExcepcion(ex.Message, ex);
+                _createLogger.LogWriteExcepcion(ex.Message);
 
                 oRespuesta.Message = ex.Message;
             }
 
             return oRespuesta;
-        }        
+        }
     }
 }
