@@ -1,6 +1,5 @@
-﻿using DomainLayer.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace DomainLayer.Dtos
 {

@@ -3,7 +3,6 @@ using Commun.Logs;
 using Commun.Utilidades;
 using DomainLayer.Dtos;
 using DomainLayer.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServicesLayer.ICustomServices;
 
