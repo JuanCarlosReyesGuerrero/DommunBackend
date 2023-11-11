@@ -13,7 +13,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
     {
         private readonly ApplicationDbContext objContext;
 
-       private readonly ICreateLogger _createLogger;
+        private readonly ICreateLogger _createLogger;
         private readonly IMapper mapper;
 
         public AgenteRepository(ApplicationDbContext _objContext, IMapper _mapper, ICreateLogger createLogger)
@@ -35,11 +35,11 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                 listResult = await objContext.Agentes
                     .Include(b => b.Propiedades)
                     .Include(b => b.Inmobiliaria)
-                    .ToListAsync();                
+                    .ToListAsync();
 
                 if (listResult.Count > 0)
                 {
-                    lstTemp = mapper.Map<List<AgenteDto>>(listResult);                    
+                    lstTemp = mapper.Map<List<AgenteDto>>(listResult);
                 }
                 else
                 {
@@ -63,7 +63,7 @@ namespace RepositoryLayer.RespositoryPattern.Repository
 
                 oRespuesta.Message = ex.Message;
             }
-            
+
             return oRespuesta;
         }
 
@@ -125,7 +125,10 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                     throw new ArgumentNullException("entity");
                 }
 
-                var lstTemp = mapper.Map<Agente>(entity);                
+                var lstTemp = mapper.Map<Agente>(entity);
+
+                if (!string.IsNullOrEmpty(entity.FotoPerfil))
+                    lstTemp.FotoPerfil = entity.FotoPerfil;
 
                 await objContext.AddAsync(lstTemp);
 

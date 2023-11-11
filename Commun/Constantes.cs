@@ -2,6 +2,12 @@
 {
     public class Constantes
     {
+        //Almacen de azure
+        public const string AlmacenAgentes = "agentes";
+        public const string AlmacenGeneral = "dommunalmacen";
+        public const string RutaAlmacen = "https://dommunalmacen.blob.core.windows.net/";
+
+
         public const string Autorizado = "Autorizado";
         public const string NoAutorizado = "NoAutorizado";
 

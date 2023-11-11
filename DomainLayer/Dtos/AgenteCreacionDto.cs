@@ -10,9 +10,9 @@ namespace DomainLayer.Dtos
         public string? Slug { get; set; }
         public string? Nombres { get; set; }
         public string? Apellidos { get; set; }
-        public string? Email { get; set; }        
-        //public string? FotoPerfil { get; set; }
-        public IFormFile? FotoPerfil { get; set; }
+        public string? Email { get; set; }
+        public string? FotoPerfil { get; set; }
+        public IFormFile? Foto { get; set; }
         public string? DescripcionPerfil { get; set; }
         public string? Celular { get; set; }
         public string? Facebook { get; set; }

@@ -5,6 +5,8 @@ using DomainLayer.Dtos;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using ServicesLayer.ICustomServices;
+using Microsoft.Extensions.Configuration;
+using Commun;
 
 namespace DommunBackend.Controllers
 {
@@ -17,16 +19,18 @@ namespace DommunBackend.Controllers
         private readonly IMapper _mapper;
         private readonly ICreateLogger _createLogger;
         private readonly IAlmacenamientoAzureStorage _almacenamientoAzureStorage;
+        private readonly IConfiguration _configuration;
 
         public AgenteController(IAgenteService agenteService,
             IMapper mapper,
             ICreateLogger createLogger,
-            IAlmacenamientoAzureStorage almacenamientoAzureStorage)
+            IAlmacenamientoAzureStorage almacenamientoAzureStorage, IConfiguration configuration)
         {
             _agenteService = agenteService;
             _mapper = mapper;
             _createLogger = createLogger;
             _almacenamientoAzureStorage = almacenamientoAzureStorage;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -103,12 +107,14 @@ namespace DommunBackend.Controllers
 
             try
             {
+                string contenedor = Constantes.AlmacenAgentes;
+
                 objModel.CreatedDate = DateTime.Now;
 
-                //if (objModel.FotoPerfil != null)
-                //{
-                //    objModel.FotoPerfil = await _almacenamientoAzureStorage.GuardarArchivo(contenedor, objModel.FotoPerfil);
-                //}
+                if (objModel.Foto != null)
+                {
+                    objModel.FotoPerfil = await _almacenamientoAzureStorage.GuardarArchivo(contenedor, objModel.Foto);
+                }
 
                 var vRespuesta = _agenteService.InsertAgente(objModel);
 
