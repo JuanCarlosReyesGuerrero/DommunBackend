@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServicesLayer.ICustomServices;
 using Microsoft.Extensions.Configuration;
 using Commun;
+using System.Drawing;
 
 namespace DommunBackend.Controllers
 {
@@ -20,17 +21,21 @@ namespace DommunBackend.Controllers
         private readonly ICreateLogger _createLogger;
         private readonly IAlmacenamientoAzureStorage _almacenamientoAzureStorage;
         private readonly IConfiguration _configuration;
+        private readonly IUtilidades _utilidades;
 
         public AgenteController(IAgenteService agenteService,
             IMapper mapper,
             ICreateLogger createLogger,
-            IAlmacenamientoAzureStorage almacenamientoAzureStorage, IConfiguration configuration)
+            IAlmacenamientoAzureStorage almacenamientoAzureStorage,
+            IConfiguration configuration,
+            IUtilidades utilidades)
         {
             _agenteService = agenteService;
             _mapper = mapper;
             _createLogger = createLogger;
             _almacenamientoAzureStorage = almacenamientoAzureStorage;
             _configuration = configuration;
+            _utilidades = utilidades;
         }
 
         /// <summary>
@@ -104,6 +109,7 @@ namespace DommunBackend.Controllers
         public async Task<Result> InsertAgente([FromForm] AgenteCreacionDto objModel)
         {
             Result oRespuesta = new Result();
+            Task<Result> vRespuesta = null;
 
             try
             {
@@ -113,14 +119,23 @@ namespace DommunBackend.Controllers
 
                 if (objModel.Foto != null)
                 {
-                    objModel.FotoPerfil = await _almacenamientoAzureStorage.GuardarArchivo(contenedor, objModel.Foto);
+                    var resizedImage = _utilidades.CalcularDimensionImagen(objModel.Foto, Constantes.FotoAgenteAncho, Constantes.FotoAgenteAlto);
+
+                    if (resizedImage == false)
+                    {
+                        oRespuesta.Success = resizedImage;
+                        oRespuesta.Message = "La imagen esta fuera del alto y ancho permitido, la imágen debe ser Alto: " + Constantes.FotoAgenteAncho + " Ancho: " + Constantes.FotoAgenteAlto;
+                    }
+                    else
+                    {
+                        objModel.FotoPerfil = await _almacenamientoAzureStorage.GuardarArchivo(contenedor, objModel.Foto);
+
+                        vRespuesta = _agenteService.InsertAgente(objModel);
+
+                        oRespuesta.Success = vRespuesta.Result.Success;
+                        oRespuesta.Message = vRespuesta.Result.Message;
+                    }
                 }
-
-                var vRespuesta = _agenteService.InsertAgente(objModel);
-
-                oRespuesta.Success = vRespuesta.Result.Success;
-                oRespuesta.Message = vRespuesta.Result.Message;
-
             }
             catch (Exception ex)
             {

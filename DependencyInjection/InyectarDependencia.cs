@@ -100,6 +100,7 @@ namespace DependencyInjection
 
             services.AddTransient<IAuthToken, AuthToken>();
             services.AddTransient<IAlmacenamientoAzureStorage, AlmacenamientoAzureStorage>();
+            services.AddTransient<IUtilidades, Utilidades>();
         }
 
         public static void UserIdentity(this IServiceCollection services, IConfiguration Configuration)

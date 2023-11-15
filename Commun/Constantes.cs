@@ -7,9 +7,9 @@
         public const string AlmacenGeneral = "dommunalmacen";
         public const string RutaAlmacen = "https://dommunalmacen.blob.core.windows.net/";
 
-
-        public const string Autorizado = "Autorizado";
-        public const string NoAutorizado = "NoAutorizado";
+        //Tamaño Imagen Foto Agente
+        public const int FotoAgenteAncho = 640;
+        public const int FotoAgenteAlto = 768;
 
         //MENSAJES
         public const string msjNoAutorizado = "No autorizado";
