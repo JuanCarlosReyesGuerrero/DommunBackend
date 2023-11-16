@@ -147,8 +147,8 @@ namespace RepositoryLayer.RespositoryPattern.Repository
             return oRespuesta;
         }
 
-        public async Task<Result> UpdateAgente(AgenteDto entity)
-        {
+        public async Task<Result> UpdateAgente(AgenteCreacionDto entity)
+        {            
             Result oRespuesta = new Result();
 
             try
@@ -159,6 +159,9 @@ namespace RepositoryLayer.RespositoryPattern.Repository
                 }
 
                 var lstTemp = mapper.Map<Agente>(entity);
+
+                if (!string.IsNullOrEmpty(entity.FotoPerfil))
+                    lstTemp.FotoPerfil = entity.FotoPerfil;
 
                 objContext.Update(lstTemp);
 

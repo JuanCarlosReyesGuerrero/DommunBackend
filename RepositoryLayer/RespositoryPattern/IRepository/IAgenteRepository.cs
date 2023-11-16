@@ -8,7 +8,7 @@ namespace RepositoryLayer.RespositoryPattern.IRepository
         Task<Result> GetAllAgentes();
         Task<Result> GetAgenteById(int Id);
         Task<Result> InsertAgente(AgenteCreacionDto entity);
-        Task<Result> UpdateAgente(AgenteDto entity);
+        Task<Result> UpdateAgente(AgenteCreacionDto entity);
         Task<Result> DeleteAgente(AgenteDto entity);      
                 
         Task<Result> ObtenerAgentesFull();

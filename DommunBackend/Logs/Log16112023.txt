@@ -1,0 +1,8 @@
+
+------------------------------------------------------------------------------------
+jueves, 16 de noviembre de 2023 8:54:35.68 a. m.
+An error occurred while saving the entity changes. See the inner exception for details.
+
+------------------------------------------------------------------------------------
+jueves, 16 de noviembre de 2023 8:57:19.66 a. m.
+An error occurred while saving the entity changes. See the inner exception for details.

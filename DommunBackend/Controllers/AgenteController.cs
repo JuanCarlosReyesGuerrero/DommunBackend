@@ -153,19 +153,36 @@ namespace DommunBackend.Controllers
         /// <param name="customer"></param>
         /// <returns></returns>
         [HttpPut(nameof(UpdateAgente))]
-        public Result UpdateAgente(AgenteDto objModel)
+        public async Task< Result> UpdateAgente([FromForm] AgenteCreacionDto objModel)
         {
             Result oRespuesta = new Result();
+            Task<Result> vRespuesta = null;
 
             try
             {
-                objModel.ModifiedDate = DateTime.Now;
+                string contenedor = Constantes.AlmacenAgentes;
 
-                var vRespuesta = _agenteService.UpdateAgente(objModel);
+                objModel.CreatedDate = DateTime.Now;
 
-                oRespuesta.Success = vRespuesta.Result.Success;
-                oRespuesta.Message = vRespuesta.Result.Message;
+                if (objModel.Foto != null)
+                {
+                    var resizedImage = _utilidades.CalcularDimensionImagen(objModel.Foto, Constantes.FotoAgenteAncho, Constantes.FotoAgenteAlto);
 
+                    if (resizedImage == false)
+                    {
+                        oRespuesta.Success = resizedImage;
+                        oRespuesta.Message = "La imagen esta fuera del alto y ancho permitido, la imágen debe ser Alto: " + Constantes.FotoAgenteAncho + " Ancho: " + Constantes.FotoAgenteAlto;
+                    }
+                    else
+                    {
+                        objModel.FotoPerfil = await _almacenamientoAzureStorage.GuardarArchivo(contenedor, objModel.Foto);
+
+                        vRespuesta = _agenteService.UpdateAgente(objModel);
+
+                        oRespuesta.Success = vRespuesta.Result.Success;
+                        oRespuesta.Message = vRespuesta.Result.Message;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -174,7 +191,7 @@ namespace DommunBackend.Controllers
                 oRespuesta.Message = ex.Message;
             }
 
-            return oRespuesta;
+            return oRespuesta;           
         }
 
         /// <summary>

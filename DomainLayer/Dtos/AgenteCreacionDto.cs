@@ -7,6 +7,7 @@ namespace DomainLayer.Dtos
     public class AgenteCreacionDto
     {
         [HiddenInput]
+        public int Id { get; set; }
         public string? Slug { get; set; }
         public string? Nombres { get; set; }
         public string? Apellidos { get; set; }

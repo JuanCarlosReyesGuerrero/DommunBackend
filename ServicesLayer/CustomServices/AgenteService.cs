@@ -44,7 +44,7 @@ namespace ServicesLayer.CustomServices
             return agenteRepository.ObtenerAgentesFull();
         }
 
-        public Task<Result> UpdateAgente(AgenteDto entity)
+        public Task<Result> UpdateAgente(AgenteCreacionDto entity)
         {
             return agenteRepository.UpdateAgente(entity);
         }
