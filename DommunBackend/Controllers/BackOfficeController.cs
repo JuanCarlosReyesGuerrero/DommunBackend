@@ -7,7 +7,7 @@ using ServicesLayer.ICustomServices;
 
 namespace DommunBackend.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BackOfficeController : ControllerBase
